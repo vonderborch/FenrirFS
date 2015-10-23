@@ -1,104 +1,222 @@
-﻿using FenrirFS.Helpers;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FenrirFS
 {
     public class FenrirFile : AFile
     {
-        public FenrirFile(string path) : base(path) { }
+        #region Public Constructors
 
-        public override bool WriteLine(string line, WriteMode writeMode)
+        public FenrirFile(string path) : base(path)
+        {
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
+
+        public override bool ChangeExtension(string extension, CollisionOption collisionOption = CollisionOption.FailIfExists)
+        {
+            Exceptions.NotNullOrEmptyCheck(extension, nameof(extension));
+
+            if (!IsOpen)
+            {
+                Exceptions.NotNullOrEmptyException(extension, nameof(extension));
+
+                string newPath = System.IO.Path.Combine(Path, Name, extension);
+                switch (collisionOption)
+                {
+                    case CollisionOption.FailIfExists:
+                        if (Fenrir.FileSystem.FileExists(newPath))
+                            return false;
+                        break;
+
+                    case CollisionOption.GenerateUniqueName:
+                        newPath = Fenrir.FileSystem.GenerateFileUniqueName(newPath);
+                        break;
+
+                    case CollisionOption.ReplaceExisting:
+                        if (Fenrir.FileSystem.FileExists(newPath))
+                            File.Delete(newPath);
+                        break;
+                }
+
+                File.Copy(FullPath, newPath);
+                File.Delete(FullPath);
+                Extension = extension;
+                return true;
+            }
+
+            return false;
+        }
+
+        public override IFile Copy(string destination, CollisionOption collisionOption)
+        {
+            Exceptions.NotNullOrEmptyCheck(destination, nameof(destination));
+
+            if (!IsOpen)
+            {
+                Exceptions.NotNullOrEmptyException(destination, nameof(destination));
+
+                switch (collisionOption)
+                {
+                    case CollisionOption.FailIfExists:
+                        if (Fenrir.FileSystem.FileExists(destination))
+                            return null;
+                        break;
+
+                    case CollisionOption.GenerateUniqueName:
+                        destination = Fenrir.FileSystem.GenerateFileUniqueName(destination);
+                        break;
+                }
+
+                File.Copy(FullPath, destination, collisionOption == CollisionOption.ReplaceExisting);
+                return new FenrirFile(destination);
+            }
+
+            return null;
+        }
+
+        public override bool Delete()
         {
             if (!IsOpen)
             {
-                line += Helpers.Helpers.LineSeperator();
-
-                switch (writeMode)
+                if (Fenrir.FileSystem.FileExists(FullPath))
                 {
-                    case WriteMode.Append:
-                        if (Fenrir.FileSystem.FileExists(FullPath))
-                        {
-                            line = File.ReadAllText(FullPath, Encoding) + line;
-                        }
-
-                        break;
+                    File.Delete(FullPath);
+                    return true;
                 }
-                File.WriteAllText(FullPath, line, Encoding);
-
-                return true;
             }
 
             return false;
         }
 
-        public override bool WriteAll(string contents, WriteMode writeMode)
+        public override bool Move(string destination, CollisionOption collisionOption)
         {
+            Exceptions.NotNullOrEmptyCheck(destination, nameof(destination));
+
             if (!IsOpen)
             {
-                switch (writeMode)
-                {
-                    case WriteMode.Append:
-                        if (Fenrir.FileSystem.FileExists(FullPath))
-                        {
-                            contents = File.ReadAllText(FullPath, Encoding) + contents;
-                        }
+                Exceptions.NotNullOrEmptyException(destination, nameof(destination));
 
+                string newPath = System.IO.Path.Combine(destination, Name, Extension);
+                switch (collisionOption)
+                {
+                    case CollisionOption.FailIfExists:
+                        if (Fenrir.FileSystem.FileExists(newPath))
+                            return false;
+                        break;
+
+                    case CollisionOption.GenerateUniqueName:
+                        newPath = Fenrir.FileSystem.GenerateFileUniqueName(newPath);
+                        break;
+
+                    case CollisionOption.ReplaceExisting:
+                        if (Fenrir.FileSystem.FileExists(newPath))
+                            File.Delete(newPath);
                         break;
                 }
-                File.WriteAllText(FullPath, contents, Encoding);
 
+                File.Move(FullPath, newPath);
+                SetupFile(newPath);
                 return true;
             }
 
             return false;
         }
 
-        public override bool StreamWriteLine(string line)
+        public override Stream Open(FileAccess fileAccess, FileMode fileMode)
         {
-            if (IsOpen && FileAccess != FileAccess.Read)
+            // Close the current Stream, if its open
+            Close();
+
+            // Check for valid options
+            if (Helpers.IsValidFileModeFileAccessOptions(fileAccess, fileMode))
+                throw new Exception("Invalid File Access and File Mode parameters!");
+
+            // Open a Stream with the options
+            Stream = File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
+
+            // ensure encoding is set properly
+            Encoding = Encoding;
+
+            // Set FileAccess and FileMode
+            FileAccess = fileAccess;
+            FileMode = fileMode;
+
+            return Stream;
+        }
+
+        public override string ReadAll()
+        {
+            return File.ReadAllText(FullPath);
+        }
+
+        public override bool Rename(string name, CollisionOption collisionOption)
+        {
+            Exceptions.NotNullOrEmptyCheck(name, nameof(name));
+
+            if (!IsOpen)
             {
-                line += Helpers.Helpers.LineSeperator();
-                byte[] buffer = new byte[line.Length];
+                Exceptions.NotNullOrEmptyException(name, nameof(name));
 
-                buffer = Encoding.GetBytes(line);
+                string newPath = System.IO.Path.Combine(Path, name, Extension);
+                switch (collisionOption)
+                {
+                    case CollisionOption.FailIfExists:
+                        if (Fenrir.FileSystem.FileExists(newPath))
+                            return false;
+                        break;
 
-                Stream.Write(buffer, 0, buffer.Length);
+                    case CollisionOption.GenerateUniqueName:
+                        newPath = Fenrir.FileSystem.GenerateFileUniqueName(newPath);
+                        break;
 
+                    case CollisionOption.ReplaceExisting:
+                        if (Fenrir.FileSystem.FileExists(newPath))
+                            File.Delete(newPath);
+                        break;
+                }
+
+                File.Copy(FullPath, newPath);
+                File.Delete(FullPath);
+                Name = name;
                 return true;
             }
 
             return false;
         }
 
-        public override bool StreamWrite(string contents)
+        public override string StreamRead(int chars)
         {
-            if (IsOpen && FileAccess != FileAccess.Read)
+            if (chars < 0)
+                throw new ArgumentOutOfRangeException(nameof(chars));
+
+            if (IsOpen && FileAccess != FileAccess.Write)
             {
-                byte[] buffer = new byte[contents.Length];
+                byte[] buffer = new byte[chars];
 
-                buffer = Encoding.GetBytes(contents);
+                Stream.Read(buffer, 0, chars);
 
-                Stream.Write(buffer, 0, buffer.Length);
-
-                return true;
+                return Encoding.GetString(buffer);
             }
 
-            return false;
+            return null;
         }
 
-        public override bool StreamSetPosition(int position)
+        public override string StreamReadAll()
         {
-            if (IsOpen && position >= 0 && position < Stream.Length)
+            if (IsOpen && FileAccess != FileAccess.Write)
             {
-                Stream.Position = position;
-                return true;
+                byte[] buffer = new byte[Stream.Length];
+
+                Stream.Read(buffer, 0, buffer.Length);
+
+                return Encoding.GetString(buffer);
             }
 
-            return false;
+            return null;
         }
 
         public override string StreamReadLine()
@@ -106,7 +224,7 @@ namespace FenrirFS
             if (IsOpen && FileAccess != FileAccess.Write)
             {
                 StringBuilder str = new StringBuilder();
-                
+
                 int value = -1;
                 do
                 {
@@ -115,7 +233,7 @@ namespace FenrirFS
                     {
                         char c = Convert.ToChar((byte)value);
                         str.Append(c);
-                        
+
                         switch (c)
                         {
                             case '\n': value = -1; break;
@@ -136,190 +254,107 @@ namespace FenrirFS
             return null;
         }
 
-        public override string StreamReadAll()
+        public override bool StreamSetPosition(int position)
         {
-            if (IsOpen && FileAccess != FileAccess.Write)
+            if (position < 0)
+                throw new ArgumentOutOfRangeException(nameof(position));
+
+            if (IsOpen && position >= 0 && position < Stream.Length)
             {
-                byte[] buffer = new byte[Stream.Length];
-
-                Stream.Read(buffer, 0, buffer.Length);
-
-                return Encoding.GetString(buffer);
-            }
-
-            return null;
-        }
-
-        public override string StreamRead(int chars)
-        {
-            if (IsOpen && FileAccess != FileAccess.Write)
-            {
-                byte[] buffer = new byte[chars];
-
-                Stream.Read(buffer, 0, chars);
-
-                return Encoding.GetString(buffer);
-            }
-
-            return null;
-        }
-
-
-        public override bool Rename(string name, CollisionOption collisionOption)
-        {
-            if (!IsOpen)
-            {
-                Exceptions.NotNullOrEmpty(name, nameof(name));
-
-                string newPath = System.IO.Path.Combine(Path, name, Extension);
-                switch (collisionOption)
-                {
-                    case CollisionOption.FailIfExists:
-                        if (Fenrir.FileSystem.FileExists(newPath))
-                            return false;
-                        break;
-                    case CollisionOption.GenerateUniqueName:
-                        newPath = Fenrir.FileSystem.GenerateFileUniqueName(newPath);
-                        break;
-                    case CollisionOption.ReplaceExisting:
-                        if (Fenrir.FileSystem.FileExists(newPath))
-                            File.Delete(newPath);
-                        break;
-                }
-
-                File.Copy(FullPath, newPath);
-                File.Delete(FullPath);
-                Name = name;
+                Stream.Position = position;
                 return true;
             }
 
             return false;
         }
 
-        public override string ReadAll()
+        public override bool StreamWrite(string contents)
         {
-            return File.ReadAllText(FullPath);
-        }
+            Exceptions.NotNullOrEmptyCheck(contents, nameof(contents));
 
-        public override Stream Open(FileAccess fileAccess, FileMode fileMode)
-        {
-            // Close the current Stream, if its open
-            Close();
-
-            // Check for valid options
-            if (Exceptions.IsValidFileModeFileAccessOptions(fileAccess, fileMode))
-                throw new Exception("Invalid File Access and File Mode parameters!");
-
-            // Open a Stream with the options
-            Stream = File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
-
-            // ensure encoding is set properly
-            Encoding = Encoding;
-
-            // Set FileAccess and FileMode
-            FileAccess = fileAccess;
-            FileMode = fileMode;
-
-            return Stream;
-        }
-
-        public override bool Move(string destination, CollisionOption collisionOption)
-        {
-            if (!IsOpen)
+            if (IsOpen && FileAccess != FileAccess.Read)
             {
-                Exceptions.NotNullOrEmpty(destination, nameof(destination));
+                byte[] buffer = new byte[contents.Length];
 
-                string newPath = System.IO.Path.Combine(destination, Name, Extension);
-                switch (collisionOption)
-                {
-                    case CollisionOption.FailIfExists:
-                        if (Fenrir.FileSystem.FileExists(newPath))
-                            return false;
-                        break;
-                    case CollisionOption.GenerateUniqueName:
-                        newPath = Fenrir.FileSystem.GenerateFileUniqueName(newPath);
-                        break;
-                    case CollisionOption.ReplaceExisting:
-                        if (Fenrir.FileSystem.FileExists(newPath))
-                            File.Delete(newPath);
-                        break;
-                }
+                buffer = Encoding.GetBytes(contents);
 
-                File.Move(FullPath, newPath);
-                SetupIFile(newPath);
+                Stream.Write(buffer, 0, buffer.Length);
+
                 return true;
             }
 
             return false;
         }
 
-        public override bool Delete()
+        public override bool StreamWriteLine(string line)
         {
-            if (!IsOpen)
+            Exceptions.NotNullOrEmptyCheck(line, nameof(line));
+
+            if (IsOpen && FileAccess != FileAccess.Read)
             {
-                if (Fenrir.FileSystem.FileExists(FullPath))
-                {
-                    File.Delete(FullPath);
-                    return true;
-                }
-            }
+                line += Helpers.LineSeparator;
+                byte[] buffer = new byte[line.Length];
 
-            return false;
-        }
+                buffer = Encoding.GetBytes(line);
 
-        public override IFile Copy(string destination, CollisionOption collisionOption)
-        {
-            if (!IsOpen)
-            {
-                Exceptions.NotNullOrEmpty(destination, nameof(destination));
-                
-                switch (collisionOption)
-                {
-                    case CollisionOption.FailIfExists:
-                        if (Fenrir.FileSystem.FileExists(destination))
-                            return null;
-                        break;
-                    case CollisionOption.GenerateUniqueName:
-                        destination = Fenrir.FileSystem.GenerateFileUniqueName(destination);
-                        break;
-                }
+                Stream.Write(buffer, 0, buffer.Length);
 
-                File.Copy(FullPath, destination, collisionOption == CollisionOption.ReplaceExisting);
-                return new FenrirFile(destination);
-            }
-            
-            return null;
-        }
-
-        public override bool ChangeExtension(string extension, CollisionOption collisionOption = CollisionOption.FailIfExists)
-        {
-            if (!IsOpen)
-            {
-                Exceptions.NotNullOrEmpty(Name, nameof(Name));
-
-                string newPath = System.IO.Path.Combine(Path, Name, extension);
-                switch (collisionOption)
-                {
-                    case CollisionOption.FailIfExists:
-                        if (Fenrir.FileSystem.FileExists(newPath))
-                            return false;
-                        break;
-                    case CollisionOption.GenerateUniqueName:
-                        newPath = Fenrir.FileSystem.GenerateFileUniqueName(newPath);
-                        break;
-                    case CollisionOption.ReplaceExisting:
-                        if (Fenrir.FileSystem.FileExists(newPath))
-                            File.Delete(newPath);
-                        break;
-                }
-
-                File.Copy(FullPath, newPath);
-                File.Delete(FullPath);
-                Extension = extension;
                 return true;
             }
 
             return false;
         }
+
+        public override bool WriteAll(string contents, WriteMode writeMode)
+        {
+            Exceptions.NotNullOrEmptyCheck(contents, nameof(contents));
+
+            if (!IsOpen)
+            {
+                switch (writeMode)
+                {
+                    case WriteMode.Append:
+                        if (Fenrir.FileSystem.FileExists(FullPath))
+                        {
+                            contents = File.ReadAllText(FullPath, Encoding) + contents;
+                        }
+
+                        break;
+                }
+                File.WriteAllText(FullPath, contents, Encoding);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public override bool WriteLine(string line, WriteMode writeMode)
+        {
+            Exceptions.NotNullOrEmptyCheck(line, nameof(line));
+
+            if (!IsOpen)
+            {
+                line += Helpers.LineSeparator;
+
+                switch (writeMode)
+                {
+                    case WriteMode.Append:
+                        if (Fenrir.FileSystem.FileExists(FullPath))
+                        {
+                            line = File.ReadAllText(FullPath, Encoding) + line;
+                        }
+
+                        break;
+                }
+                File.WriteAllText(FullPath, line, Encoding);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion Public Methods
     }
 }

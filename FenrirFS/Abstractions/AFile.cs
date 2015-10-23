@@ -22,7 +22,7 @@ namespace FenrirFS
 
         protected AFile(string path)
         {
-            SetupIFile(path);
+            SetupFile(path);
             Encoding = Encoding;
         }
 
@@ -38,7 +38,7 @@ namespace FenrirFS
                     return encoding;
                 else if (!Fenrir.FileSystem.FileExists(FullPath))
                 {
-                    encoding = System.Text.Encoding.UTF8;
+                    encoding = Fenrir.FileSystem.DefaultEncoding;
                 }
                 else
                 {
@@ -198,6 +198,13 @@ namespace FenrirFS
             Dispose(true);
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj != null
+                ? FullPath == obj.ToString()
+                : false;
+        }
+
         public bool Equals(IFile file)
         {
             return file.FullPath == FullPath;
@@ -313,6 +320,11 @@ namespace FenrirFS
             return StreamWriteLine(line);
         }
 
+        public override string ToString()
+        {
+            return FullPath;
+        }
+
         public virtual bool WriteAll(string contents, WriteMode writeMode)
         {
             throw new NotImplementedException();
@@ -339,13 +351,6 @@ namespace FenrirFS
 
         #region Protected Methods
 
-        protected void SetupIFile(string path)
-        {
-            Name = System.IO.Path.GetFileName(path);
-            Path = System.IO.Path.GetDirectoryName(path);
-            Extension = System.IO.Path.GetExtension(path);
-        }
-
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue && IsOpen)
@@ -359,6 +364,13 @@ namespace FenrirFS
 
                 disposedValue = true;
             }
+        }
+
+        protected void SetupFile(string path)
+        {
+            Name = System.IO.Path.GetFileName(path);
+            Path = System.IO.Path.GetDirectoryName(path);
+            Extension = System.IO.Path.GetExtension(path);
         }
 
         #endregion Protected Methods

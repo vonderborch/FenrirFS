@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace FenrirFS.Helpers
+namespace FenrirFS
 {
     /// <summary>
     /// Various helpers.

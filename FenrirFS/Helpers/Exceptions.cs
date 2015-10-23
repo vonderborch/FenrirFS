@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FenrirFS.Helpers
+namespace FenrirFS
 {
     /// <summary>
     /// Various exception helper functions.
@@ -36,12 +36,45 @@ namespace FenrirFS.Helpers
         /// <param name="parameter">The parameter.</param>
         /// <returns>Returns the value, or throws a null argument exception.</returns>
         /// <exception cref="ArgumentNullException">Thrown if the value is null.</exception>
-        public static T NotNullCheck<T>(T value, string parameter) where T : class
+        public static T NotNullException<T>(T value, string parameter) where T : class
         {
             if (value == null)
                 throw new ArgumentNullException(parameter);
 
             return value;
+        }
+
+        /// <summary>
+        /// Checks if a parameter is a null value, and throws if it is.
+        /// </summary>
+        /// <typeparam name="T">The object to check.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>Returns the value, or throws a null argument exception.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the value is null.</exception>
+        public static bool NotNullCheck<T>(T value, string parameter) where T : class
+        {
+            if (value == null)
+                throw new ArgumentNullException(parameter);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if a string value is null or empty, and throws if it is.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>Returns the true, or throws a null argument exception.</returns>
+        /// <exception cref="ArgumentException">Thrown if the string value is null or empty.</exception>
+        public static bool NotNullOrEmptyCheck(string value, string parameter)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentException(String.Format("{0} can not be a null or empty string, or contain only whitespace", parameter));
+            }
+
+            return true;
         }
 
         /// <summary>

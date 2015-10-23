@@ -10,8 +10,8 @@ namespace FenrirFS
         #region Properties
 
         string FullPath { get; }
-        string Name { get; set; }
-        string Path { get; set; }
+        string Name { get; }
+        string Path { get; }
 
         #endregion Properties
 
@@ -25,6 +25,62 @@ namespace FenrirFS
 
         Task<IFolder> CreateFolderAsync(string name, CollisionOption collisionOption, CancellationToken cancellationToken);
 
+
+
+        IFolder Copy(string destinationName, CollisionOption collisionOption);
+
+        IFolder Copy(string destinationPath, string destinationName, CollisionOption collisionOption);
+
+        IFolder Copy(IFolder destinationPath, string destinationName, CollisionOption collisionOption);
+
+        IFile CopyFile(string destinationName, CollisionOption collisionOption);
+
+        IFile CopyFile(string destinationPath, string destinationName, CollisionOption collisionOption);
+
+        IFile CopyFile(IFolder destinationPath, string destinationName, CollisionOption collisionOption);
+
+        IFolder CopyFolder(string destinationName, CollisionOption collisionOption);
+
+        IFolder CopyFolder(string destinationPath, string destinationName, CollisionOption collisionOption);
+
+        IFolder CopyFolder(IFolder destinationPath, string destinationName, CollisionOption collisionOption);
+
+        bool Move(string destinationName, CollisionOption collisionOption);
+
+        bool Move(string destinationPath, string destinationName, CollisionOption collisionOption);
+
+        bool Move(IFolder destinationPath, string destinationName, CollisionOption collisionOption);
+
+
+
+
+
+        Task<IFolder> CopyAsync(string destinationName, CollisionOption collisionOption);
+
+        Task<IFolder> CopyAsync(string destinationPath, string destinationName, CollisionOption collisionOption);
+
+        Task<IFolder> CopyAsync(IFolder destinationPath, string destinationName, CollisionOption collisionOption);
+
+        Task<IFile> CopyFileAsync(string destinationName, CollisionOption collisionOption);
+
+        Task<IFile> CopyFileAsync(string destinationPath, string destinationName, CollisionOption collisionOption);
+
+        Task<IFile> CopyFileAsync(IFolder destinationPath, string destinationName, CollisionOption collisionOption);
+
+        Task<IFolder> CopyFolderAsync(string destinationName, CollisionOption collisionOption);
+
+        Task<IFolder> CopyFolderAsync(string destinationPath, string destinationName, CollisionOption collisionOption);
+
+        Task<IFolder> CopyFolderAsync(IFolder destinationPath, string destinationName, CollisionOption collisionOption);
+
+        Task<bool> MoveAsync(string destinationName, CollisionOption collisionOption);
+
+        Task<bool> MoveAsync(string destinationPath, string destinationName, CollisionOption collisionOption);
+
+        Task<bool> MoveAsync(IFolder destinationPath, string destinationName, CollisionOption collisionOption);
+
+
+
         bool Delete();
 
         Task<bool> DeleteAsync(CancellationToken cancellationToken);
@@ -37,8 +93,6 @@ namespace FenrirFS
 
         Task<bool> DeleteFolderAsync(string name, CancellationToken cancellationToken);
         
-        new void Dispose();
-
         bool FileExists(string name);
 
         Task<bool> FileExistsAsync(string name, CancellationToken cancellationToken);
@@ -74,6 +128,10 @@ namespace FenrirFS
         IFolder GetParentFolder();
 
         Task<IFolder> GetParentFolderAsync(CancellationToken cancellationToken);
+
+        bool Rename(string name, CollisionOption collisionOption);
+
+        Task<bool> RemameAsync(string name, CollisionOption collisionOption, CancellationToken cancellationToken);
 
         #endregion Methods
     }

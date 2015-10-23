@@ -1,7 +1,4 @@
-﻿using FenrirFS.Helpers;
-using System;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,16 +6,17 @@ namespace FenrirFS
 {
     public interface IFileSystem
     {
-        #region Properties
+        #region Public Properties
 
-        IFolder StorageExecutable { get; set; }
-        IFolder StorageLocal { get; set; }
-        IFolder StorageRoaming { get; set; }
+        Encoding DefaultEncoding { get; set; }
+        IFolder StorageLocal { get; }
+        IFolder StorageRoaming { get; }
         IFolder StorageUser { get; set; }
+        IFolder StorageWorking { get; }
 
-        #endregion Properties
+        #endregion Public Properties
 
-        #region Methods
+        #region Public Methods
 
         IFile CreateFile(string directory, string name, CollisionOption collisionOption);
 
@@ -79,6 +77,10 @@ namespace FenrirFS
         IFolder GetFolderFromPath(string path);
 
         Task<IFolder> GetFolderFromPathAsync(string path, CancellationToken cancellationToken);
+
+        bool SetStorageUser(string path);
+
+        Task<bool> SetStorageUserAsync(string path, CancellationToken cancellationToken);
 
         #endregion Public Methods
     }

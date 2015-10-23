@@ -15,8 +15,9 @@ namespace FenrirFS
 
         #region Protected Constructors
 
-        protected AFolder(string name)
+        protected AFolder(string path)
         {
+            SetupIFolder(path);
         }
 
         #endregion Protected Constructors
@@ -27,6 +28,7 @@ namespace FenrirFS
         {
             get { return System.IO.Path.Combine(Path, Name); }
         }
+
         public virtual string Name { get; protected set; }
         public virtual string Path { get; protected set; }
 
@@ -34,26 +36,26 @@ namespace FenrirFS
 
         #region Public Methods
 
-        public virtual AFile CreateFile(string name, CollisionOption collisionOption)
+        public virtual IFile CreateFile(string name, CollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual async Task<AFile> CreateFileAsync(string name, CollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<IFile> CreateFileAsync(string name, CollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return CreateFile(name, collisionOption);
         }
 
-        public virtual AFolder CreateFolder(string name, CollisionOption collisionOption)
+        public virtual IFolder CreateFolder(string name, CollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual async Task<AFolder> CreateFolderAsync(string name, CollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<IFolder> CreateFolderAsync(string name, CollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return CreateFolder(name, collisionOption);
         }
 
         public virtual bool Delete()
@@ -61,10 +63,10 @@ namespace FenrirFS
             throw new NotImplementedException();
         }
 
-        public virtual async Task<bool> DeleteAsync(CancellationToken cancellationToken)
+        public async Task<bool> DeleteAsync(CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return Delete();
         }
 
         public virtual bool DeleteFile(string name)
@@ -72,10 +74,10 @@ namespace FenrirFS
             throw new NotImplementedException();
         }
 
-        public virtual async Task<bool> DeleteFileAsync(string name, CancellationToken cancellationToken)
+        public async Task<bool> DeleteFileAsync(string name, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return DeleteFile(name);
         }
 
         public virtual bool DeleteFolder(string name)
@@ -83,31 +85,38 @@ namespace FenrirFS
             throw new NotImplementedException();
         }
 
-        public virtual async Task<bool> DeleteFolderAsync(string name, CancellationToken cancellationToken)
+        public async Task<bool> DeleteFolderAsync(string name, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return DeleteFolder(name);
         }
 
-        // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above. GC.SuppressFinalize(this);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null
+                ? FullPath == obj.ToString()
+                : false;
+        }
+
+        public bool Equals(IFolder folder)
+        {
+            return folder.FullPath == FullPath;
         }
 
         public virtual bool FileExists(string name)
         {
-            AFile file = GetFile(name);
-            return Fenrir.FileSystem.FileExists(name);
+            throw new NotImplementedException();
         }
 
-        public virtual async Task<bool> FileExistsAsync(string name, CancellationToken cancellationToken)
+        public async Task<bool> FileExistsAsync(string name, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            AFile file = GetFile(name);
-            return Fenrir.FileSystem.FileExists(name);
+            return FileExists(name);
         }
 
         public virtual bool FolderExists(string name)
@@ -115,21 +124,21 @@ namespace FenrirFS
             throw new NotImplementedException();
         }
 
-        public virtual async Task<bool> FolderExistsAsync(string name, CancellationToken cancellationToken)
+        public async Task<bool> FolderExistsAsync(string name, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return FolderExists(name);
+        }
+
+        public virtual IFile GetFile(string name)
+        {
             throw new NotImplementedException();
         }
 
-        public virtual AFile GetFile(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual async Task<AFile> GetFileAsync(string name, CancellationToken cancellationToken)
+        public async Task<IFile> GetFileAsync(string name, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return GetFile(name);
         }
 
         public virtual List<string> GetFileNames()
@@ -137,21 +146,21 @@ namespace FenrirFS
             throw new NotImplementedException();
         }
 
-        public virtual async Task<List<string>> GetFileNamesAsync(CancellationToken cancellationToken)
+        public async Task<List<string>> GetFileNamesAsync(CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return GetFileNames();
+        }
+
+        public virtual List<IFile> GetFiles()
+        {
             throw new NotImplementedException();
         }
 
-        public virtual List<AFile> GetFiles()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual async Task<List<AFile>> GetFilesAsync(CancellationToken cancellationToken)
+        public async Task<List<IFile>> GetFilesAsync(CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return GetFiles();
         }
 
         public virtual AFolder GetFolder(string name)
@@ -159,10 +168,10 @@ namespace FenrirFS
             throw new NotImplementedException();
         }
 
-        public virtual async Task<AFolder> GetFolderAsync(string name, CancellationToken cancellationToken)
+        public async Task<IFolder> GetFolderAsync(string name, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return GetFolder(name);
         }
 
         public virtual List<string> GetFolderNames()
@@ -170,37 +179,51 @@ namespace FenrirFS
             throw new NotImplementedException();
         }
 
-        public virtual async Task<List<string>> GetFolderNamesAsync(CancellationToken cancellationToken)
+        public async Task<List<string>> GetFolderNamesAsync(CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
+            return GetFolderNames();
         }
 
-        public virtual List<AFolder> GetFolders()
+        public virtual List<IFolder> GetFolders()
         {
             throw new NotImplementedException();
         }
 
-        public virtual async Task<List<AFolder>> GetFoldersAsync(CancellationToken cancellationToken)
-        {
-            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
-            throw new NotImplementedException();
-        }
-
-        public virtual AFolder GetParentFolder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual async Task<AFolder> GetParentFolderAsync(CancellationToken cancellationToken)
+        public async Task<List<IFolder>> GetFoldersAsync(CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return GetFolders();
+        }
+
+        public virtual IFolder GetParentFolder()
+        {
             throw new NotImplementedException();
+        }
+
+        public async Task<IFolder> GetParentFolderAsync(CancellationToken cancellationToken)
+        {
+            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return GetParentFolder();
+        }
+
+        public async Task<bool> RemameAsync(string name, CollisionOption collisionOption, CancellationToken cancellationToken)
+        {
+            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return Rename(name, collisionOption);
+        }
+
+        public virtual bool Rename(string name, CollisionOption collisionOption)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return FullPath;
         }
 
         #endregion Public Methods
-
-        // To detect redundant calls
 
         #region Protected Methods
 
@@ -213,17 +236,16 @@ namespace FenrirFS
                     // TODO: dispose managed state (managed objects).
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
                 disposedValue = true;
             }
         }
 
-        #endregion Protected Methods
+        protected void SetupIFolder(string path)
+        {
+            Name = System.IO.Path.GetFileName(path);
+            Path = System.IO.Path.GetDirectoryName(path);
+        }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free
-        //       unmanaged resources. ~AFolder() { // Do not change this code. Put cleanup code in
-        // Dispose(bool disposing) above. Dispose(false); }
+        #endregion Protected Methods
     }
 }
