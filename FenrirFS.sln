@@ -5,9 +5,26 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FenrirFS", "FenrirFS\FenrirFS.csproj", "{777315CA-E739-4D16-9D35-BC927E482A2E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{F582FF3F-C9B8-4E60-B670-FCF96F4A5359}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{DE4D76DB-79CA-43D6-BF0B-957C75A8E3FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{99D928EC-1E9E-47F2-BDE3-A977E02FD762}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{FCC444B5-94C2-4A5F-B7D7-6705FD5A71D6}"
+	ProjectSection(SolutionItems) = preProject
+		Build\build.proj = Build\build.proj
+		Build\CommonAssemblyInfo.cs = Build\CommonAssemblyInfo.cs
+		Build\FenrirFS.nuspec = Build\FenrirFS.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{6AE4007F-0A4F-4CD2-A964-B71CB1A19B0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FenrirFS.FileSystem.Desktop", "Implementations\FenrirFS.FileSystem.Desktop\FenrirFS.FileSystem.Desktop.csproj", "{9D3F208D-8BB4-47A9-8323-4CFD24314341}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FenrirFS_Core", "FenrirFS_Core\FenrirFS_Core.csproj", "{31F6B895-4FF7-481B-B483-E0E6B63CC312}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FenrirFS_Interfaces", "FenrirFS_Interfaces\FenrirFS_Interfaces.csproj", "{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingCore", "Testing\TestingCore\TestingCore.csproj", "{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingDesktop", "Testing\TestingDesktop\TestingDesktop.csproj", "{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,15 +36,33 @@ Global
 		{777315CA-E739-4D16-9D35-BC927E482A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{777315CA-E739-4D16-9D35-BC927E482A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{777315CA-E739-4D16-9D35-BC927E482A2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99D928EC-1E9E-47F2-BDE3-A977E02FD762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99D928EC-1E9E-47F2-BDE3-A977E02FD762}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99D928EC-1E9E-47F2-BDE3-A977E02FD762}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99D928EC-1E9E-47F2-BDE3-A977E02FD762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D3F208D-8BB4-47A9-8323-4CFD24314341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D3F208D-8BB4-47A9-8323-4CFD24314341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D3F208D-8BB4-47A9-8323-4CFD24314341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D3F208D-8BB4-47A9-8323-4CFD24314341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31F6B895-4FF7-481B-B483-E0E6B63CC312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31F6B895-4FF7-481B-B483-E0E6B63CC312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31F6B895-4FF7-481B-B483-E0E6B63CC312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31F6B895-4FF7-481B-B483-E0E6B63CC312}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{99D928EC-1E9E-47F2-BDE3-A977E02FD762} = {F582FF3F-C9B8-4E60-B670-FCF96F4A5359}
+		{9D3F208D-8BB4-47A9-8323-4CFD24314341} = {6AE4007F-0A4F-4CD2-A964-B71CB1A19B0C}
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00} = {DE4D76DB-79CA-43D6-BF0B-957C75A8E3FF}
+		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26} = {DE4D76DB-79CA-43D6-BF0B-957C75A8E3FF}
 	EndGlobalSection
 EndGlobal

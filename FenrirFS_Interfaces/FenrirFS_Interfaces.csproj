@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{777315CA-E739-4D16-9D35-BC927E482A2E}</ProjectGuid>
+    <ProjectGuid>{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FenrirFS</RootNamespace>
     <AssemblyName>FenrirFS.Abstractions</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PORTABLE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\FenrirFS.Abstractions.xml</DocumentationFile>
@@ -46,57 +46,26 @@
     <Compile Include="..\common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\AFile.cs">
-      <Link>AFile.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\AFileSystem.cs">
-      <Link>AFileSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\AFolder.cs">
-      <Link>AFolder.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\AwaitHelpers.cs">
-      <Link>AwaitHelpers.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Enums\ExistenceCheckResult.cs">
-      <Link>ExistenceCheckResult.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Enums\FileAccess.cs">
-      <Link>FileAccess.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Enums\FileCollisionOption.cs">
-      <Link>FileCollisionOption.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Enums\FileMode.cs">
-      <Link>FileMode.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Enums\FileSystemVersion.cs">
-      <Link>FileSystemVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Enums\FolderCollisionOption.cs">
-      <Link>FolderCollisionOption.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Enums\WriteMode.cs">
-      <Link>WriteMode.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Exceptions.cs">
-      <Link>Exceptions.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\IFile.cs">
-      <Link>IFile.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\IFileSystem.cs">
-      <Link>IFileSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\IFolder.cs">
-      <Link>IFolder.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Structs\Awaiter.cs">
-      <Link>Awaiter.cs</Link>
-    </Compile>
+    <Compile Include="AFileSystem.cs" />
+    <Compile Include="AFolder.cs" />
+    <Compile Include="AFile.cs" />
+    <Compile Include="AwaitHelpers.cs" />
+    <Compile Include="Enums\ExistenceCheckResult.cs" />
+    <Compile Include="Enums\FileAccess.cs" />
+    <Compile Include="Enums\FileCollisionOption.cs" />
+    <Compile Include="Enums\FileMode.cs" />
+    <Compile Include="Enums\FileSystemVersion.cs" />
+    <Compile Include="Enums\FolderCollisionOption.cs" />
+    <Compile Include="Enums\WriteMode.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="IFileSystem.cs" />
+    <Compile Include="IFolder.cs" />
+    <Compile Include="IFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structs\Awaiter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="StrongName.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
