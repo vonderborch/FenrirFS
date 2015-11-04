@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace FenrirFS
 {
     /// <summary>
-    /// Represents an abstract file in FenrirFS, with some implementations for IFile.
+    /// Represents an abstract file in FenrirFS, with some implementations for AFile.
     /// </summary>
-    public abstract class AFile : IFile
+    public abstract class AFile : IDisposable, IEquatable<AFile>
     {
         #region Protected Fields
 
@@ -23,7 +23,7 @@ namespace FenrirFS
         protected AFile(string path)
         {
             SetupFile(path);
-            Encoding = Encoding;
+            var enc = Encoding;
         }
 
         #endregion Protected Constructors
@@ -51,7 +51,7 @@ namespace FenrirFS
             get
             {
                 return System.IO.Path.Combine(Path,
-                              String.Format("{0}.{1}", Name, Extension));
+                              String.Format("{0}{1}", Name, Extension));
             }
         }
 
@@ -107,6 +107,7 @@ namespace FenrirFS
                 Stream.Dispose();
                 FileAccess = FileAccess.None;
                 FileMode = FileMode.None;
+                Stream = null;
                 return true;
             }
 
@@ -119,23 +120,23 @@ namespace FenrirFS
             return Close();
         }
 
-        public virtual IFile Copy(string destination, FileCollisionOption collisionOption)
+        public virtual AFile Copy(string destination, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFile Copy(string destinationPath, string destinationName, FileCollisionOption collisionOption)
+        public virtual AFile Copy(string destinationPath, string destinationName, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFile> CopyAsync(string destination, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CopyAsync(string destination, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return Copy(destination, collisionOption);
         }
 
-        public async Task<IFile> CopyAsync(string destinationPath, string destinationName, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CopyAsync(string destinationPath, string destinationName, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return Copy(destinationPath, destinationName, collisionOption);
@@ -165,7 +166,7 @@ namespace FenrirFS
                 : false;
         }
 
-        public bool Equals(IFile file)
+        public bool Equals(AFile file)
         {
             return file.FullPath == FullPath;
         }
@@ -328,9 +329,10 @@ namespace FenrirFS
 
         protected void SetupFile(string path)
         {
-            Name = System.IO.Path.GetFileName(path);
+            Name = System.IO.Path.GetFileNameWithoutExtension(path);
             Path = System.IO.Path.GetDirectoryName(path);
             Extension = System.IO.Path.GetExtension(path);
+            Stream = null;
         }
 
         #endregion Protected Methods

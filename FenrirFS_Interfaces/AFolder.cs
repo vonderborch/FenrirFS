@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FenrirFS
 {
-    public abstract class AFolder : IFolder
+    public abstract class AFolder : IDisposable, IEquatable<AFolder>
     {
         #region Protected Fields
 
@@ -17,7 +17,7 @@ namespace FenrirFS
 
         protected AFolder(string path)
         {
-            SetupIFolder(path);
+            SetupAFolder(path);
         }
 
         #endregion Protected Constructors
@@ -37,122 +37,122 @@ namespace FenrirFS
 
         #region Public Methods
 
-        public virtual IFolder Copy(string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public virtual AFolder Copy(string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFolder Copy(string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public virtual AFolder Copy(string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFolder Copy(IFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public virtual AFolder Copy(AFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFolder> CopyAsync(string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CopyAsync(string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return Copy(destinationName, folderCollisionOption, fileCollisionOption);
         }
 
-        public async Task<IFolder> CopyAsync(string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CopyAsync(string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return Copy(destinationPath, destinationName, folderCollisionOption, fileCollisionOption);
         }
 
-        public async Task<IFolder> CopyAsync(IFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CopyAsync(AFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return Copy(destinationPath, destinationName, folderCollisionOption, fileCollisionOption);
         }
 
-        public virtual IFile CopyFile(string file, string destinationName, FileCollisionOption collisionOption)
+        public virtual AFile CopyFile(string file, string destinationName, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFile CopyFile(string file, string destinationPath, string destinationName, FileCollisionOption collisionOption)
+        public virtual AFile CopyFile(string file, string destinationPath, string destinationName, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFile CopyFile(string file, IFolder destinationPath, string destinationName, FileCollisionOption collisionOption)
+        public virtual AFile CopyFile(string file, AFolder destinationPath, string destinationName, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFile> CopyFileAsync(string file, string destinationName, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CopyFileAsync(string file, string destinationName, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CopyFile(file, destinationName, collisionOption);
         }
 
-        public async Task<IFile> CopyFileAsync(string file, string destinationPath, string destinationName, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CopyFileAsync(string file, string destinationPath, string destinationName, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CopyFile(file, destinationPath, destinationName, collisionOption);
         }
 
-        public async Task<IFile> CopyFileAsync(string file, IFolder destinationPath, string destinationName, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CopyFileAsync(string file, AFolder destinationPath, string destinationName, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CopyFile(file, destinationPath, destinationName, collisionOption);
         }
 
-        public virtual IFolder CopyFolder(string folder, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public virtual AFolder CopyFolder(string folder, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFolder CopyFolder(string folder, string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public virtual AFolder CopyFolder(string folder, string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFolder CopyFolder(string folder, IFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public virtual AFolder CopyFolder(string folder, AFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFolder> CopyFolderAsync(string folder, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CopyFolderAsync(string folder, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CopyFolder(folder, destinationName, folderCollisionOption, fileCollisionOption);
         }
 
-        public async Task<IFolder> CopyFolderAsync(string folder, string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CopyFolderAsync(string folder, string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CopyFolder(folder, destinationPath, destinationName, folderCollisionOption, fileCollisionOption);
         }
 
-        public async Task<IFolder> CopyFolderAsync(string folder, IFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CopyFolderAsync(string folder, AFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CopyFolder(folder, destinationPath, destinationName, folderCollisionOption, fileCollisionOption);
         }
 
-        public virtual IFile CreateFile(string name, FileCollisionOption collisionOption)
+        public virtual AFile CreateFile(string name, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFile> CreateFileAsync(string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CreateFileAsync(string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CreateFile(name, collisionOption);
         }
 
-        public virtual IFolder CreateFolder(string name, FolderCollisionOption collisionOption)
+        public virtual AFolder CreateFolder(string name, FolderCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFolder> CreateFolderAsync(string name, FolderCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CreateFolderAsync(string name, FolderCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CreateFolder(name, collisionOption);
@@ -203,7 +203,7 @@ namespace FenrirFS
                 : false;
         }
 
-        public bool Equals(IFolder folder)
+        public bool Equals(AFolder folder)
         {
             return folder.FullPath == FullPath;
         }
@@ -230,12 +230,12 @@ namespace FenrirFS
             return FolderExists(name);
         }
 
-        public virtual IFile GetFile(string name)
+        public virtual AFile GetFile(string name)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFile> GetFileAsync(string name, CancellationToken cancellationToken)
+        public async Task<AFile> GetFileAsync(string name, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return GetFile(name);
@@ -252,23 +252,23 @@ namespace FenrirFS
             return GetFileNames();
         }
 
-        public virtual List<IFile> GetFiles()
+        public virtual List<AFile> GetFiles()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<IFile>> GetFilesAsync(CancellationToken cancellationToken)
+        public async Task<List<AFile>> GetFilesAsync(CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return GetFiles();
         }
 
-        public virtual IFolder GetFolder(string name)
+        public virtual AFolder GetFolder(string name)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFolder> GetFolderAsync(string name, CancellationToken cancellationToken)
+        public async Task<AFolder> GetFolderAsync(string name, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return GetFolder(name);
@@ -285,23 +285,23 @@ namespace FenrirFS
             return GetFolderNames();
         }
 
-        public virtual List<IFolder> GetFolders()
+        public virtual List<AFolder> GetFolders()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<IFolder>> GetFoldersAsync(CancellationToken cancellationToken)
+        public async Task<List<AFolder>> GetFoldersAsync(CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return GetFolders();
         }
 
-        public virtual IFolder GetParentFolder()
+        public virtual AFolder GetParentFolder()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFolder> GetParentFolderAsync(CancellationToken cancellationToken)
+        public async Task<AFolder> GetParentFolderAsync(CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return GetParentFolder();
@@ -317,7 +317,7 @@ namespace FenrirFS
             throw new NotImplementedException();
         }
 
-        public virtual bool Move(IFolder destinationPath, string destinationName, FolderCollisionOption collisionOption)
+        public virtual bool Move(AFolder destinationPath, string destinationName, FolderCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
@@ -334,7 +334,7 @@ namespace FenrirFS
             return Move(destinationPath, destinationName, collisionOption);
         }
 
-        public async Task<bool> MoveAsync(IFolder destinationPath, string destinationName, FolderCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<bool> MoveAsync(AFolder destinationPath, string destinationName, FolderCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return Move(destinationPath, destinationName, collisionOption);
@@ -373,7 +373,7 @@ namespace FenrirFS
             }
         }
 
-        protected void SetupIFolder(string path)
+        protected void SetupAFolder(string path)
         {
             Name = System.IO.Path.GetFileName(path);
             Path = System.IO.Path.GetDirectoryName(path);

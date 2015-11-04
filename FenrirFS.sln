@@ -22,9 +22,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FenrirFS_Core", "FenrirFS_C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FenrirFS_Interfaces", "FenrirFS_Interfaces\FenrirFS_Interfaces.csproj", "{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingCore", "Testing\TestingCore\TestingCore.csproj", "{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingDesktop", "Testing\TestingDesktop\TestingDesktop.csproj", "{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingCore", "Testing\TestingCore\TestingCore.csproj", "{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,21 +48,21 @@ Global
 		{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEBB53F3-EBDF-4DD0-82E5-FF9A2C8DBD72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9D3F208D-8BB4-47A9-8323-4CFD24314341} = {6AE4007F-0A4F-4CD2-A964-B71CB1A19B0C}
-		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00} = {DE4D76DB-79CA-43D6-BF0B-957C75A8E3FF}
 		{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26} = {DE4D76DB-79CA-43D6-BF0B-957C75A8E3FF}
+		{C5F5BEDE-5A14-4D0D-A9A0-9BC375D4CD00} = {DE4D76DB-79CA-43D6-BF0B-957C75A8E3FF}
 	EndGlobalSection
 EndGlobal

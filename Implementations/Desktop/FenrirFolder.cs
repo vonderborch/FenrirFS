@@ -82,9 +82,9 @@ namespace FenrirFS.Desktop
             return false;
         }
 
-        public override bool Move(AFolder destinationPath, string destinationName, FolderCollisionOption collisionOption)
+        public override bool Move(IFolder destinationPath, string destinationName, FolderCollisionOption collisionOption)
         {
-            Exceptions.NotNullCheck<AFolder>(destinationPath, nameof(destinationPath));
+            Exceptions.NotNullCheck<IFolder>(destinationPath, nameof(destinationPath));
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
 
             string path = System.IO.Path.Combine(FullPath, destinationName);
@@ -116,7 +116,7 @@ namespace FenrirFS.Desktop
             return false;
         }
 
-        public override AFolder CopyFolder(string folder, string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public override IFolder CopyFolder(string folder, string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(destinationPath, nameof(destinationPath));
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
@@ -125,43 +125,43 @@ namespace FenrirFS.Desktop
 
             if (Fenrir.FileSystem.FolderExists(path))
             {
-                AFolder newFolder = new FenrirFolder(path);
+                IFolder newFolder = new FenrirFolder(path);
                 return newFolder.Copy(destinationPath, destinationName, folderCollisionOption, fileCollisionOption);
             }
 
             return null;
         }
 
-        public override AFolder CopyFolder(string folder, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public override IFolder CopyFolder(string folder, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
 
             string path = System.IO.Path.Combine(FullPath, folder);
             if (Fenrir.FileSystem.FolderExists(path))
             {
-                AFolder newFolder = new FenrirFolder(path);
+                IFolder newFolder = new FenrirFolder(path);
                 return newFolder.Copy(destinationName, folderCollisionOption, fileCollisionOption);
             }
 
             return null;
         }
 
-        public override AFolder CopyFolder(string folder, AFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public override IFolder CopyFolder(string folder, IFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
-            Exceptions.NotNullCheck<AFolder>(destinationPath, nameof(destinationPath));
+            Exceptions.NotNullCheck<IFolder>(destinationPath, nameof(destinationPath));
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
 
             string path = System.IO.Path.Combine(FullPath, folder);
             if (Fenrir.FileSystem.FolderExists(path))
             {
-                AFolder newFolder = new FenrirFolder(path);
+                IFolder newFolder = new FenrirFolder(path);
                 return newFolder.Copy(destinationPath.FullPath, destinationName, folderCollisionOption, fileCollisionOption);
             }
 
             return null;
         }
 
-        public override AFile CopyFile(string file, string destinationPath, string destinationName, FileCollisionOption collisionOption)
+        public override IFile CopyFile(string file, string destinationPath, string destinationName, FileCollisionOption collisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(destinationPath, nameof(destinationPath));
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
@@ -169,43 +169,43 @@ namespace FenrirFS.Desktop
             string path = System.IO.Path.Combine(FullPath, file);
             if (Fenrir.FileSystem.FolderExists(path))
             {
-                AFile newFile = new FenrirFile(path);
+                IFile newFile = new FenrirFile(path);
                 return newFile.Copy(destinationPath, destinationName, collisionOption);
             }
 
             return null;
         }
 
-        public override AFile CopyFile(string file, string destinationName, FileCollisionOption collisionOption)
+        public override IFile CopyFile(string file, string destinationName, FileCollisionOption collisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
 
             string path = System.IO.Path.Combine(FullPath, file);
             if (Fenrir.FileSystem.FolderExists(path))
             {
-                AFile newFile = new FenrirFile(path);
+                IFile newFile = new FenrirFile(path);
                 return newFile.Copy(destinationName, collisionOption);
             }
 
             return null;
         }
 
-        public override AFile CopyFile(string file, AFolder destinationPath, string destinationName, FileCollisionOption collisionOption)
+        public override IFile CopyFile(string file, IFolder destinationPath, string destinationName, FileCollisionOption collisionOption)
         {
-            Exceptions.NotNullCheck<AFolder>(destinationPath, nameof(destinationPath));
+            Exceptions.NotNullCheck<IFolder>(destinationPath, nameof(destinationPath));
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
 
             string path = System.IO.Path.Combine(FullPath, file);
             if (Fenrir.FileSystem.FolderExists(path))
             {
-                AFile newFile = new FenrirFile(path);
+                IFile newFile = new FenrirFile(path);
                 return newFile.Copy(destinationPath.FullPath, destinationName, collisionOption);
             }
 
             return null;
         }
 
-        public override AFolder Copy(string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public override IFolder Copy(string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(destinationPath, nameof(destinationPath));
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
@@ -244,7 +244,7 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(path);
         }
 
-        public override AFolder Copy(string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public override IFolder Copy(string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
 
@@ -283,9 +283,9 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(path);
         }
 
-        public override AFolder Copy(AFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
+        public override IFolder Copy(IFolder destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
-            Exceptions.NotNullCheck<AFolder>(destinationPath, nameof(destinationPath));
+            Exceptions.NotNullCheck<IFolder>(destinationPath, nameof(destinationPath));
             Exceptions.NotNullOrEmptyCheck(Name, nameof(destinationName));
 
             string destination = destinationPath.FullPath;
@@ -318,11 +318,11 @@ namespace FenrirFS.Desktop
             List<string> folders = this.GetFolderNames();
             foreach (string str in folders)
                 CopyFolder(str, destinationPath, str, folderCollisionOption, fileCollisionOption);
-
+            
             return new FenrirFolder(path);
         }
 
-        public override AFile CreateFile(string name, FileCollisionOption collisionOption)
+        public override IFile CreateFile(string name, FileCollisionOption collisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
 
@@ -345,7 +345,7 @@ namespace FenrirFS.Desktop
             return new FenrirFile(file);
         }
 
-        public override AFolder CreateFolder(string name, FolderCollisionOption collisionOption)
+        public override IFolder CreateFolder(string name, FolderCollisionOption collisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
 
@@ -425,7 +425,7 @@ namespace FenrirFS.Desktop
             return Fenrir.FileSystem.FolderExists(fullName);
         }
 
-        public override AFile GetFile(string name)
+        public override IFile GetFile(string name)
         {
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
 
@@ -447,15 +447,15 @@ namespace FenrirFS.Desktop
             return files;
         }
 
-        public override List<AFile> GetFiles()
+        public override List<IFile> GetFiles()
         {
-            List<AFile> files = new List<AFile>();
+            List<IFile> files = new List<IFile>();
             foreach (string file in Directory.EnumerateFiles(FullPath))
                 files.Add(new FenrirFile(file));
 
             return files;
         }
-        
+
         public override AFolder GetFolder(string name)
         {
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
@@ -478,16 +478,16 @@ namespace FenrirFS.Desktop
             return folders;
         }
 
-        public override List<AFolder> GetFolders()
+        public override List<IFolder> GetFolders()
         {
-            List<AFolder> folders = new List<AFolder>();
+            List<IFolder> folders = new List<IFolder>();
             foreach (string folder in Directory.EnumerateDirectories(FullPath))
                 folders.Add(new FenrirFolder(folder));
 
             return folders;
         }
 
-        public override AFolder GetParentFolder()
+        public override IFolder GetParentFolder()
         {
             return new FenrirFolder(Path);
         }

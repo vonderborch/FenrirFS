@@ -16,7 +16,7 @@ namespace TestingDesktop
             //string userPath = Fenrir.FileSystem.StorageUser.FullPath;
             //File.Create(userPath + "\\test.txt").Dispose();
 
-            FileTests.CreateFile();
+            FileTests.TestSuite();
 
         }
     }

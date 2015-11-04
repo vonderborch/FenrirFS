@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FenrirFS
 {
-    public abstract class AFileSystem : IFileSystem
+    public abstract class AFileSystem
     {
         #region Protected Constructors
 
@@ -20,76 +20,76 @@ namespace FenrirFS
         #region Public Properties
 
         public Encoding DefaultEncoding { get; set; }
-        public IFolder StorageLocal { get; protected set; }
-        public IFolder StorageRoaming { get; protected set; }
-        public IFolder StorageUser { get; set; }
-        public IFolder StorageWorking { get; protected set; }
+        public AFolder StorageLocal { get; protected set; }
+        public AFolder StorageRoaming { get; protected set; }
+        public AFolder StorageUser { get; set; }
+        public AFolder StorageWorking { get; protected set; }
 
         #endregion Public Properties
 
         #region Public Methods
 
-        public virtual IFile CreateFile(string directory, string name, FileCollisionOption collisionOption)
+        public virtual AFile CreateFile(string directory, string name, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFile CreateFile(IFolder directory, string name, FileCollisionOption collisionOption)
+        public virtual AFile CreateFile(AFolder directory, string name, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFile CreateFile(string path, FileCollisionOption collisionOption)
+        public virtual AFile CreateFile(string path, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFile> CreateFileAsync(string directory, string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CreateFileAsync(string directory, string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CreateFile(directory, name, collisionOption);
         }
 
-        public async Task<IFile> CreateFileAsync(IFolder directory, string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CreateFileAsync(AFolder directory, string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CreateFile(directory, name, collisionOption);
         }
 
-        public async Task<IFile> CreateFileAsync(string path, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFile> CreateFileAsync(string path, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CreateFile(path, collisionOption);
         }
 
-        public virtual IFolder CreateFolder(string directory, string name, FileCollisionOption collisionOption)
+        public virtual AFolder CreateFolder(string directory, string name, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFolder CreateFolder(IFolder directory, string name, FileCollisionOption collisionOption)
+        public virtual AFolder CreateFolder(AFolder directory, string name, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IFolder CreateFolder(string path, FileCollisionOption collisionOption)
+        public virtual AFolder CreateFolder(string path, FileCollisionOption collisionOption)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFolder> CreateFolderAsync(string directory, string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CreateFolderAsync(string directory, string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CreateFolder(directory, name, collisionOption);
         }
 
-        public async Task<IFolder> CreateFolderAsync(IFolder directory, string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CreateFolderAsync(AFolder directory, string name, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CreateFolder(directory, name, collisionOption);
         }
 
-        public async Task<IFolder> CreateFolderAsync(string path, FileCollisionOption collisionOption, CancellationToken cancellationToken)
+        public async Task<AFolder> CreateFolderAsync(string path, FileCollisionOption collisionOption, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return CreateFolder(path, collisionOption);
@@ -261,26 +261,92 @@ namespace FenrirFS
             return GenerateFolderUniqueName(path, iterations);
         }
 
-        public virtual IFile GetFileFromPath(string path)
+        public virtual AFile GetFileFromPath(string path)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFile> GetFileFromPathAsync(string path, CancellationToken cancellationToken)
+        public async Task<AFile> GetFileFromPathAsync(string path, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return GetFileFromPath(path);
         }
 
-        public virtual IFolder GetFolderFromPath(string path)
+        public virtual AFolder GetFolderFromPath(string path)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IFolder> GetFolderFromPathAsync(string path, CancellationToken cancellationToken)
+        public async Task<AFolder> GetFolderFromPathAsync(string path, CancellationToken cancellationToken)
         {
             await AwaitHelpers.CreateTaskScheduler(cancellationToken);
             return GetFolderFromPath(path);
+        }
+
+        public virtual AFile OpenFile(string path, OpenMode openMode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual AFile OpenFile(string directory, string file, OpenMode openMode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual AFile OpenFile(AFolder directory, string file, OpenMode openMode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual AFolder OpenFolder(string path, OpenMode openMode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual AFolder OpenFolder(string directory, string folder, OpenMode openMode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual AFolder OpenFolder(AFolder directory, string folder, OpenMode openMode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<AFile> OpenFileAsync(string path, OpenMode openMode, CancellationToken cancellationToken)
+        {
+            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return OpenFile(path, openMode);
+        }
+
+        public async Task<AFile> OpenFileAsync(string directory, string file, OpenMode openMode, CancellationToken cancellationToken)
+        {
+            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return OpenFile(directory, file, openMode);
+        }
+
+        public async Task<AFile> OpenFileAsync(AFolder directory, string file, OpenMode openMode, CancellationToken cancellationToken)
+        {
+            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return OpenFile(directory, file, openMode);
+        }
+
+        public async Task<AFolder> OpenFolderAsync(string path, OpenMode openMode, CancellationToken cancellationToken)
+        {
+            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return OpenFolder(path, openMode);
+        }
+
+        public async Task<AFolder> OpenFolderAsync(string directory, string folder, OpenMode openMode, CancellationToken cancellationToken)
+        {
+            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return OpenFolder(directory, folder, openMode);
+        }
+
+        public async Task<AFolder> OpenFolderAsync(AFolder directory, string folder, OpenMode openMode, CancellationToken cancellationToken)
+        {
+            await AwaitHelpers.CreateTaskScheduler(cancellationToken);
+            return OpenFolder(directory, folder, openMode);
         }
 
         public virtual bool SetStorageUser(string path)

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 
 namespace FenrirFS
 {
     /// <summary>
-    /// Various helpers.
+    /// Various helper functions.
     /// </summary>
-    public static class Helpers
+    public static class FSHelpers
     {
-        #region Public Methods
+        #region Public Properties
 
         /// <summary>
         /// Gets the directory separator for the current platform.
@@ -26,6 +27,46 @@ namespace FenrirFS
                 return System.IO.Path.DirectorySeparatorChar;
 #endif
             }
+        }
+
+        /// <summary>
+        /// Gets the line separator for the current platform.
+        /// </summary>
+        /// <value>The line separator.</value>
+        public static string LineSeparator
+        {
+            get { return Environment.NewLine; }
+        }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        /// <summary>
+        /// Combines string parts into a path.
+        /// </summary>
+        /// <param name="parts">A string to combine.</param>
+        /// <returns>A combined path string.</returns>
+        public static string CombinePath(params string[] parts)
+        {
+            if (parts.Length > 0)
+            {
+                StringBuilder str = new StringBuilder();
+
+                int length = parts.Length - 1;
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    str.Append(parts[i]);
+                    if (i < length)
+                    {
+                        str.Append(DirectorySeparator);
+                    }
+                }
+
+                return str.ToString();
+            }
+
+            return "";
         }
 
         /// <summary>
@@ -66,17 +107,6 @@ namespace FenrirFS
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Gets the line separator for the current platform.
-        /// </summary>
-        /// <value>
-        /// The line separator.
-        /// </value>
-        public static string LineSeparator
-        {
-            get { return Environment.NewLine; }
         }
 
         #endregion Public Methods

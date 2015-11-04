@@ -21,7 +21,7 @@ namespace FenrirFS.Desktop
 
         #region Public Methods
 
-        public override AFile CreateFile(string path, FileCollisionOption collisionOption)
+        public override IFile CreateFile(string path, FileCollisionOption collisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
 
@@ -41,11 +41,11 @@ namespace FenrirFS.Desktop
             }
 
             string file = System.IO.Path.Combine(directory, name);
-            File.Create(file).Dispose();
+            File.Create(file);
             return new FenrirFile(file);
         }
 
-        public override AFile CreateFile(string directory, string name, FileCollisionOption collisionOption)
+        public override IFile CreateFile(string directory, string name, FileCollisionOption collisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(directory, nameof(directory));
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
@@ -63,13 +63,13 @@ namespace FenrirFS.Desktop
             }
 
             string file = System.IO.Path.Combine(directory, name);
-            File.Create(file).Dispose();
+            File.Create(file);
             return new FenrirFile(file);
         }
 
-        public override AFile CreateFile(AFolder directory, string name, FileCollisionOption collisionOption)
+        public override IFile CreateFile(IFolder directory, string name, FileCollisionOption collisionOption)
         {
-            Exceptions.NotNullCheck<AFolder>(directory, nameof(directory));
+            Exceptions.NotNullCheck<IFolder>(directory, nameof(directory));
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
 
             switch (collisionOption)
@@ -85,11 +85,11 @@ namespace FenrirFS.Desktop
             }
 
             string file = System.IO.Path.Combine(directory.FullPath, name);
-            File.Create(file).Dispose();
+            File.Create(file);
             return new FenrirFile(file);
         }
 
-        public override AFolder CreateFolder(string path, FileCollisionOption collisionOption)
+        public override IFolder CreateFolder(string path, FileCollisionOption collisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
 
@@ -113,7 +113,7 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(folder);
         }
 
-        public override AFolder CreateFolder(string directory, string name, FileCollisionOption collisionOption)
+        public override IFolder CreateFolder(string directory, string name, FileCollisionOption collisionOption)
         {
             Exceptions.NotNullOrEmptyCheck(directory, nameof(directory));
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
@@ -135,9 +135,9 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(folder);
         }
 
-        public override AFolder CreateFolder(AFolder directory, string name, FileCollisionOption collisionOption)
+        public override IFolder CreateFolder(IFolder directory, string name, FileCollisionOption collisionOption)
         {
-            Exceptions.NotNullCheck<AFolder>(directory, nameof(directory));
+            Exceptions.NotNullCheck<IFolder>(directory, nameof(directory));
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
 
             switch (collisionOption)
@@ -188,7 +188,7 @@ namespace FenrirFS.Desktop
             return Directory.Exists(path);
         }
 
-        public override AFile GetFileFromPath(string path)
+        public override IFile GetFileFromPath(string path)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
 
@@ -200,7 +200,7 @@ namespace FenrirFS.Desktop
             return null;
         }
 
-        public override AFolder GetFolderFromPath(string path)
+        public override IFolder GetFolderFromPath(string path)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
 
@@ -210,116 +210,6 @@ namespace FenrirFS.Desktop
             }
 
             return null;
-        }
-
-        public override AFile OpenFile(string path, OpenMode openMode)
-        {
-            if (!Fenrir.FileSystem.FileExists(path))
-            {
-                switch (openMode)
-                {
-                    case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
-                        break;
-                    case OpenMode.FailIfDoesNotExist:
-                        throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
-                }
-            }
-
-            return new FenrirFile(path);
-        }
-
-        public override AFile OpenFile(string directory, string file, OpenMode openMode)
-        {
-            string path = FSHelpers.CombinePath(directory, file);
-
-            if (!Fenrir.FileSystem.FileExists(path))
-            {
-                switch (openMode)
-                {
-                    case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
-                        break;
-                    case OpenMode.FailIfDoesNotExist:
-                        throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
-                }
-            }
-
-            return new FenrirFile(path);
-        }
-
-        public override AFile OpenFile(AFolder directory, string file, OpenMode openMode)
-        {
-            string path = FSHelpers.CombinePath(directory.ToString(), file);
-
-            if (!Fenrir.FileSystem.FileExists(path))
-            {
-                switch (openMode)
-                {
-                    case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
-                        break;
-                    case OpenMode.FailIfDoesNotExist:
-                        throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
-                }
-            }
-
-            return new FenrirFile(path);
-        }
-
-        public override AFolder OpenFolder(string path, OpenMode openMode)
-        {
-            if (!Fenrir.FileSystem.FolderExists(path))
-            {
-                switch (openMode)
-                {
-                    case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
-                        break;
-                    case OpenMode.FailIfDoesNotExist:
-                        throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));
-                }
-            }
-
-            return new FenrirFolder(path);
-        }
-
-        public override AFolder OpenFolder(string directory, string folder, OpenMode openMode)
-        {
-            string path = FSHelpers.CombinePath(directory, folder);
-
-            if (!Fenrir.FileSystem.FolderExists(path))
-            {
-                switch (openMode)
-                {
-                    case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
-                        break;
-                    case OpenMode.FailIfDoesNotExist:
-                        throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));
-                }
-            }
-
-            return new FenrirFolder(path);
-        }
-
-        public override AFolder OpenFolder(AFolder directory, string folder, OpenMode openMode)
-        {
-            string path = FSHelpers.CombinePath(directory.ToString(), folder);
-
-            if (!Fenrir.FileSystem.FolderExists(path))
-            {
-                switch (openMode)
-                {
-                    case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
-                        break;
-                    case OpenMode.FailIfDoesNotExist:
-                        throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));
-                }
-            }
-
-            return new FenrirFolder(path);
         }
 
         public override bool SetStorageUser(string path)

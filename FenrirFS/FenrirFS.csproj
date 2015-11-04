@@ -70,26 +70,17 @@
     <Compile Include="..\FenrirFS_Interfaces\Enums\FileMode.cs">
       <Link>FileMode.cs</Link>
     </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\Enums\FileSystemVersion.cs">
-      <Link>FileSystemVersion.cs</Link>
-    </Compile>
     <Compile Include="..\FenrirFS_Interfaces\Enums\FolderCollisionOption.cs">
       <Link>FolderCollisionOption.cs</Link>
+    </Compile>
+    <Compile Include="..\FenrirFS_Interfaces\Enums\OpenMode.cs">
+      <Link>OpenMode.cs</Link>
     </Compile>
     <Compile Include="..\FenrirFS_Interfaces\Enums\WriteMode.cs">
       <Link>WriteMode.cs</Link>
     </Compile>
     <Compile Include="..\FenrirFS_Interfaces\Exceptions.cs">
       <Link>Exceptions.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\IFile.cs">
-      <Link>IFile.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\IFileSystem.cs">
-      <Link>IFileSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\FenrirFS_Interfaces\IFolder.cs">
-      <Link>IFolder.cs</Link>
     </Compile>
     <Compile Include="..\FenrirFS_Interfaces\Structs\Awaiter.cs">
       <Link>Awaiter.cs</Link>

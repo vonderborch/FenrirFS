@@ -1,4 +1,6 @@
-﻿namespace FenrirFS
+﻿using System;
+
+namespace FenrirFS
 {
     /// <summary>
     /// Provides access to the implementation of <see cref="IFileSystem"/> for the current platform.
@@ -10,7 +12,7 @@
         /// <summary>
         /// The IFileSystem instance
         /// </summary>
-        private static AFileSystem instance;
+        private static IFileSystem instance;
 
         #endregion Private Fields
 
@@ -22,7 +24,7 @@
         /// <value>
         /// The file system.
         /// </value>
-        public static AFileSystem FileSystem
+        public static IFileSystem FileSystem
         {
             get { return instance ?? (instance = CreateFileSystem()); }
         }
@@ -35,7 +37,7 @@
         /// Creates the correct implementation for the file system, based on the current platform.
         /// </summary>
         /// <returns></returns>
-        private static AFileSystem CreateFileSystem()
+        private static IFileSystem CreateFileSystem()
         {
 #if FS
             return new FenrirFS.Desktop.FenrirFileSystem();

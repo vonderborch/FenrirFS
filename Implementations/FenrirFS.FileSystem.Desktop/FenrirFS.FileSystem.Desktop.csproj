@@ -59,8 +59,8 @@
     <Compile Include="..\..\FenrirFS_Core\Fenrir.cs">
       <Link>Linked\Fenrir.cs</Link>
     </Compile>
-    <Compile Include="..\..\FenrirFS_Core\Helpers.cs">
-      <Link>Linked\Helpers.cs</Link>
+    <Compile Include="..\..\FenrirFS_Core\FSHelpers.cs">
+      <Link>Linked\FSHelpers.cs</Link>
     </Compile>
     <Compile Include="FenrirFileSystem.cs" />
     <Compile Include="FenrirFile.cs" />

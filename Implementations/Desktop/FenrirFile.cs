@@ -28,26 +28,20 @@ namespace FenrirFS.Desktop
                 }
                 else
                 {
+                    bool close = false;
                     if (!IsOpen)
                     {
-                        var str = Open(FileAccess.Read, FileMode.OpenOrCreate);
-
-                        using (StreamReader stream = new StreamReader(str))
-                        {
-                            stream.Peek();
-                            encoding = stream.CurrentEncoding;
-                        }
-
-                        Close();
+                        Open(FileAccess.Read, FileMode.OpenOrCreate);
+                        close = true;
                     }
-                    else
+
+                    using (StreamReader stream = new StreamReader(Stream))
                     {
-                        using (StreamReader stream = new StreamReader(Stream))
-                        {
-                            stream.Peek();
-                            encoding = stream.CurrentEncoding;
-                        }
+                        stream.Peek();
+                        encoding = stream.CurrentEncoding;
                     }
+
+                    if (close)
                         Close();
                 }
 
@@ -61,7 +55,7 @@ namespace FenrirFS.Desktop
                     bool close = false;
                     if (!IsOpen)
                     {
-                        Open(FileAccess.ReadWrite, FileMode.OpenOrCreate);
+                        Open(FileAccess.Read, FileMode.OpenOrCreate);
                         close = true;
                     }
 
@@ -114,7 +108,7 @@ namespace FenrirFS.Desktop
             return false;
         }
 
-        public override AFile Copy(string destination, FileCollisionOption collisionOption)
+        public override IFile Copy(string destination, FileCollisionOption collisionOption)
         {
             if (!IsOpen)
             {
@@ -139,7 +133,7 @@ namespace FenrirFS.Desktop
             return null;
         }
 
-        public override AFile Copy(string destinationPath, string destinationName, FileCollisionOption collisionOption)
+        public override IFile Copy(string destinationPath, string destinationName, FileCollisionOption collisionOption)
         {
             if (!IsOpen)
             {
@@ -221,13 +215,15 @@ namespace FenrirFS.Desktop
             Close();
 
             // Check for valid options
-            if (!FSHelpers.IsValidFileModeFileAccessOptions(fileAccess, fileMode))
+            if (Helpers.IsValidFileModeFileAccessOptions(fileAccess, fileMode))
                 throw new Exception("Invalid File Access and File Mode parameters!");
 
             // Open a Stream with the options
-            //var str = File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
             Stream = File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
-            
+
+            // ensure encoding is set properly
+            Encoding = Encoding;
+
             // Set FileAccess and FileMode
             FileAccess = fileAccess;
             FileMode = fileMode;
@@ -379,7 +375,7 @@ namespace FenrirFS.Desktop
 
             if (IsOpen && FileAccess != FileAccess.Read)
             {
-                line += FSHelpers.LineSeparator;
+                line += Helpers.LineSeparator;
                 byte[] buffer = new byte[line.Length];
 
                 buffer = Encoding.GetBytes(line);
@@ -422,7 +418,7 @@ namespace FenrirFS.Desktop
 
             if (!IsOpen)
             {
-                line += FSHelpers.LineSeparator;
+                line += Helpers.LineSeparator;
 
                 switch (writeMode)
                 {

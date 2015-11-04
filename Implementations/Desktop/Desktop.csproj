@@ -4,27 +4,24 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A379919-0AED-4AD6-B14E-CE9D9F6F1E26}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{99D928EC-1E9E-47F2-BDE3-A977E02FD762}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestingDesktop</RootNamespace>
-    <AssemblyName>TestingDesktop</AssemblyName>
+    <RootNamespace>FenrirFS.Desktop</RootNamespace>
+    <AssemblyName>FenrirFS.Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\Desktop\</OutputPath>
     <DefineConstants>TRACE;DEBUG;FS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,17 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>StrongName.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.0.5767.14863, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.0.0-beta-5\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,29 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\TestingCore\FileTests.cs">
-      <Link>Linked\FileTests.cs</Link>
+    <Compile Include="..\..\FenrirFS\Fenrir.cs">
+      <Link>Fenrir.cs</Link>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="FenrirHelpers.cs" />
+    <Compile Include="FenrirFile.cs" />
+    <Compile Include="FenrirFileSystem.cs" />
+    <Compile Include="FenrirFolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="StrongName.snk" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\..\FenrirFS Abstractions\FenrirFS Core.csproj">
+      <Project>{1a9e8e75-fff6-44ec-a20a-c4dfeb9a01b4}</Project>
+      <Name>FenrirFS Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\FenrirFS\FenrirFS.csproj">
       <Project>{777315ca-e739-4d16-9d35-bc927e482a2e}</Project>
       <Name>FenrirFS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Implementations\FenrirFS.FileSystem.Desktop\FenrirFS.FileSystem.Desktop.csproj">
-      <Project>{9d3f208d-8bb4-47a9-8323-4cfd24314341}</Project>
-      <Name>FenrirFS.FileSystem.Desktop</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
