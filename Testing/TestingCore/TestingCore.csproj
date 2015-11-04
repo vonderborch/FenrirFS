@@ -40,7 +40,7 @@
     <AssemblyOriginatorKeyFile>StrongName.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="FileTests.cs" />
+    <Compile Include="BasicFileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

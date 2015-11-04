@@ -1,13 +1,26 @@
-﻿using System;
+﻿/*
+ * This file is subject to the terms and conditions defined in the
+ * license.txt file, which is part of this source code package.
+ */
+
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace FenrirFS.Desktop
 {
+    /// <summary>
+    /// An implementation of an AFile.
+    /// </summary>
     public class FenrirFile : AFile
     {
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FenrirFile"/> class.
+        /// </summary>
+        /// <param name="path">The path.</param>
         public FenrirFile(string path) : base(path)
         {
         }
@@ -16,6 +29,12 @@ namespace FenrirFS.Desktop
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the encoding.
+        /// </summary>
+        /// <value>
+        /// The encoding.
+        /// </value>
         public override Encoding Encoding
         {
             get
@@ -79,6 +98,12 @@ namespace FenrirFS.Desktop
 
         #region Public Methods
 
+        /// <summary>
+        /// Changes the extension.
+        /// </summary>
+        /// <param name="extension">The extension.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <returns></returns>
         public override bool ChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullOrEmptyCheck(extension, nameof(extension));
@@ -114,7 +139,13 @@ namespace FenrirFS.Desktop
             return false;
         }
 
-        public override AFile Copy(string destination, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Copies the file.
+        /// </summary>
+        /// <param name="destination">The full path of the destination.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFile representing the copied file.</returns>
+        public override AFile Copy(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             if (!IsOpen)
             {
@@ -139,7 +170,49 @@ namespace FenrirFS.Desktop
             return null;
         }
 
-        public override AFile Copy(string destinationPath, string destinationName, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Copies the file.
+        /// </summary>
+        /// <param name="destinationPath">The destination path.</param>
+        /// <param name="destinationName">Name of the destination.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFile representing the copied file.</returns>
+        public override AFile Copy(AFolder destinationPath, string destinationName, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
+        {
+            if (!IsOpen)
+            {
+                Exceptions.NotNullCheck<AFolder>(destinationPath, nameof(destinationPath));
+                Exceptions.NotNullOrEmptyCheck(destinationName, nameof(destinationName));
+
+                string destination = System.IO.Path.Combine(destinationPath.ToString(), destinationName);
+
+                switch (collisionOption)
+                {
+                    case FileCollisionOption.FailIfExists:
+                        if (Fenrir.FileSystem.FileExists(destination))
+                            return null;
+                        break;
+
+                    case FileCollisionOption.GenerateUniqueName:
+                        destination = Fenrir.FileSystem.GenerateFileUniqueName(destination);
+                        break;
+                }
+
+                File.Copy(FullPath, destination, collisionOption == FileCollisionOption.ReplaceExisting);
+                return new FenrirFile(destination);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Copies the file.
+        /// </summary>
+        /// <param name="destinationPath">The destination path.</param>
+        /// <param name="destinationName">Name of the destination.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFile representing the copied file.</returns>
+        public override AFile Copy(string destinationPath, string destinationName, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             if (!IsOpen)
             {
@@ -167,6 +240,10 @@ namespace FenrirFS.Desktop
             return null;
         }
 
+        /// <summary>
+        /// Deletes the file.
+        /// </summary>
+        /// <returns>Whether the file was deleted (true) or not (false).</returns>
         public override bool Delete()
         {
             if (!IsOpen)
@@ -181,15 +258,58 @@ namespace FenrirFS.Desktop
             return false;
         }
 
-        public override bool Move(string destination, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Moves the file.
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>Whether the file was moved or not.</returns>
+        public override bool Move(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
-            Exceptions.NotNullOrEmptyCheck(destination, nameof(destination));
-
             if (!IsOpen)
             {
                 Exceptions.NotNullOrEmptyException(destination, nameof(destination));
 
-                string newPath = System.IO.Path.Combine(destination, Name, Extension);
+                switch (collisionOption)
+                {
+                    case FileCollisionOption.FailIfExists:
+                        if (Fenrir.FileSystem.FileExists(destination))
+                            return false;
+                        break;
+
+                    case FileCollisionOption.GenerateUniqueName:
+                        destination = Fenrir.FileSystem.GenerateFileUniqueName(destination);
+                        break;
+
+                    case FileCollisionOption.ReplaceExisting:
+                        if (Fenrir.FileSystem.FileExists(destination))
+                            File.Delete(destination);
+                        break;
+                }
+
+                File.Move(FullPath, destination);
+                SetupFile(destination);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Moves the file.
+        /// </summary>
+        /// <param name="destinationPath">The destination path.</param>
+        /// <param name="destinationName">Name of the destination.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>Whether the file was moved or not.</returns>
+        public override bool Move(AFolder destinationPath, string destinationName, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
+        {
+            if (!IsOpen)
+            {
+                Exceptions.NotNullCheck<AFolder>(destinationPath, nameof(destinationPath));
+                Exceptions.NotNullOrEmptyException(destinationName, nameof(destinationName));
+
+                string newPath = System.IO.Path.Combine(destinationPath.ToString(), destinationName);
                 switch (collisionOption)
                 {
                     case FileCollisionOption.FailIfExists:
@@ -215,6 +335,53 @@ namespace FenrirFS.Desktop
             return false;
         }
 
+        /// <summary>
+        /// Moves the file.
+        /// </summary>
+        /// <param name="destinationPath">The destination path.</param>
+        /// <param name="destinationName">Name of the destination.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>Whether the file was moved or not.</returns>
+        public override bool Move(string destinationPath, string destinationName, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
+        {
+            if (!IsOpen)
+            {
+                Exceptions.NotNullOrEmptyException(destinationPath, nameof(destinationPath));
+                Exceptions.NotNullOrEmptyException(destinationName, nameof(destinationName));
+
+                string newPath = System.IO.Path.Combine(destinationPath, destinationName);
+                switch (collisionOption)
+                {
+                    case FileCollisionOption.FailIfExists:
+                        if (Fenrir.FileSystem.FileExists(newPath))
+                            return false;
+                        break;
+
+                    case FileCollisionOption.GenerateUniqueName:
+                        newPath = Fenrir.FileSystem.GenerateFileUniqueName(newPath);
+                        break;
+
+                    case FileCollisionOption.ReplaceExisting:
+                        if (Fenrir.FileSystem.FileExists(newPath))
+                            File.Delete(newPath);
+                        break;
+                }
+
+                File.Move(FullPath, newPath);
+                SetupFile(newPath);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Opens the file to the Stream.
+        /// </summary>
+        /// <param name="fileAccess">The file access.</param>
+        /// <param name="fileMode">The file mode.</param>
+        /// <returns>A reference to the Stream.</returns>
+        /// <exception cref="System.Exception">Invalid File Access and File Mode parameters!</exception>
         public override Stream Open(FileAccess fileAccess, FileMode fileMode)
         {
             // Close the current Stream, if its open
@@ -235,12 +402,40 @@ namespace FenrirFS.Desktop
             return Stream;
         }
 
+        /// <summary>
+        /// Reads all the contents of the file.
+        /// </summary>
+        /// <returns>A string representing the contents of the file.</returns>
         public override string ReadAll()
         {
             return File.ReadAllText(FullPath);
         }
 
-        public override bool Rename(string name, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Reads all lines in the file.
+        /// </summary>
+        /// <returns>An array of strings, each item representing a line in the file.</returns>
+        public override string[] ReadAllLines()
+        {
+            return File.ReadAllLines(FullPath);
+        }
+
+        /// <summary>
+        /// Reads a line.
+        /// </summary>
+        /// <returns>A string representing a line in the file.</returns>
+        public override IEnumerable<string> ReadLine()
+        {
+            return File.ReadLines(FullPath);
+        }
+
+        /// <summary>
+        /// Renames the file.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>Whether the file was renamed (true) or not (false).</returns>
+        public override bool Rename(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
 
@@ -275,6 +470,11 @@ namespace FenrirFS.Desktop
             return false;
         }
 
+        /// <summary>
+        /// Reads from the stream.
+        /// </summary>
+        /// <param name="chars">The number of chars to read.</param>
+        /// <returns>A string representing the read characters.</returns>
         public override string StreamRead(int chars)
         {
             if (chars < 0)
@@ -292,6 +492,10 @@ namespace FenrirFS.Desktop
             return null;
         }
 
+        /// <summary>
+        /// Reads all contents from the stream.
+        /// </summary>
+        /// <returns>A string representing all the contents in the stream.</returns>
         public override string StreamReadAll()
         {
             if (IsOpen && FileAccess != FileAccess.Write)
@@ -306,6 +510,10 @@ namespace FenrirFS.Desktop
             return null;
         }
 
+        /// <summary>
+        /// Reads a line from the stream.
+        /// </summary>
+        /// <returns>A string representing a line.</returns>
         public override string StreamReadLine()
         {
             if (IsOpen && FileAccess != FileAccess.Write)
@@ -341,6 +549,11 @@ namespace FenrirFS.Desktop
             return null;
         }
 
+        /// <summary>
+        /// Sets the position of the stream.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <returns>Whether the position was set (true) or not (false).</returns>
         public override bool StreamSetPosition(int position)
         {
             if (position < 0)
@@ -355,6 +568,11 @@ namespace FenrirFS.Desktop
             return false;
         }
 
+        /// <summary>
+        /// Writes contents to the stream.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <returns>Whether the stream was written to (true) or not (false).</returns>
         public override bool StreamWrite(string contents)
         {
             Exceptions.NotNullOrEmptyCheck(contents, nameof(contents));
@@ -373,6 +591,11 @@ namespace FenrirFS.Desktop
             return false;
         }
 
+        /// <summary>
+        /// Writes a line to the stream.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <returns>Whether the line was written (true) or not (false).</returns>
         public override bool StreamWriteLine(string line)
         {
             Exceptions.NotNullOrEmptyCheck(line, nameof(line));
@@ -392,7 +615,13 @@ namespace FenrirFS.Desktop
             return false;
         }
 
-        public override bool WriteAll(string contents, WriteMode writeMode)
+        /// <summary>
+        /// Writes contents to the file.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="writeMode">The write mode. Defaults to Truncate.</param>
+        /// <returns>Whether the contents were written (true) or not (false).</returns>
+        public override bool WriteAll(string contents, WriteMode writeMode = WriteMode.Truncate)
         {
             Exceptions.NotNullOrEmptyCheck(contents, nameof(contents));
 
@@ -416,7 +645,13 @@ namespace FenrirFS.Desktop
             return false;
         }
 
-        public override bool WriteLine(string line, WriteMode writeMode)
+        /// <summary>
+        /// Writes a line to the file.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <param name="writeMode">The write mode. Defaults to Append.</param>
+        /// <returns>Whether the line was written (true) or not (false).</returns>
+        public override bool WriteLine(string line, WriteMode writeMode = WriteMode.Append)
         {
             Exceptions.NotNullOrEmptyCheck(line, nameof(line));
 

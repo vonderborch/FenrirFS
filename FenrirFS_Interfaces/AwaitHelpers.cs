@@ -1,4 +1,9 @@
-﻿using System.Threading;
+﻿/*
+ * This file is subject to the terms and conditions defined in the
+ * license.txt file, which is part of this source code package.
+ */
+
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FenrirFS
@@ -9,6 +14,18 @@ namespace FenrirFS
     public static class AwaitHelpers
     {
         #region Public Methods
+
+        /// <summary>
+        /// Checks the cancellation token and returns a new token if the supplied value is null.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token to check. Defaults to null.</param>
+        /// <returns>A cancellation token</returns>
+        public static CancellationToken CheckCancellationToken(CancellationToken? cancellationToken = null)
+        {
+            return cancellationToken == null
+                ? new CancellationToken()
+                : (CancellationToken)cancellationToken;
+        }
 
         /// <summary>
         /// When called in an async function, will return a valid await for a new task.

@@ -1,18 +1,23 @@
-﻿using FenrirFS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/*
+ * This file is subject to the terms and conditions defined in the
+ * license.txt file, which is part of this source code package.
+ */
+
 #if FS
+
+using FenrirFS;
 using NUnit.Framework;
+
 #endif
 
 namespace TestingCore
 {
 #if FS
+
     [TestFixture]
 #endif
-    public static class FileTests
+
+    public static class BasicFileTests
     {
         private const string TestFile1Name = "test1.txt";
         private const string TestFile2Name = "test2.txt";
@@ -30,8 +35,10 @@ namespace TestingCore
         private const string File4Text2 = "If this works";
 
 #if FS
+
         [Test]
 #endif
+
         public static void TestSuite()
         {
             CreateFile();
@@ -41,7 +48,7 @@ namespace TestingCore
 
             ///////// PASSED!
 #if FS
-            Assert.Pass("All Tests Passed");
+            Assert.Pass("Passed");
 #endif
         }
 
@@ -49,11 +56,10 @@ namespace TestingCore
         {
 #if FS
             AFolder userPath = Fenrir.FileSystem.StorageUser;
-            
+
             ////////// FILE 1 - Full path
             AFile file1 = Fenrir.FileSystem.CreateFile(FSHelpers.CombinePath(userPath.ToString(), TestFile1Name), FileCollisionOption.ReplaceExisting);
             Assert.AreEqual(true, Fenrir.FileSystem.FileExists(file1.FullPath), "CreateFile - File 1 failed! {0}", file1.FullPath);
-
 
             ////////// FILE 2 - Path + name
             AFile file2 = Fenrir.FileSystem.CreateFile(userPath.ToString(), TestFile2Name, FileCollisionOption.ReplaceExisting);
@@ -80,7 +86,6 @@ namespace TestingCore
             path = FSHelpers.CombinePath(userPath.ToString(), TestFile1Name);
             AFile file1 = Fenrir.FileSystem.OpenFile(FSHelpers.CombinePath(userPath.ToString(), TestFile1Name), OpenMode.FailIfDoesNotExist);
             Assert.AreEqual(path, file1.ToString(), "OpenFile - File 1 failed! {0}", file1.FullPath);
-
 
             ////////// FILE 2 - Full path
             path = FSHelpers.CombinePath(userPath.ToString(), TestFile2Name);
@@ -125,10 +130,10 @@ namespace TestingCore
             AFile file4 = Fenrir.FileSystem.OpenFile(userPath, TestFile4Name, OpenMode.FailIfDoesNotExist);
             Assert.AreEqual(true, file4.WriteLine(File4Text1, WriteMode.Truncate), "WriteToFile - File 4 failed 1! {0}", file4.FullPath);
             Assert.AreEqual(true, file4.WriteLine(File4Text2, WriteMode.Truncate), "WriteToFile - File 4 failed 2! {0}", file4.FullPath);
-            
+
 #endif
         }
-        
+
         private static void ReadFile()
         {
 #if FS
@@ -154,7 +159,7 @@ namespace TestingCore
             output = File4Text2 + FSHelpers.LineSeparator;
             AFile file4 = Fenrir.FileSystem.OpenFile(userPath, TestFile4Name, OpenMode.FailIfDoesNotExist);
             Assert.AreEqual(output, file4.ReadAll(), "ReadFile - File 4 failed! {0}", file4.FullPath);
-            
+
 #endif
         }
     }

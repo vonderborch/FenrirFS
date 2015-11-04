@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * This file is subject to the terms and conditions defined in the
+ * license.txt file, which is part of this source code package.
+ */
+
+using System;
 using System.Globalization;
 using System.Text;
 

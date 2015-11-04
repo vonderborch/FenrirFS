@@ -53,8 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\TestingCore\FileTests.cs">
-      <Link>Linked\FileTests.cs</Link>
+    <Compile Include="..\TestingCore\BasicFileTests.cs">
+      <Link>Linked\BasicFileTests.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

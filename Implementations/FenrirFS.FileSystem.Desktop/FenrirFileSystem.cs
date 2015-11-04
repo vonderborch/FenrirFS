@@ -1,13 +1,24 @@
-﻿using System;
+﻿/*
+ * This file is subject to the terms and conditions defined in the
+ * license.txt file, which is part of this source code package.
+ */
+
+using System;
 using System.IO;
 using System.Text;
 
 namespace FenrirFS.Desktop
 {
+    /// <summary>
+    /// An implementation of an AFileSystem.
+    /// </summary>
     public class FenrirFileSystem : AFileSystem
     {
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FenrirFileSystem"/> class.
+        /// </summary>
         public FenrirFileSystem()
         {
             DefaultEncoding = Encoding.Unicode;
@@ -21,7 +32,13 @@ namespace FenrirFS.Desktop
 
         #region Public Methods
 
-        public override AFile CreateFile(string path, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Creates a file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFile representing the file.</returns>
+        public override AFile CreateFile(string path, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
 
@@ -45,7 +62,14 @@ namespace FenrirFS.Desktop
             return new FenrirFile(file);
         }
 
-        public override AFile CreateFile(string directory, string name, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Creates a file.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFile representing the file.</returns>
+        public override AFile CreateFile(string directory, string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullOrEmptyCheck(directory, nameof(directory));
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
@@ -67,7 +91,14 @@ namespace FenrirFS.Desktop
             return new FenrirFile(file);
         }
 
-        public override AFile CreateFile(AFolder directory, string name, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Creates a file.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFile representing the file.</returns>
+        public override AFile CreateFile(AFolder directory, string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullCheck<AFolder>(directory, nameof(directory));
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
@@ -89,7 +120,13 @@ namespace FenrirFS.Desktop
             return new FenrirFile(file);
         }
 
-        public override AFolder CreateFolder(string path, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Creates a folder.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFolder representing the folder.</returns>
+        public override AFolder CreateFolder(string path, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
 
@@ -113,7 +150,14 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(folder);
         }
 
-        public override AFolder CreateFolder(string directory, string name, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Creates a folder.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFolder representing the folder.</returns>
+        public override AFolder CreateFolder(string directory, string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullOrEmptyCheck(directory, nameof(directory));
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
@@ -135,7 +179,14 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(folder);
         }
 
-        public override AFolder CreateFolder(AFolder directory, string name, FileCollisionOption collisionOption)
+        /// <summary>
+        /// Creates a folder.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+        /// <returns>An AFolder representing the folder.</returns>
+        public override AFolder CreateFolder(AFolder directory, string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullCheck<AFolder>(directory, nameof(directory));
             Exceptions.NotNullOrEmptyCheck(name, nameof(name));
@@ -157,6 +208,11 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(folder);
         }
 
+        /// <summary>
+        /// Checks whether the item at the specified path exists.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>The results of the existence check.</returns>
         public override ExistenceCheckResult Exists(string path)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
@@ -174,6 +230,11 @@ namespace FenrirFS.Desktop
             return ExistenceCheckResult.NotFound;
         }
 
+        /// <summary>
+        /// Checks if a file exists at the path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>Whether the file exists (true) or not (false).</returns>
         public override bool FileExists(string path)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
@@ -181,6 +242,11 @@ namespace FenrirFS.Desktop
             return File.Exists(path);
         }
 
+        /// <summary>
+        /// Checks if a folder exists at the path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>Whether the folder exists (true) or not (false).</returns>
         public override bool FolderExists(string path)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
@@ -188,30 +254,12 @@ namespace FenrirFS.Desktop
             return Directory.Exists(path);
         }
 
-        public override AFile GetFileFromPath(string path)
-        {
-            Exceptions.NotNullOrEmptyCheck(path, nameof(path));
-
-            if (Fenrir.FileSystem.FileExists(path))
-            {
-                return new FenrirFile(path);
-            }
-
-            return null;
-        }
-
-        public override AFolder GetFolderFromPath(string path)
-        {
-            Exceptions.NotNullOrEmptyCheck(path, nameof(path));
-
-            if (Fenrir.FileSystem.FolderExists(path))
-            {
-                return new FenrirFolder(path);
-            }
-
-            return null;
-        }
-
+        /// <summary>
+        /// Gets a file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="openMode">The open mode. Defaults to Normal.</param>
+        /// <returns>The file.</returns>
         public override AFile OpenFile(string path, OpenMode openMode)
         {
             if (!Fenrir.FileSystem.FileExists(path))
@@ -221,6 +269,7 @@ namespace FenrirFS.Desktop
                     case OpenMode.Normal:
                         Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
                         break;
+
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
                 }
@@ -229,6 +278,13 @@ namespace FenrirFS.Desktop
             return new FenrirFile(path);
         }
 
+        /// <summary>
+        /// Gets a file.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="openMode">The open mode. Defaults to Normal.</param>
+        /// <returns>The file.</returns>
         public override AFile OpenFile(string directory, string file, OpenMode openMode)
         {
             string path = FSHelpers.CombinePath(directory, file);
@@ -240,6 +296,7 @@ namespace FenrirFS.Desktop
                     case OpenMode.Normal:
                         Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
                         break;
+
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
                 }
@@ -248,6 +305,13 @@ namespace FenrirFS.Desktop
             return new FenrirFile(path);
         }
 
+        /// <summary>
+        /// Gets a file.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="openMode">The open mode. Defaults to Normal.</param>
+        /// <returns>The file.</returns>
         public override AFile OpenFile(AFolder directory, string file, OpenMode openMode)
         {
             string path = FSHelpers.CombinePath(directory.ToString(), file);
@@ -259,6 +323,7 @@ namespace FenrirFS.Desktop
                     case OpenMode.Normal:
                         Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
                         break;
+
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
                 }
@@ -267,6 +332,12 @@ namespace FenrirFS.Desktop
             return new FenrirFile(path);
         }
 
+        /// <summary>
+        /// Gets a folder.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="openMode">The open mode. Defaults to Normal.</param>
+        /// <returns>The folder.</returns>
         public override AFolder OpenFolder(string path, OpenMode openMode)
         {
             if (!Fenrir.FileSystem.FolderExists(path))
@@ -276,6 +347,7 @@ namespace FenrirFS.Desktop
                     case OpenMode.Normal:
                         Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
                         break;
+
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));
                 }
@@ -284,6 +356,13 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(path);
         }
 
+        /// <summary>
+        /// Gets a folder.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="folder">The folder.</param>
+        /// <param name="openMode">The open mode. Defaults to Normal.</param>
+        /// <returns>The folder.</returns>
         public override AFolder OpenFolder(string directory, string folder, OpenMode openMode)
         {
             string path = FSHelpers.CombinePath(directory, folder);
@@ -295,6 +374,7 @@ namespace FenrirFS.Desktop
                     case OpenMode.Normal:
                         Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
                         break;
+
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));
                 }
@@ -303,6 +383,13 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(path);
         }
 
+        /// <summary>
+        /// Gets a folder.
+        /// </summary>
+        /// <param name="directory">The directory.</param>
+        /// <param name="folder">The folder.</param>
+        /// <param name="openMode">The open mode. Defaults to Normal.</param>
+        /// <returns>The folder.</returns>
         public override AFolder OpenFolder(AFolder directory, string folder, OpenMode openMode)
         {
             string path = FSHelpers.CombinePath(directory.ToString(), folder);
@@ -314,6 +401,7 @@ namespace FenrirFS.Desktop
                     case OpenMode.Normal:
                         Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
                         break;
+
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));
                 }
@@ -322,6 +410,11 @@ namespace FenrirFS.Desktop
             return new FenrirFolder(path);
         }
 
+        /// <summary>
+        /// Sets the user's storage folder.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>Whether the folder was set (true) or not (false).</returns>
         public override bool SetStorageUser(string path)
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
