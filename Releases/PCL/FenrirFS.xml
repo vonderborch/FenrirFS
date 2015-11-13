@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FenrirFS</name>
+    </assembly>
+    <members>
+        <member name="T:FenrirFS.Fenrir">
+            <summary>
+            Provides access to the implementation of <see cref="T:FenrirFS.AFileSystem"/> for the current platform.
+            </summary>
+        </member>
+        <member name="F:FenrirFS.Fenrir.instance">
+            <summary>
+            The AFileSystem instance
+            </summary>
+        </member>
+        <member name="P:FenrirFS.Fenrir.FileSystem">
+            <summary>
+            Gets the current <see cref="T:FenrirFS.AFileSystem"/>.
+            </summary>
+            <value>
+            The file system.
+            </value>
+        </member>
+        <member name="M:FenrirFS.Fenrir.CreateFileSystem">
+            <summary>
+            Creates the correct implementation for the file system, based on the current platform.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FenrirFS.FSHelpers">
+            <summary>
+            Various helper functions.
+            </summary>
+        </member>
+        <member name="P:FenrirFS.FSHelpers.DirectorySeparator">
+            <summary>
+            Gets the directory separator for the current platform.
+            </summary>
+            <value>The directory separator.</value>
+        </member>
+        <member name="P:FenrirFS.FSHelpers.LineSeparator">
+            <summary>
+            Gets the line separator for the current platform.
+            </summary>
+            <value>The line separator.</value>
+        </member>
+        <member name="M:FenrirFS.FSHelpers.CombinePath(System.String[])">
+            <summary>
+            Combines string parts into a path.
+            </summary>
+            <param name="parts">A string to combine.</param>
+            <returns>A combined path string.</returns>
+        </member>
+        <member name="M:FenrirFS.FSHelpers.Format(System.String,System.Object[])">
+            <summary>
+            Formats a string with the arguments.
+            </summary>
+            <param name="format">The format.</param>
+            <param name="arguments">The arguments.</param>
+            <returns>A formatted string.</returns>
+        </member>
+        <member name="M:FenrirFS.FSHelpers.IsValidFileModeFileAccessOptions(FenrirFS.FileAccess,FenrirFS.FileMode)">
+            <summary>
+            Returns whether a specified FileAccess and FileMode combination is valid.
+            </summary>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>Whether the FileAccess and FileMode combination is valid.</returns>
+        </member>
+    </members>
+</doc>

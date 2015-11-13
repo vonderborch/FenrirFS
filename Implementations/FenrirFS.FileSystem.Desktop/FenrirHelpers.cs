@@ -39,6 +39,26 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
+        /// Converts a System.IO.FileAttributes object to a Fenrir.FileAttributes object.
+        /// </summary>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns>The attributes.</returns>
+        public static FileAttributes SystemFileAttributesToFenrirFileAttributes(System.IO.FileAttributes attributes)
+        {
+            return (FileAttributes)((int)attributes);
+        }
+
+        /// <summary>
+        /// Converts a Fenrir.FileAttributes object to a System.IO.FileAttributes object.
+        /// </summary>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns>The attributes.</returns>
+        public static System.IO.FileAttributes FenrirFileAttributesToSystemFileAttributes(FileAttributes attributes)
+        {
+            return (System.IO.FileAttributes)((int)attributes);
+        }
+
+        /// <summary>
         /// Converts a Fenrir.FileMode object to a System.IO.FileMode object.
         /// </summary>
         /// <param name="fileMode">The file mode.</param>

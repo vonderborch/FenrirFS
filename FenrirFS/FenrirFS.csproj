@@ -16,6 +16,15 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <AssemblyInfoFilePath>..\common\CommonAssemblyInfo.cs</AssemblyInfoFilePath>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.IncrementOnDemand.Increment.DateStamp</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.IncrementOnDemand.Increment.DateStamp</AssemblyFileVersionSettings>
+    <AssemblyInfoVersionSettings>None.IncrementOnDemand.Increment.DateStamp</AssemblyInfoVersionSettings>
+    <PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
+    <AssemblyVersion>1.0.2.15317</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,6 +72,9 @@
     </Compile>
     <Compile Include="..\FenrirFS_Interfaces\Enums\FileAccess.cs">
       <Link>FileAccess.cs</Link>
+    </Compile>
+    <Compile Include="..\FenrirFS_Interfaces\Enums\FileAttributes.cs">
+      <Link>FileAttributes.cs</Link>
     </Compile>
     <Compile Include="..\FenrirFS_Interfaces\Enums\FileCollisionOption.cs">
       <Link>FileCollisionOption.cs</Link>

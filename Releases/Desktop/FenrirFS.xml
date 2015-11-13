@@ -1,0 +1,780 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FenrirFS</name>
+    </assembly>
+    <members>
+        <member name="T:FenrirFS.Fenrir">
+            <summary>
+            Provides access to the implementation of <see cref="T:FenrirFS.AFileSystem"/> for the current platform.
+            </summary>
+        </member>
+        <member name="F:FenrirFS.Fenrir.instance">
+            <summary>
+            The AFileSystem instance
+            </summary>
+        </member>
+        <member name="P:FenrirFS.Fenrir.FileSystem">
+            <summary>
+            Gets the current <see cref="T:FenrirFS.AFileSystem"/>.
+            </summary>
+            <value>
+            The file system.
+            </value>
+        </member>
+        <member name="M:FenrirFS.Fenrir.CreateFileSystem">
+            <summary>
+            Creates the correct implementation for the file system, based on the current platform.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FenrirFS.FSHelpers">
+            <summary>
+            Various helper functions.
+            </summary>
+        </member>
+        <member name="P:FenrirFS.FSHelpers.DirectorySeparator">
+            <summary>
+            Gets the directory separator for the current platform.
+            </summary>
+            <value>The directory separator.</value>
+        </member>
+        <member name="P:FenrirFS.FSHelpers.LineSeparator">
+            <summary>
+            Gets the line separator for the current platform.
+            </summary>
+            <value>The line separator.</value>
+        </member>
+        <member name="M:FenrirFS.FSHelpers.CombinePath(System.String[])">
+            <summary>
+            Combines string parts into a path.
+            </summary>
+            <param name="parts">A string to combine.</param>
+            <returns>A combined path string.</returns>
+        </member>
+        <member name="M:FenrirFS.FSHelpers.Format(System.String,System.Object[])">
+            <summary>
+            Formats a string with the arguments.
+            </summary>
+            <param name="format">The format.</param>
+            <param name="arguments">The arguments.</param>
+            <returns>A formatted string.</returns>
+        </member>
+        <member name="M:FenrirFS.FSHelpers.IsValidFileModeFileAccessOptions(FenrirFS.FileAccess,FenrirFS.FileMode)">
+            <summary>
+            Returns whether a specified FileAccess and FileMode combination is valid.
+            </summary>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>Whether the FileAccess and FileMode combination is valid.</returns>
+        </member>
+        <member name="T:FenrirFS.Desktop.FenrirFileSystem">
+            <summary>
+            An implementation of an AFileSystem.
+            </summary>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FenrirFS.Desktop.FenrirFileSystem"/> class.
+            </summary>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.CreateFile(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates a file.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFile representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.CreateFile(System.String,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates a file.
+            </summary>
+            <param name="directory">The directory.</param>
+            <param name="name">The name.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFile representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.CreateFile(FenrirFS.AFolder,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates a file.
+            </summary>
+            <param name="directory">The directory.</param>
+            <param name="name">The name.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFile representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.CreateFolder(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates a folder.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFolder representing the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.CreateFolder(System.String,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates a folder.
+            </summary>
+            <param name="directory">The directory.</param>
+            <param name="name">The name.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFolder representing the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.CreateFolder(FenrirFS.AFolder,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates a folder.
+            </summary>
+            <param name="directory">The directory.</param>
+            <param name="name">The name.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFolder representing the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.Exists(System.String)">
+            <summary>
+            Checks whether the item at the specified path exists.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>The results of the existence check.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.FileExists(System.String)">
+            <summary>
+            Checks if a file exists at the path.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>Whether the file exists (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.FolderExists(System.String)">
+            <summary>
+            Checks if a folder exists at the path.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>Whether the folder exists (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.OpenFile(System.String,FenrirFS.OpenMode)">
+            <summary>
+            Gets a file.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="openMode">The open mode. Defaults to Normal.</param>
+            <returns>The file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.OpenFile(System.String,System.String,FenrirFS.OpenMode)">
+            <summary>
+            Gets a file.
+            </summary>
+            <param name="directory">The directory.</param>
+            <param name="file">The file.</param>
+            <param name="openMode">The open mode. Defaults to Normal.</param>
+            <returns>The file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.OpenFile(FenrirFS.AFolder,System.String,FenrirFS.OpenMode)">
+            <summary>
+            Gets a file.
+            </summary>
+            <param name="directory">The directory.</param>
+            <param name="file">The file.</param>
+            <param name="openMode">The open mode. Defaults to Normal.</param>
+            <returns>The file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.OpenFolder(System.String,FenrirFS.OpenMode)">
+            <summary>
+            Gets a folder.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="openMode">The open mode. Defaults to Normal.</param>
+            <returns>The folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.OpenFolder(System.String,System.String,FenrirFS.OpenMode)">
+            <summary>
+            Gets a folder.
+            </summary>
+            <param name="directory">The directory.</param>
+            <param name="folder">The folder.</param>
+            <param name="openMode">The open mode. Defaults to Normal.</param>
+            <returns>The folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.OpenFolder(FenrirFS.AFolder,System.String,FenrirFS.OpenMode)">
+            <summary>
+            Gets a folder.
+            </summary>
+            <param name="directory">The directory.</param>
+            <param name="folder">The folder.</param>
+            <param name="openMode">The open mode. Defaults to Normal.</param>
+            <returns>The folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFileSystem.SetStorageUser(System.String)">
+            <summary>
+            Sets the user's storage folder.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>Whether the folder was set (true) or not (false).</returns>
+        </member>
+        <member name="T:FenrirFS.Desktop.FenrirFile">
+            <summary>
+            An implementation of an AFile.
+            </summary>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FenrirFS.Desktop.FenrirFile"/> class.
+            </summary>
+            <param name="path">The path.</param>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.CreationTime">
+            <summary>
+            Gets the creation time.
+            </summary>
+            <value>
+            The creation time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.CreationTimeUtc">
+            <summary>
+            Gets the UTC creation time.
+            </summary>
+            <value>
+            The creation time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.Encoding">
+            <summary>
+            Gets or sets the encoding.
+            </summary>
+            <value>
+            The encoding.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.FileAttributes">
+            <summary>
+            Gets or sets the file attributes.
+            </summary>
+            <value>
+            The file attributes.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.LastAccessedTime">
+            <summary>
+            Gets the last accessed time.
+            </summary>
+            <value>
+            The last accessed time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.LastAccessedTimeUtc">
+            <summary>
+            Gets the UTC last accessed time.
+            </summary>
+            <value>
+            The last accessed time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.LastModifiedTime">
+            <summary>
+            Gets the last modified time.
+            </summary>
+            <value>
+            The last modified time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.LastModifiedTimeUtc">
+            <summary>
+            Gets the UTC last modified time.
+            </summary>
+            <value>
+            The last modified time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFile.Size">
+            <summary>
+            Gets the size of the file, in bytes.
+            </summary>
+            <value>
+            The size.
+            </value>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.ChangeExtension(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Changes the extension.
+            </summary>
+            <param name="extension">The extension.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Copy(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies the file.
+            </summary>
+            <param name="destination">The full path of the destination.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFile representing the copied file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Copy(FenrirFS.AFolder,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies the file.
+            </summary>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFile representing the copied file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Copy(System.String,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies the file.
+            </summary>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>An AFile representing the copied file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Delete">
+            <summary>
+            Deletes the file.
+            </summary>
+            <returns>Whether the file was deleted (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Move(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Moves the file.
+            </summary>
+            <param name="destination">The destination.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>Whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Move(FenrirFS.AFolder,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Moves the file.
+            </summary>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>Whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Move(System.String,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Moves the file.
+            </summary>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>Whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Open(FenrirFS.FileAccess,FenrirFS.FileMode)">
+            <summary>
+            Opens the file to the Stream.
+            </summary>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>A reference to the Stream.</returns>
+            <exception cref="T:System.Exception">Invalid File Access and File Mode parameters!</exception>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.ReadAll">
+            <summary>
+            Reads all the contents of the file.
+            </summary>
+            <returns>A string representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.ReadAllAsXElement">
+            <summary>
+            Reads all as the contents of the file as an XDocument.
+            </summary>
+            <returns>An XDocument representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.ReadAllLines">
+            <summary>
+            Reads all lines in the file.
+            </summary>
+            <returns>An array of strings, each item representing a line in the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.ReadLine">
+            <summary>
+            Reads a line.
+            </summary>
+            <returns>A string representing a line in the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.Rename(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Renames the file.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
+            <returns>Whether the file was renamed (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.StreamRead(System.Int32)">
+            <summary>
+            Reads from the stream.
+            </summary>
+            <param name="chars">The number of chars to read.</param>
+            <returns>A string representing the read characters.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.StreamReadAll">
+            <summary>
+            Reads all contents from the stream.
+            </summary>
+            <returns>A string representing all the contents in the stream.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.StreamReadLine">
+            <summary>
+            Reads a line from the stream.
+            </summary>
+            <returns>A string representing a line.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.StreamSetPosition(System.Int32)">
+            <summary>
+            Sets the position of the stream.
+            </summary>
+            <param name="position">The position.</param>
+            <returns>Whether the position was set (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.StreamWrite(System.String)">
+            <summary>
+            Writes contents to the stream.
+            </summary>
+            <param name="contents">The contents.</param>
+            <returns>Whether the stream was written to (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.StreamWriteLine(System.String)">
+            <summary>
+            Writes a line to the stream.
+            </summary>
+            <param name="line">The line.</param>
+            <returns>Whether the line was written (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.WriteAll(System.String,FenrirFS.WriteMode)">
+            <summary>
+            Writes contents to the file.
+            </summary>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode. Defaults to Truncate.</param>
+            <returns>Whether the contents were written (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFile.WriteLine(System.String,FenrirFS.WriteMode)">
+            <summary>
+            Writes a line to the file.
+            </summary>
+            <param name="line">The line.</param>
+            <param name="writeMode">The write mode. Defaults to Append.</param>
+            <returns>Whether the line was written (true) or not (false).</returns>
+        </member>
+        <member name="T:FenrirFS.Desktop.FenrirFolder">
+            <summary>
+            An implementation of an AFolder.
+            </summary>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FenrirFS.Desktop.FenrirFolder"/> class.
+            </summary>
+            <param name="path">The path.</param>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFolder.CreationTime">
+            <summary>
+            Gets the creation time.
+            </summary>
+            <value>
+            The creation time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFolder.CreationTimeUtc">
+            <summary>
+            Gets the UTC creation time.
+            </summary>
+            <value>
+            The creation time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFolder.LastAccessedTime">
+            <summary>
+            Gets the last accessed time.
+            </summary>
+            <value>
+            The last accessed time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFolder.LastAccessedTimeUtc">
+            <summary>
+            Gets the UTC last accessed time.
+            </summary>
+            <value>
+            The last accessed time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFolder.LastModifiedTime">
+            <summary>
+            Gets the last modified time.
+            </summary>
+            <value>
+            The last modified time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFolder.LastModifiedTimeUtc">
+            <summary>
+            Gets the UTC last modified time.
+            </summary>
+            <value>
+            The last modified time.
+            </value>
+        </member>
+        <member name="P:FenrirFS.Desktop.FenrirFolder.Size">
+            <summary>
+            Gets the size of the folder, in bytes.
+            </summary>
+            <value>
+            The size.
+            </value>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.Copy(System.String,System.String,FenrirFS.FolderCollisionOption,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies the folder to the destination.
+            </summary>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="folderCollisionOption">The folder collision option.</param>
+            <param name="fileCollisionOption">The file collision option.</param>
+            <returns>An AFolder representing the new folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.Copy(System.String,FenrirFS.FolderCollisionOption,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies the folder to the destination.
+            </summary>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="folderCollisionOption">The folder collision option.</param>
+            <param name="fileCollisionOption">The file collision option.</param>
+            <returns>An AFolder representing the new folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.Copy(FenrirFS.AFolder,System.String,FenrirFS.FolderCollisionOption,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies the folder to the destination.
+            </summary>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="folderCollisionOption">The folder collision option.</param>
+            <param name="fileCollisionOption">The file collision option.</param>
+            <returns>An AFolder representing the new folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.CopyFile(System.String,System.String,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies a file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>An AFile representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.CopyFile(System.String,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies a file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>An AFile representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.CopyFile(System.String,FenrirFS.AFolder,System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies a file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>An AFile representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.CopyFolder(System.String,System.String,System.String,FenrirFS.FolderCollisionOption,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies a folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="folderCollisionOption">The folder collision option.</param>
+            <param name="fileCollisionOption">The file collision option.</param>
+            <returns>An AFolder representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.CopyFolder(System.String,System.String,FenrirFS.FolderCollisionOption,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies a folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="folderCollisionOption">The folder collision option.</param>
+            <param name="fileCollisionOption">The file collision option.</param>
+            <returns>An AFolder representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.CopyFolder(System.String,FenrirFS.AFolder,System.String,FenrirFS.FolderCollisionOption,FenrirFS.FileCollisionOption)">
+            <summary>
+            Copies a folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="folderCollisionOption">The folder collision option.</param>
+            <param name="fileCollisionOption">The file collision option.</param>
+            <returns>An AFolder representing the file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.CreateFile(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates a file in this directory.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>The new file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.CreateFolder(System.String,FenrirFS.FolderCollisionOption)">
+            <summary>
+            Creates a folder in this directory.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>The new folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.Delete">
+            <summary>
+            Deletes this folder.
+            </summary>
+            <returns>Whether this folder was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.DeleteFile(System.String)">
+            <summary>
+            Deletes a file in this directory.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Whether the file was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.DeleteFolder(System.String)">
+            <summary>
+            Deletes a folder in this directory.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Whether the folder was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.FileExists(System.String)">
+            <summary>
+            Checks if a file exists in this directory.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Whether the file exists (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.FolderExists(System.String)">
+            <summary>
+            Checks if a folder exists in this directory.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Whether the folder exists (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.GetFileNames">
+            <summary>
+            Gets the names of all files in this folder.
+            </summary>
+            <returns>A list of all file names in this folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.GetFiles">
+            <summary>
+            Gets the files in this folder.
+            </summary>
+            <returns>A list of all files in this folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.GetFolderNames">
+            <summary>
+            Gets the names of all folders in this folder.
+            </summary>
+            <returns>A list of all folders names in this folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.GetFolders">
+            <summary>
+            Gets the folders in this folder.
+            </summary>
+            <returns>A AFolder list representing all folders in this folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.GetParentFolder">
+            <summary>
+            Gets the parent folder of this folder.
+            </summary>
+            <returns>The parent folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.Move(System.String,System.String,FenrirFS.FolderCollisionOption)">
+            <summary>
+            Moves this folder to the specified destination.
+            </summary>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>Whether the folder was moved (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.Move(System.String,FenrirFS.FolderCollisionOption)">
+            <summary>
+            Moves this folder to the specified destination.
+            </summary>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>Whether the folder was moved (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.Move(FenrirFS.AFolder,System.String,FenrirFS.FolderCollisionOption)">
+            <summary>
+            Moves this folder to the specified destination.
+            </summary>
+            <param name="destinationPath">The destination path.</param>
+            <param name="destinationName">Name of the destination.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>Whether the folder was moved (true) or not (false).</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.OpenFile(System.String)">
+            <summary>
+            Gets the file.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>The file.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.OpenFolder(System.String)">
+            <summary>
+            Gets the folder.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>The folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirFolder.Rename(System.String,FenrirFS.FolderCollisionOption)">
+            <summary>
+            Renames the folder.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>Whether the folder was renamed (true) or not (false).</returns>
+        </member>
+        <member name="T:FenrirFS.Desktop.FenrirHelpers">
+            <summary>
+            Various helpers for the desktop implementation.
+            </summary>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirHelpers.FenrirFileAccessToSystemFileAccess(FenrirFS.FileAccess)">
+            <summary>
+            Converts a Fenrir.FileAccess object to a System.IO.FileAccess object.
+            </summary>
+            <param name="fileAccess">The file access.</param>
+            <returns>The file access.</returns>
+            <exception cref="T:System.Exception">Unsupported FenrirFS FileAccess!</exception>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirHelpers.SystemFileAttributesToFenrirFileAttributes(System.IO.FileAttributes)">
+            <summary>
+            Converts a System.IO.FileAttributes object to a Fenrir.FileAttributes object.
+            </summary>
+            <param name="attributes">The attributes.</param>
+            <returns>The attributes.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirHelpers.FenrirFileAttributesToSystemFileAttributes(FenrirFS.FileAttributes)">
+            <summary>
+            Converts a Fenrir.FileAttributes object to a System.IO.FileAttributes object.
+            </summary>
+            <param name="attributes">The attributes.</param>
+            <returns>The attributes.</returns>
+        </member>
+        <member name="M:FenrirFS.Desktop.FenrirHelpers.FenrirFileModeToSystemFileMode(FenrirFS.FileMode)">
+            <summary>
+            Converts a Fenrir.FileMode object to a System.IO.FileMode object.
+            </summary>
+            <param name="fileMode">The file mode.</param>
+            <returns>The file mode.</returns>
+            <exception cref="T:System.ArgumentException">Unsupported FenrirFS FileMode!</exception>
+        </member>
+    </members>
+</doc>

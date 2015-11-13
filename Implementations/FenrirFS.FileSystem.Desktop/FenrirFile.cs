@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Xml.Linq;
 
 namespace FenrirFS.Desktop
 {
@@ -28,6 +29,28 @@ namespace FenrirFS.Desktop
         #endregion Public Constructors
 
         #region Public Properties
+
+        /// <summary>
+        /// Gets the creation time.
+        /// </summary>
+        /// <value>
+        /// The creation time.
+        /// </value>
+        public override DateTime CreationTime
+        {
+            get { return File.GetCreationTime(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the UTC creation time.
+        /// </summary>
+        /// <value>
+        /// The creation time.
+        /// </value>
+        public override DateTime CreationTimeUtc
+        {
+            get { return File.GetCreationTimeUtc(FullPath); }
+        }
 
         /// <summary>
         /// Gets or sets the encoding.
@@ -92,6 +115,74 @@ namespace FenrirFS.Desktop
                 }
                 encoding = value;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the file attributes.
+        /// </summary>
+        /// <value>
+        /// The file attributes.
+        /// </value>
+        public override FileAttributes FileAttributes
+        {
+            get { return FenrirHelpers.SystemFileAttributesToFenrirFileAttributes(File.GetAttributes(FullPath)); }
+
+            set { File.SetAttributes(FullPath, FenrirHelpers.FenrirFileAttributesToSystemFileAttributes(value)); }
+        }
+
+        /// <summary>
+        /// Gets the last accessed time.
+        /// </summary>
+        /// <value>
+        /// The last accessed time.
+        /// </value>
+        public override DateTime LastAccessedTime
+        {
+            get { return File.GetLastAccessTime(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the UTC last accessed time.
+        /// </summary>
+        /// <value>
+        /// The last accessed time.
+        /// </value>
+        public override DateTime LastAccessedTimeUtc
+        {
+            get { return File.GetLastAccessTimeUtc(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the last modified time.
+        /// </summary>
+        /// <value>
+        /// The last modified time.
+        /// </value>
+        public override DateTime LastModifiedTime
+        {
+            get { return File.GetLastWriteTime(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the UTC last modified time.
+        /// </summary>
+        /// <value>
+        /// The last modified time.
+        /// </value>
+        public override DateTime LastModifiedTimeUtc
+        {
+            get { return File.GetLastWriteTimeUtc(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the size of the file, in bytes.
+        /// </summary>
+        /// <value>
+        /// The size.
+        /// </value>
+        public override long Size
+        {
+            get { return new FileInfo(FullPath).Length; }
         }
 
         #endregion Public Properties
@@ -394,9 +485,9 @@ namespace FenrirFS.Desktop
             // Open a Stream with the options
             //var str = File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
             Stream = File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
-            
+
             // Set FileAccess and FileMode
-            FileAccess = fileAccess;
+            FileAccessMode = fileAccess;
             FileMode = fileMode;
 
             return Stream;
@@ -409,6 +500,17 @@ namespace FenrirFS.Desktop
         public override string ReadAll()
         {
             return File.ReadAllText(FullPath);
+        }
+
+        /// <summary>
+        /// Reads all as the contents of the file as an XDocument.
+        /// </summary>
+        /// <returns>An XDocument representing the contents of the file.</returns>
+        public override XDocument ReadAllAsXElement()
+        {
+            string contents = File.ReadAllText(FullPath);
+
+            return XDocument.Parse(contents);
         }
 
         /// <summary>
@@ -480,7 +582,7 @@ namespace FenrirFS.Desktop
             if (chars < 0)
                 throw new ArgumentOutOfRangeException(nameof(chars));
 
-            if (IsOpen && FileAccess != FileAccess.Write)
+            if (IsOpen && FileAccessMode != FileAccess.Write)
             {
                 byte[] buffer = new byte[chars];
 
@@ -498,7 +600,7 @@ namespace FenrirFS.Desktop
         /// <returns>A string representing all the contents in the stream.</returns>
         public override string StreamReadAll()
         {
-            if (IsOpen && FileAccess != FileAccess.Write)
+            if (IsOpen && FileAccessMode != FileAccess.Write)
             {
                 byte[] buffer = new byte[Stream.Length];
 
@@ -516,7 +618,7 @@ namespace FenrirFS.Desktop
         /// <returns>A string representing a line.</returns>
         public override string StreamReadLine()
         {
-            if (IsOpen && FileAccess != FileAccess.Write)
+            if (IsOpen && FileAccessMode != FileAccess.Write)
             {
                 StringBuilder str = new StringBuilder();
 
@@ -577,7 +679,7 @@ namespace FenrirFS.Desktop
         {
             Exceptions.NotNullOrEmptyCheck(contents, nameof(contents));
 
-            if (IsOpen && FileAccess != FileAccess.Read)
+            if (IsOpen && FileAccessMode != FileAccess.Read)
             {
                 byte[] buffer = new byte[contents.Length];
 
@@ -600,7 +702,7 @@ namespace FenrirFS.Desktop
         {
             Exceptions.NotNullOrEmptyCheck(line, nameof(line));
 
-            if (IsOpen && FileAccess != FileAccess.Read)
+            if (IsOpen && FileAccessMode != FileAccess.Read)
             {
                 line += FSHelpers.LineSeparator;
                 byte[] buffer = new byte[line.Length];

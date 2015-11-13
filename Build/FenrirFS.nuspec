@@ -10,17 +10,13 @@
         <projectUrl>https://github.com/dsplaisted/FenrirFS</projectUrl>
         <iconUrl>https://dsplaisted.blob.core.windows.net/oss/pickles_64.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>FenrirFS provides a consistent, portable set of local file IO APIs for .NET.  This makes it easier to create cross-platform .NET libraries and apps.</description>
-        <summary>FenrirFS provides a consistent, portable set of local file IO APIs across .NET platforms.</summary>
+        <description>FenrirFS provides a portable file system API for .Net platforms, making it easier to create and maintain multi-platform .NET libraries and programs.</description>
+        <summary>FenrirFS provides a portable file system API for .Net platforms.</summary>
         <tags>io storage file portable pcl</tags>
         <dependencies>
           <group targetFramework="net45">
           </group>
           <group targetFramework="portable-net45">
-          </group>
-          <group>
-            <dependency id="Microsoft.Bcl.Async" version="1.0.165" />
-            <dependency id="Microsoft.Bcl" version="1.1.6" />
           </group>
         </dependencies>
     </metadata>

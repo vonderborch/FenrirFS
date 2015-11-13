@@ -3,6 +3,7 @@
  * license.txt file, which is part of this source code package.
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -13,6 +14,13 @@ namespace FenrirFS.Desktop
     /// </summary>
     public class FenrirFolder : AFolder
     {
+        #region Private Fields
+
+        private DateTime lastCalculatedSize = DateTime.MinValue;
+        private long size = 0;
+
+        #endregion Private Fields
+
         #region Public Constructors
 
         /// <summary>
@@ -24,6 +32,112 @@ namespace FenrirFS.Desktop
         }
 
         #endregion Public Constructors
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the creation time.
+        /// </summary>
+        /// <value>
+        /// The creation time.
+        /// </value>
+        public override DateTime CreationTime
+        {
+            get { return Directory.GetCreationTime(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the UTC creation time.
+        /// </summary>
+        /// <value>
+        /// The creation time.
+        /// </value>
+        public override DateTime CreationTimeUtc
+        {
+            get { return Directory.GetCreationTimeUtc(FullPath); }
+        }
+
+
+        /// <summary>
+        /// Gets the last accessed time.
+        /// </summary>
+        /// <value>
+        /// The last accessed time.
+        /// </value>
+        public override DateTime LastAccessedTime
+        {
+            get { return Directory.GetLastAccessTime(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the UTC last accessed time.
+        /// </summary>
+        /// <value>
+        /// The last accessed time.
+        /// </value>
+        public override DateTime LastAccessedTimeUtc
+        {
+            get { return Directory.GetLastAccessTimeUtc(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the last modified time.
+        /// </summary>
+        /// <value>
+        /// The last modified time.
+        /// </value>
+        public override DateTime LastModifiedTime
+        {
+            get { return Directory.GetLastWriteTime(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the UTC last modified time.
+        /// </summary>
+        /// <value>
+        /// The last modified time.
+        /// </value>
+        public override DateTime LastModifiedTimeUtc
+        {
+            get { return Directory.GetLastWriteTimeUtc(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the size of the folder, in bytes.
+        /// </summary>
+        /// <value>
+        /// The size.
+        /// </value>
+        public override long Size
+        {
+            get
+            {
+                if (lastCalculatedSize == DateTime.MinValue ||
+                    lastCalculatedSize != LastModifiedTime)
+                {
+                    var dir = new DirectoryInfo(FullPath);
+                    size = 0;
+
+                    // add the sizes of each of the files in the dir to the dir's total size
+                    foreach (var file in dir.EnumerateFiles())
+                        size += file.Length;
+
+                    // add the sizes of each of the folders in the dir to the dir's total size
+                    foreach (var folder in dir.EnumerateDirectories())
+                    {
+                        var fenrirFolder = new FenrirFolder(folder.FullName);
+                        size += fenrirFolder.Size;
+                        fenrirFolder.Dispose();
+                    }
+
+                    lastCalculatedSize = LastModifiedTime;
+                }
+
+                return size;
+            }
+        }
+
+        #endregion Public Properties
 
         #region Public Methods
 

@@ -2,13 +2,14 @@
  * This file is subject to the terms and conditions defined in the
  * license.txt file, which is part of this source code package.
  */
-
+ 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace FenrirFS
 {
@@ -48,6 +49,22 @@ namespace FenrirFS
         #region Public Properties
 
         /// <summary>
+        /// Gets the creation time.
+        /// </summary>
+        /// <value>
+        /// The creation time.
+        /// </value>
+        public virtual DateTime CreationTime { get; }
+
+        /// <summary>
+        /// Gets the UTC creation time.
+        /// </summary>
+        /// <value>
+        /// The creation time UTC.
+        /// </value>
+        public virtual DateTime CreationTimeUtc { get; }
+
+        /// <summary>
         /// Gets or sets the encoding of the file.
         /// </summary>
         /// <value>
@@ -78,15 +95,23 @@ namespace FenrirFS
         /// The extension.
         /// </value>
         public virtual string Extension { get; protected set; }
-
+        
         /// <summary>
         /// Gets or sets the file access.
         /// </summary>
         /// <value>
         /// The file access.
         /// </value>
-        public virtual FileAccess FileAccess { get; protected set; }
+        public virtual FileAccess FileAccessMode { get; protected set; }
 
+        /// <summary>
+        /// Gets or sets the file attributes.
+        /// </summary>
+        /// <value>
+        /// The file attributes.
+        /// </value>
+        public virtual FileAttributes FileAttributes { get; set; }
+        
         /// <summary>
         /// Gets or sets the file mode.
         /// </summary>
@@ -122,6 +147,38 @@ namespace FenrirFS
         }
 
         /// <summary>
+        /// Gets the last accessed time.
+        /// </summary>
+        /// <value>
+        /// The last accessed time.
+        /// </value>
+        public virtual DateTime LastAccessedTime { get; }
+
+        /// <summary>
+        /// Gets the UTC last accessed time.
+        /// </summary>
+        /// <value>
+        /// The last accessed time UTC.
+        /// </value>
+        public virtual DateTime LastAccessedTimeUtc { get; }
+
+        /// <summary>
+        /// Gets the last modified time.
+        /// </summary>
+        /// <value>
+        /// The last modified time.
+        /// </value>
+        public virtual DateTime LastModifiedTime { get; }
+
+        /// <summary>
+        /// Gets the UTC last modified time.
+        /// </summary>
+        /// <value>
+        /// The last modified time UTC.
+        /// </value>
+        public virtual DateTime LastModifiedTimeUtc { get; }
+
+        /// <summary>
         /// Gets or sets the file name.
         /// </summary>
         /// <value>
@@ -135,6 +192,14 @@ namespace FenrirFS
         /// The path.
         /// </value>
         public virtual string Path { get; protected set; }
+
+        /// <summary>
+        /// Gets the size of the file, in bytes.
+        /// </summary>
+        /// <value>
+        /// The size.
+        /// </value>
+        public virtual long Size { get; protected set; }
 
         /// <summary>
         /// Gets or sets the stream.
@@ -204,7 +269,7 @@ namespace FenrirFS
             if (IsOpen)
             {
                 // if the file was opened for read, make sure we flush the stream before we close it.
-                switch (FileAccess)
+                switch (FileAccessMode)
                 {
                     case FileAccess.ReadWrite:
                     case FileAccess.Write:
@@ -213,7 +278,7 @@ namespace FenrirFS
                 }
 
                 Stream.Dispose();
-                FileAccess = FileAccess.None;
+                FileAccessMode = FileAccess.None;
                 FileMode = FileMode.None;
                 Stream = null;
                 return true;
@@ -496,6 +561,27 @@ namespace FenrirFS
         {
             await AwaitHelpers.CreateTaskScheduler(AwaitHelpers.CheckCancellationToken(cancellationToken));
             return ReadAll();
+        }
+
+        /// <summary>
+        /// Reads all as the contents of the file as an XDocument.
+        /// </summary>
+        /// <returns>An XDocument representing the contents of the file.</returns>
+        /// <exception cref="System.NotImplementedException">Exception representing that this function is not implemented.</exception>
+        public virtual XDocument ReadAllAsXElement()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Asynchronously reads all as the contents of the file as an XDocument.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>An XDocument task to read the contents of the file. The XDocument represents the contents of the file..</returns>
+        public async Task<XDocument> ReadAllAsXElementAsync(CancellationToken? cancellationToken = null)
+        {
+            await AwaitHelpers.CreateTaskScheduler(AwaitHelpers.CheckCancellationToken(cancellationToken));
+            return ReadAllAsXElement();
         }
 
         /// <summary>

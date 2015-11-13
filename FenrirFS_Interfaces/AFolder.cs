@@ -40,6 +40,22 @@ namespace FenrirFS
         #region Public Properties
 
         /// <summary>
+        /// Gets the creation time.
+        /// </summary>
+        /// <value>
+        /// The creation time.
+        /// </value>
+        public virtual DateTime CreationTime { get; }
+
+        /// <summary>
+        /// Gets the UTC creation time.
+        /// </summary>
+        /// <value>
+        /// The creation time UTC.
+        /// </value>
+        public virtual DateTime CreationTimeUtc { get; }
+
+        /// <summary>
         /// Gets the full path.
         /// </summary>
         /// <value>The full path.</value>
@@ -47,6 +63,38 @@ namespace FenrirFS
         {
             get { return System.IO.Path.Combine(Path, Name); }
         }
+
+        /// <summary>
+        /// Gets the last accessed time.
+        /// </summary>
+        /// <value>
+        /// The last accessed time.
+        /// </value>
+        public virtual DateTime LastAccessedTime { get; }
+
+        /// <summary>
+        /// Gets the UTC last accessed time.
+        /// </summary>
+        /// <value>
+        /// The last accessed time UTC.
+        /// </value>
+        public virtual DateTime LastAccessedTimeUtc { get; }
+
+        /// <summary>
+        /// Gets the last modified time.
+        /// </summary>
+        /// <value>
+        /// The last modified time.
+        /// </value>
+        public virtual DateTime LastModifiedTime { get; }
+
+        /// <summary>
+        /// Gets the UTC last modified time.
+        /// </summary>
+        /// <value>
+        /// The last modified time UTC.
+        /// </value>
+        public virtual DateTime LastModifiedTimeUtc { get; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -59,6 +107,14 @@ namespace FenrirFS
         /// </summary>
         /// <value>The path.</value>
         public virtual string Path { get; protected set; }
+
+        /// <summary>
+        /// Gets the size of the folder, in bytes.
+        /// </summary>
+        /// <value>
+        /// The size.
+        /// </value>
+        public virtual long Size { get; }
 
         #endregion Public Properties
 
