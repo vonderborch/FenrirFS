@@ -1,39 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <metadata minClientVersion="2.8.1">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+    <metadata minClientVersion="2.5">
         <id>FenrirFS</id>
-        <version>1.0.0</version>
-        <title>FenrirFS - Portable Storage APIs</title>
-        <authors>Christian Webber</authors>
-        <owners>Christian Webber</owners>
-        <licenseUrl>https://github.com/dsplaisted/FenrirFS/blob/master/LICENSE</licenseUrl>
-        <projectUrl>https://github.com/dsplaisted/FenrirFS</projectUrl>
-        <iconUrl>https://dsplaisted.blob.core.windows.net/oss/pickles_64.png</iconUrl>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <version>1.0.2.15317</version>
+        <title>FenrirFS</title>
+        <authors>von_der_borch</authors>
+        <owners>von_der_borch</owners>
+        <licenseUrl>https://raw.githubusercontent.com/vonderborch/FenrirFS/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/vonderborch/FenrirFS</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/vonderborch/FenrirFS/master/common/FenrirFS_32.png</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>FenrirFS provides a portable file system API for .Net platforms, making it easier to create and maintain multi-platform .NET libraries and programs.</description>
         <summary>FenrirFS provides a portable file system API for .Net platforms.</summary>
+        <releaseNotes>Initial nuget package.</releaseNotes>
         <tags>io storage file portable pcl</tags>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+        </frameworkAssemblies>
         <dependencies>
-          <group targetFramework="net45">
-          </group>
-          <group targetFramework="portable-net45">
-          </group>
+            <group targetFramework=".NETFramework4.5" />
+            <group targetFramework="portable-net45+wp8+win8" />
         </dependencies>
     </metadata>
     <files>
-      <file src="..\src\FenrirFS\bin\Release\FenrirFS.dll" target="lib\portable-net45\FenrirFS.dll" />
-      <file src="..\src\FenrirFS\bin\Release\FenrirFS.xml" target="lib\portable-net45\FenrirFS.xml" />
-      <file src="..\src\FenrirFS.Abstractions\bin\Release\FenrirFS.Abstractions.dll" target="lib\portable-net45\FenrirFS.Abstractions.dll" />
-      <file src="..\src\FenrirFS.Abstractions\bin\Release\FenrirFS.Abstractions.xml" target="lib\portable-net45\FenrirFS.Abstractions.xml" />
-
-      <file src="..\src\FenrirFS.NoSL\bin\Release\FenrirFS.dll" target="lib\portable-net45\FenrirFS.dll" />
-      <file src="..\src\FenrirFS.NoSL\bin\Release\FenrirFS.xml" target="lib\portable-net45\FenrirFS.xml" />
-      <file src="..\src\FenrirFS.Abstractions.NoSL\bin\Release\FenrirFS.Abstractions.dll" target="lib\portable-net45\FenrirFS.Abstractions.dll" />
-      <file src="..\src\FenrirFS.Abstractions.NoSL\bin\Release\FenrirFS.Abstractions.xml" target="lib\portable-net45\FenrirFS.Abstractions.xml" />
-      
-      <file src="..\src\FenrirFS.FileSystem.Desktop\bin\Release\FenrirFS.dll" target="lib\net45\FenrirFS.dll" />
-      <file src="..\src\FenrirFS.FileSystem.Desktop\bin\Release\FenrirFS.xml" target="lib\net45\FenrirFS.xml" />
-      <file src="..\src\FenrirFS.Abstractions.NoSL\bin\Release\FenrirFS.Abstractions.dll" target="lib\net45\FenrirFS.Abstractions.dll" />
-      <file src="..\src\FenrirFS.Abstractions.NoSL\bin\Release\FenrirFS.Abstractions.xml" target="lib\net45\FenrirFS.Abstractions.xml" />
+        <file src="..\Releases\Desktop\FenrirFS.Abstractions.dll" target="lib\net45\FenrirFS.Abstractions.dll" />
+        <file src="..\Releases\Desktop\FenrirFS.Abstractions.xml" target="lib\net45\FenrirFS.Abstractions.xml" />
+        <file src="..\Releases\Desktop\FenrirFS.dll" target="lib\net45\FenrirFS.dll" />
+        <file src="..\Releases\Desktop\FenrirFS.xml" target="lib\net45\FenrirFS.xml" />
+        <file src="..\Releases\PCL\FenrirFS.Abstractions.dll" target="lib\portable-net45+wp8+win8\FenrirFS.Abstractions.dll" />
+        <file src="..\Releases\PCL\FenrirFS.Abstractions.xml" target="lib\portable-net45+wp8+win8\FenrirFS.Abstractions.xml" />
+        <file src="..\Releases\PCL\FenrirFS.dll" target="lib\portable-net45+wp8+win8\FenrirFS.dll" />
+        <file src="..\Releases\PCL\FenrirFS.xml" target="lib\portable-net45+wp8+win8\FenrirFS.xml" />
     </files>
 </package>
