@@ -27,6 +27,7 @@
     <AssemblyInfoVersionSettings>
     </AssemblyInfoVersionSettings>
     <PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
+    <AssemblyVersion>1.1.1.15319</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,6 +69,7 @@
     <Compile Include="Enums\FileMode.cs" />
     <Compile Include="Enums\FolderCollisionOption.cs" />
     <Compile Include="Enums\OpenMode.cs" />
+    <Compile Include="Enums\SearchOption.cs" />
     <Compile Include="Enums\WriteMode.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

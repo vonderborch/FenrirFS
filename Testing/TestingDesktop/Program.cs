@@ -3,6 +3,7 @@
  * license.txt file, which is part of this source code package.
  */
 
+using FenrirFS;
 using System;
 using System.Collections.Generic;
 using TestingCore;

@@ -26,6 +26,7 @@
     </AssemblyInfoVersionSettings>
     <PrimaryVersionType>
     </PrimaryVersionType>
+    <AssemblyVersion>1.0.4.15317</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,6 +71,12 @@
     </Compile>
     <Compile Include="..\..\FenrirFS_Core\Fenrir.cs">
       <Link>Linked\Fenrir.cs</Link>
+    </Compile>
+    <Compile Include="..\..\FenrirFS_Core\File.cs">
+      <Link>Linked\File.cs</Link>
+    </Compile>
+    <Compile Include="..\..\FenrirFS_Core\Folder.cs">
+      <Link>Linked\Folder.cs</Link>
     </Compile>
     <Compile Include="..\..\FenrirFS_Core\FSHelpers.cs">
       <Link>Linked\FSHelpers.cs</Link>

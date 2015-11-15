@@ -103,10 +103,26 @@ namespace FenrirFS
         public virtual string Name { get; protected set; }
 
         /// <summary>
+        /// Gets the parent folder for the folder.
+        /// </summary>
+        /// <value>
+        /// The parent folder.
+        /// </value>
+        public virtual string ParentFolder { get; }
+
+        /// <summary>
         /// Gets or sets the path.
         /// </summary>
         /// <value>The path.</value>
         public virtual string Path { get; protected set; }
+
+        /// <summary>
+        /// Gets the root folder for the folder.
+        /// </summary>
+        /// <value>
+        /// The root folder.
+        /// </value>
+        public virtual string RootFolder { get; }
 
         /// <summary>
         /// Gets the size of the folder, in bytes.
@@ -760,31 +776,6 @@ namespace FenrirFS
         public override int GetHashCode()
         {
             return FullPath.GetHashCode();
-        }
-
-        /// <summary>
-        /// Gets the parent folder of this folder.
-        /// </summary>
-        /// <returns>The parent folder.</returns>
-        /// <exception cref="System.NotImplementedException">
-        /// Exception representing that this function is not implemented.
-        /// </exception>
-        public virtual AFolder GetParentFolder()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Asynchronously gets the parent folder of this folder.
-        /// </summary>
-        /// <param name="cancellationToken">The cancellation token. Defaults to null.</param>
-        /// <returns>
-        /// An AFolder task to get the parent folder. The AFolder represents the parent folder.
-        /// </returns>
-        public async Task<AFolder> GetParentFolderAsync(CancellationToken? cancellationToken = null)
-        {
-            await AwaitHelpers.CreateTaskScheduler(AwaitHelpers.CheckCancellationToken(cancellationToken));
-            return GetParentFolder();
         }
 
         /// <summary>

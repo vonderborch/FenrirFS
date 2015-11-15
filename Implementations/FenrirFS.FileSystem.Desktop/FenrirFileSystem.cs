@@ -58,7 +58,7 @@ namespace FenrirFS.Desktop
             }
 
             string file = System.IO.Path.Combine(directory, name);
-            File.Create(file).Dispose();
+            System.IO.File.Create(file).Dispose();
             return new FenrirFile(file);
         }
 
@@ -87,7 +87,7 @@ namespace FenrirFS.Desktop
             }
 
             string file = System.IO.Path.Combine(directory, name);
-            File.Create(file).Dispose();
+            System.IO.File.Create(file).Dispose();
             return new FenrirFile(file);
         }
 
@@ -116,7 +116,7 @@ namespace FenrirFS.Desktop
             }
 
             string file = System.IO.Path.Combine(directory.FullPath, name);
-            File.Create(file).Dispose();
+            System.IO.File.Create(file).Dispose();
             return new FenrirFile(file);
         }
 
@@ -217,7 +217,7 @@ namespace FenrirFS.Desktop
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
 
-            bool fileExists = File.Exists(path);
+            bool fileExists = System.IO.File.Exists(path);
             bool folderExists = Directory.Exists(path);
 
             if (fileExists && folderExists)
@@ -239,7 +239,7 @@ namespace FenrirFS.Desktop
         {
             Exceptions.NotNullOrEmptyCheck(path, nameof(path));
 
-            return File.Exists(path);
+            return System.IO.File.Exists(path);
         }
 
         /// <summary>
@@ -267,8 +267,7 @@ namespace FenrirFS.Desktop
                 switch (openMode)
                 {
                     case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
-                        break;
+                        return Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
 
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
@@ -294,8 +293,7 @@ namespace FenrirFS.Desktop
                 switch (openMode)
                 {
                     case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
-                        break;
+                        return Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
 
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
@@ -321,8 +319,7 @@ namespace FenrirFS.Desktop
                 switch (openMode)
                 {
                     case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
-                        break;
+                        return Fenrir.FileSystem.CreateFile(path, FileCollisionOption.FailIfExists);
 
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("File {0} does not exist!", path));
@@ -345,8 +342,7 @@ namespace FenrirFS.Desktop
                 switch (openMode)
                 {
                     case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
-                        break;
+                        return Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
 
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));
@@ -372,8 +368,7 @@ namespace FenrirFS.Desktop
                 switch (openMode)
                 {
                     case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
-                        break;
+                        return Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
 
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));
@@ -399,8 +394,7 @@ namespace FenrirFS.Desktop
                 switch (openMode)
                 {
                     case OpenMode.Normal:
-                        Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
-                        break;
+                        return Fenrir.FileSystem.CreateFolder(path, FileCollisionOption.FailIfExists);
 
                     case OpenMode.FailIfDoesNotExist:
                         throw new FileNotFoundException(String.Format("Folder {0} does not exist!", path));

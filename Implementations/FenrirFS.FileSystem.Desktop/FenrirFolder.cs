@@ -16,7 +16,14 @@ namespace FenrirFS.Desktop
     {
         #region Private Fields
 
+        /// <summary>
+        /// The last time the size was calculated
+        /// </summary>
         private DateTime lastCalculatedSize = DateTime.MinValue;
+
+        /// <summary>
+        /// The size
+        /// </summary>
         private long size = 0;
 
         #endregion Private Fields
@@ -43,7 +50,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime CreationTime
         {
-            get { return Directory.GetCreationTime(FullPath); }
+            get { return System.IO.Directory.GetCreationTime(FullPath); }
         }
 
         /// <summary>
@@ -54,7 +61,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime CreationTimeUtc
         {
-            get { return Directory.GetCreationTimeUtc(FullPath); }
+            get { return System.IO.Directory.GetCreationTimeUtc(FullPath); }
         }
 
 
@@ -66,7 +73,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime LastAccessedTime
         {
-            get { return Directory.GetLastAccessTime(FullPath); }
+            get { return System.IO.Directory.GetLastAccessTime(FullPath); }
         }
 
         /// <summary>
@@ -77,7 +84,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime LastAccessedTimeUtc
         {
-            get { return Directory.GetLastAccessTimeUtc(FullPath); }
+            get { return System.IO.Directory.GetLastAccessTimeUtc(FullPath); }
         }
 
         /// <summary>
@@ -88,7 +95,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime LastModifiedTime
         {
-            get { return Directory.GetLastWriteTime(FullPath); }
+            get { return System.IO.Directory.GetLastWriteTime(FullPath); }
         }
 
         /// <summary>
@@ -99,7 +106,29 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime LastModifiedTimeUtc
         {
-            get { return Directory.GetLastWriteTimeUtc(FullPath); }
+            get { return System.IO.Directory.GetLastWriteTimeUtc(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the parent folder for the folder.
+        /// </summary>
+        /// <value>
+        /// The parent folder.
+        /// </value>
+        public override string ParentFolder
+        {
+            get { return System.IO.Path.GetDirectoryName(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the root folder for the folder.
+        /// </summary>
+        /// <value>
+        /// The root folder.
+        /// </value>
+        public override string RootFolder
+        {
+            get { return System.IO.Path.GetPathRoot(FullPath); }
         }
 
         /// <summary>
@@ -115,9 +144,9 @@ namespace FenrirFS.Desktop
                 if (lastCalculatedSize == DateTime.MinValue ||
                     lastCalculatedSize != LastModifiedTime)
                 {
-                    var dir = new DirectoryInfo(FullPath);
+                    var dir = new System.IO.DirectoryInfo(FullPath);
                     size = 0;
-
+                    Directory.Delete("");
                     // add the sizes of each of the files in the dir to the dir's total size
                     foreach (var file in dir.EnumerateFiles())
                         size += file.Length;
@@ -147,7 +176,7 @@ namespace FenrirFS.Desktop
         /// <param name="destinationPath">The destination path.</param>
         /// <param name="destinationName">Name of the destination.</param>
         /// <param name="folderCollisionOption">The folder collision option.</param>
-        /// <param name="fileCollisionOption">The file collision option.</param>
+        /// <param name="fileCollisionOption">The file collision option. FailIfExists option will ignore failures to copy.</param>
         /// <returns>An AFolder representing the new folder.</returns>
         public override AFolder Copy(string destinationPath, string destinationName, FolderCollisionOption folderCollisionOption, FileCollisionOption fileCollisionOption)
         {
@@ -175,11 +204,14 @@ namespace FenrirFS.Desktop
                     break;
             }
 
-            Directory.CreateDirectory(path);
+            System.IO.Directory.CreateDirectory(path);
 
             List<string> files = this.GetFileNames();
             foreach (string str in files)
-                CopyFile(str, destinationPath, str, fileCollisionOption);
+            {
+                try { CopyFile(str, destinationPath, str, fileCollisionOption);  }
+                catch { }
+            }
 
             List<string> folders = this.GetFolderNames();
             foreach (string str in folders)
@@ -221,7 +253,7 @@ namespace FenrirFS.Desktop
                     break;
             }
 
-            Directory.CreateDirectory(path);
+            System.IO.Directory.CreateDirectory(path);
 
             List<string> files = this.GetFileNames();
             foreach (string str in files)
@@ -268,7 +300,7 @@ namespace FenrirFS.Desktop
                     break;
             }
 
-            Directory.CreateDirectory(path);
+            System.IO.Directory.CreateDirectory(path);
 
             List<string> files = this.GetFileNames();
             foreach (string str in files)
@@ -420,7 +452,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Creates a file in this directory.
+        /// Creates a file in this System.IO.Directory.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="collisionOption">The collision option.</param>
@@ -444,12 +476,12 @@ namespace FenrirFS.Desktop
             }
 
             string file = System.IO.Path.Combine(path, name);
-            File.Create(file);
+            System.IO.File.Create(file);
             return new FenrirFile(file);
         }
 
         /// <summary>
-        /// Creates a folder in this directory.
+        /// Creates a folder in this System.IO.Directory.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="collisionOption">The collision option.</param>
@@ -473,7 +505,7 @@ namespace FenrirFS.Desktop
             }
 
             string folder = System.IO.Path.Combine(path, name);
-            Directory.CreateDirectory(folder);
+            System.IO.Directory.CreateDirectory(folder);
             return new FenrirFolder(folder);
         }
 
@@ -485,7 +517,7 @@ namespace FenrirFS.Desktop
         {
             if (Fenrir.FileSystem.FolderExists(FullPath))
             {
-                Directory.Delete(FullPath);
+                System.IO.Directory.Delete(FullPath);
                 return true;
             }
 
@@ -493,7 +525,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Deletes a file in this directory.
+        /// Deletes a file in this System.IO.Directory.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>Whether the file was deleted or not.</returns>
@@ -505,7 +537,7 @@ namespace FenrirFS.Desktop
 
             if (Fenrir.FileSystem.FileExists(fullName))
             {
-                File.Delete(fullName);
+                System.IO.File.Delete(fullName);
                 return true;
             }
 
@@ -513,7 +545,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Deletes a folder in this directory.
+        /// Deletes a folder in this System.IO.Directory.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>Whether the folder was deleted or not.</returns>
@@ -525,7 +557,7 @@ namespace FenrirFS.Desktop
 
             if (Fenrir.FileSystem.FolderExists(fullName))
             {
-                Directory.Delete(fullName);
+                System.IO.Directory.Delete(fullName);
                 return true;
             }
 
@@ -533,7 +565,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Checks if a file exists in this directory.
+        /// Checks if a file exists in this System.IO.Directory.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>Whether the file exists (true) or not (false).</returns>
@@ -546,7 +578,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Checks if a folder exists in this directory.
+        /// Checks if a folder exists in this System.IO.Directory.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>Whether the folder exists (true) or not (false).</returns>
@@ -565,7 +597,7 @@ namespace FenrirFS.Desktop
         public override List<string> GetFileNames()
         {
             List<string> files = new List<string>();
-            foreach (string file in Directory.EnumerateFiles(FullPath))
+            foreach (string file in System.IO.Directory.EnumerateFiles(FullPath))
                 files.Add(file);
 
             return files;
@@ -578,7 +610,7 @@ namespace FenrirFS.Desktop
         public override List<AFile> GetFiles()
         {
             List<AFile> files = new List<AFile>();
-            foreach (string file in Directory.EnumerateFiles(FullPath))
+            foreach (string file in System.IO.Directory.EnumerateFiles(FullPath))
                 files.Add(new FenrirFile(file));
 
             return files;
@@ -591,7 +623,7 @@ namespace FenrirFS.Desktop
         public override List<string> GetFolderNames()
         {
             List<string> folders = new List<string>();
-            foreach (string folder in Directory.EnumerateDirectories(FullPath))
+            foreach (string folder in System.IO.Directory.EnumerateDirectories(FullPath))
                 folders.Add(folder);
 
             return folders;
@@ -604,19 +636,10 @@ namespace FenrirFS.Desktop
         public override List<AFolder> GetFolders()
         {
             List<AFolder> folders = new List<AFolder>();
-            foreach (string folder in Directory.EnumerateDirectories(FullPath))
+            foreach (string folder in System.IO.Directory.EnumerateDirectories(FullPath))
                 folders.Add(new FenrirFolder(folder));
 
             return folders;
-        }
-
-        /// <summary>
-        /// Gets the parent folder of this folder.
-        /// </summary>
-        /// <returns>The parent folder.</returns>
-        public override AFolder GetParentFolder()
-        {
-            return new FenrirFolder(Path);
         }
 
         /// <summary>
@@ -653,7 +676,7 @@ namespace FenrirFS.Desktop
                         break;
                 }
 
-                Directory.Move(path, endPath);
+                System.IO.Directory.Move(path, endPath);
                 return true;
             }
 
@@ -692,7 +715,7 @@ namespace FenrirFS.Desktop
                         break;
                 }
 
-                Directory.Move(path, destinationName);
+                System.IO.Directory.Move(path, destinationName);
                 return true;
             }
 
@@ -733,7 +756,7 @@ namespace FenrirFS.Desktop
                         break;
                 }
 
-                Directory.Move(path, endPath);
+                System.IO.Directory.Move(path, endPath);
                 return true;
             }
 
@@ -806,7 +829,7 @@ namespace FenrirFS.Desktop
             }
 
             string folder = System.IO.Path.Combine(path, name);
-            Directory.Move(FullPath, folder);
+            System.IO.Directory.Move(FullPath, folder);
             Name = name;
             return true;
         }

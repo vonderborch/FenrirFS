@@ -11,7 +11,7 @@ namespace FenrirFS
     public enum OpenMode
     {
         /// <summary>
-        /// Normal, open the file or fail if it doesn't exist.
+        /// Normal, open the file or create it if it doesn't exist.
         /// </summary>
         Normal = 0,
 

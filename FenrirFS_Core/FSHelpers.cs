@@ -12,7 +12,7 @@ namespace FenrirFS
     /// <summary>
     /// Various helper functions.
     /// </summary>
-    public static class FSHelpers
+    public class FSHelpers
     {
         #region Public Properties
 

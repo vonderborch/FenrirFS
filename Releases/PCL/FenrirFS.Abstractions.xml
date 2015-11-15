@@ -594,11 +594,27 @@
             </summary>
             <value>The name.</value>
         </member>
+        <member name="P:FenrirFS.AFolder.ParentFolder">
+            <summary>
+            Gets the parent folder for the folder.
+            </summary>
+            <value>
+            The parent folder.
+            </value>
+        </member>
         <member name="P:FenrirFS.AFolder.Path">
             <summary>
             Gets or sets the path.
             </summary>
             <value>The path.</value>
+        </member>
+        <member name="P:FenrirFS.AFolder.RootFolder">
+            <summary>
+            Gets the root folder for the folder.
+            </summary>
+            <value>
+            The root folder.
+            </value>
         </member>
         <member name="P:FenrirFS.AFolder.Size">
             <summary>
@@ -1080,24 +1096,6 @@
             A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
             </returns>
         </member>
-        <member name="M:FenrirFS.AFolder.GetParentFolder">
-            <summary>
-            Gets the parent folder of this folder.
-            </summary>
-            <returns>The parent folder.</returns>
-            <exception cref="T:System.NotImplementedException">
-            Exception representing that this function is not implemented.
-            </exception>
-        </member>
-        <member name="M:FenrirFS.AFolder.GetParentFolderAsync(System.Nullable{System.Threading.CancellationToken})">
-            <summary>
-            Asynchronously gets the parent folder of this folder.
-            </summary>
-            <param name="cancellationToken">The cancellation token. Defaults to null.</param>
-            <returns>
-            An AFolder task to get the parent folder. The AFolder represents the parent folder.
-            </returns>
-        </member>
         <member name="M:FenrirFS.AFolder.Move(System.String,FenrirFS.FolderCollisionOption)">
             <summary>
             Moves this folder to the specified destination.
@@ -1392,12 +1390,28 @@
             The name.
             </value>
         </member>
+        <member name="P:FenrirFS.AFile.ParentFolder">
+            <summary>
+            Gets the parent folder for the file.
+            </summary>
+            <value>
+            The parent folder.
+            </value>
+        </member>
         <member name="P:FenrirFS.AFile.Path">
             <summary>
             Gets or sets the file path.
             </summary>
             <value>
             The path.
+            </value>
+        </member>
+        <member name="P:FenrirFS.AFile.RootFolder">
+            <summary>
+            Gets the root folder for the file.
+            </summary>
+            <value>
+            The root folder.
             </value>
         </member>
         <member name="P:FenrirFS.AFile.Size">
@@ -2101,12 +2115,32 @@
         </member>
         <member name="F:FenrirFS.OpenMode.Normal">
             <summary>
-            Normal, open the file or fail if it doesn't exist.
+            Normal, open the file or create it if it doesn't exist.
             </summary>
         </member>
         <member name="F:FenrirFS.OpenMode.FailIfDoesNotExist">
             <summary>
             Open if it exists, otherwise fail.
+            </summary>
+        </member>
+        <member name="T:FenrirFS.SearchOption">
+            <summary>
+            The option to use during searching.
+            </summary>
+        </member>
+        <member name="F:FenrirFS.SearchOption.AllDirectories">
+            <summary>
+            Search the top directory and all sub-directories.
+            </summary>
+        </member>
+        <member name="F:FenrirFS.SearchOption.TopDirectoryOnly">
+            <summary>
+            Search the top directory only.
+            </summary>
+        </member>
+        <member name="F:FenrirFS.SearchOption.SubDirectoriesOnly">
+            <summary>
+            Search the sub-directories only
             </summary>
         </member>
         <member name="T:FenrirFS.WriteMode">

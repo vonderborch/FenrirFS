@@ -4,6 +4,857 @@
         <name>FenrirFS</name>
     </assembly>
     <members>
+        <member name="T:FenrirFS.Folder">
+            <summary>
+            Provides methods for interacting with folders.
+            </summary>
+        </member>
+        <member name="M:FenrirFS.Folder.Copy(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Copies the specified source folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="overwriteItems">if set to <c>true</c> overwrites any existing items with the same name in the destination folder.</param>
+            <returns>Whether the folder was copied or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Copy(FenrirFS.AFolder,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Copies the specified source folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="overwriteItems">if set to <c>true</c> overwrites any existing items with the same name in the destination folder.</param>
+            <returns>Whether the folder was copied or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Copy(FenrirFS.AFolder,FenrirFS.AFolder,System.Boolean,System.Boolean)">
+            <summary>
+            Copies the specified source folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="overwriteItems">if set to <c>true</c> overwrites any existing items with the same name in the destination folder.</param>
+            <returns>Whether the folder was copied or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.CopyAsync(System.String,System.String,System.Boolean,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously copies the specified source folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="overwriteItems">if set to <c>true</c> overwrites any existing items with the same name in the destination folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to copy the folder. The boolean represents whether the folder was copied or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.CopyAsync(FenrirFS.AFolder,System.String,System.Boolean,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously copies the specified source folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="overwriteItems">if set to <c>true</c> overwrites any existing items with the same name in the destination folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to copy the folder. The boolean represents whether the folder was copied or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.CopyAsync(FenrirFS.AFolder,FenrirFS.AFolder,System.Boolean,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously copies the specified source folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="overwriteItems">if set to <c>true</c> overwrites any existing items with the same name in the destination folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to copy the folder. The boolean represents whether the folder was copied or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.CreateFolder(System.String)">
+            <summary>
+            Creates the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>Whether the folder was created or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.CreateFolder(FenrirFS.AFolder)">
+            <summary>
+            Creates the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>Whether the folder was created or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.CreateFolderAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously creates the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to create the folder. The boolean represents whether the folder was created or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.CreateFolderAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously creates the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to create the folder. The boolean represents whether the folder was created or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Delete(System.String)">
+            <summary>
+            Deletes the specified folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>Whether the folder was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Delete(FenrirFS.AFolder)">
+            <summary>
+            Deletes the specified folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>Whether the folder was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.DeleteAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously deletes the specified folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to delete the folder. The boolean represents whether the folder was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.DeleteAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously deletes the specified folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to delete the folder. The boolean represents whether the folder was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFiles(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an enumeration of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string enumerable representing the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFiles(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an enumeration of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string enumerable representing the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFilesAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an enumeration of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An enumerable task to enumerate through the files. The string enumerable represents the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFilesAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an enumeration of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An enumerable task to enumerate through the files. The string enumerable represents the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFileSystemEntries(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an enumeration of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string enumerable representing the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFileSystemEntries(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an enumeration of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string enumerable representing the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFileSystemEntriesAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an enumeration of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An enumerable task to enumerate through the files and folders. The string enumerable represents the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFileSystemEntriesAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an enumeration of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An enumerable task to enumerate through the files and folders. The string enumerable represents the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFolders(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an enumeration of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string enumerable representing the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFolders(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an enumeration of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string enumerable representing the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFoldersAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an enumeration of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An enumerable task to enumerate through the folders. The string enumerable represents the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.EnumerateFoldersAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an enumeration of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An enumerable task to enumerate through the folders. The string enumerable represents the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Exists(System.String)">
+            <summary>
+            Returns whether the folder exists or not.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>Whether the folder exists or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Exists(FenrirFS.AFolder)">
+            <summary>
+            Returns whether the folder exists or not.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>Whether the folder exists or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.ExistsAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns whether the folder exists or not.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to check if the folder exists. The boolean represents whether the folder exists or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.ExistsAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns whether the folder exists or not.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to check if the folder exists. The boolean represents whether the folder exists or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetCreationTime(System.String)">
+            <summary>
+            Gets the creation time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The creation time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetCreationTime(FenrirFS.AFolder)">
+            <summary>
+            Gets the creation time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The creation time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetCreationTimeAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the creation time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the creation time. The DateTime represents the creation time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetCreationTimeAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the creation time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the creation time. The DateTime represents the creation time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetCreationTimeUtc(System.String)">
+            <summary>
+            Gets the UTC creation time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The creation time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetCreationTimeUtc(FenrirFS.AFolder)">
+            <summary>
+            Gets the UTC creation time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The creation time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetCreationTimeUtcAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC creation time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the creation time. The DateTime represents the creation time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetCreationTimeUtcAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC creation time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the creation time. The DateTime represents the creation time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFiles(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string array of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string array representing the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFiles(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string array of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string array representing the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFilesAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string array of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string array task to get the files. The string array represents the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFilesAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string array of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string array task to get the files. The string array represents the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFilesList(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string list of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string array representing the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFilesList(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string list of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string list representing the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFilesListAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string list of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string list task to get the files. The string list represents the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFilesListAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string list of all files in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string list task to get the files. The string list represents the names of all files in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFileSystemEntries(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string array of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string array representing the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFileSystemEntries(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string array of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string array representing the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFileSystemEntriesAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string array of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string array task to get the files and folders. The string array represents the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFileSystemEntriesAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string array of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string array task to get the files and folders. The string array represents the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFileSystemEntriesList(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string list of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string list representing the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFileSystemEntriesList(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string list of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string list representing the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFileSystemEntriesListAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string list of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string list task to get the files and folders. The string list represents the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFileSystemEntriesListAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string list of all files and folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string list task to get the files and folders. The string list represents the names of all files and folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFolders(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string array of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string array representing the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFolders(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string array of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string array representing the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFoldersAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string array of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string array task to get the folders. The string array represents the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFoldersAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string array of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string array task to get the folders. The string array represents the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFoldersList(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string list of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string list representing the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFoldersList(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Returns an string list of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>A string list representing the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFoldersListAsync(System.String,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string list of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string list task to get the folders. The string list represents the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetFoldersListAsync(FenrirFS.AFolder,System.String,FenrirFS.SearchOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns an string list of all folders in the folder that match the search pattern and are within the search option choosen.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string list task to get the folders. The string list represents the names of all folders in the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastAccessedTime(System.String)">
+            <summary>
+            Gets the last accessed time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The last accessed time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastAccessedTime(FenrirFS.AFolder)">
+            <summary>
+            Gets the last accessed time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The last accessed time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastAccessedTimeAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTClast accessed time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last accessed time. The DateTime represents the last accessed time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastAccessedTimeAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the last accessed time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last accessed time. The DateTime represents the last accessed time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastAccessedTimeUtc(System.String)">
+            <summary>
+            Gets the UTC last accessed time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The last accessed time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastAccessedTimeUtc(FenrirFS.AFolder)">
+            <summary>
+            Gets the UTC last accessed time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The last accessed time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastAccessedTimeUtcAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC last accessed time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last accessed time. The DateTime represents the last accessed time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastAccessedTimeUtcAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC last accessed time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last accessed time. The DateTime represents the last accessed time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastModifiedTime(System.String)">
+            <summary>
+            Gets the last modified time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The last modified time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastModifiedTime(FenrirFS.AFolder)">
+            <summary>
+            Gets the last modified time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The last modified time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastModifiedTimeAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the last modified time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last modified time. The DateTime represents the last modified time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastModifiedTimeAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the last modified time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last modified time. The DateTime represents the last modified time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastModifiedTimeUtc(System.String)">
+            <summary>
+            Gets the UTC last modified time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The last modified time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastModifiedTimeUtc(FenrirFS.AFolder)">
+            <summary>
+            Gets the UTC last modified time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The last modified time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastModifiedTimeUtcAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC last modified time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last modified time. The DateTime represents the last modified time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetLastModifiedTimeUtcAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC last modified time of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last modified time. The DateTime represents the last modified time of the folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetParentFolder(System.String)">
+            <summary>
+            Gets the parent folder of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The parent folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetParentFolder(FenrirFS.AFolder)">
+            <summary>
+            Gets the parent folder of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The parent folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetParentFolderAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the parent folder of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string task to get the parent folder. The string is the parent folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetParentFolderAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the parent folder of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string task to get the parent folder. The string is the parent folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetRootFolder(System.String)">
+            <summary>
+            Gets the root folder of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The root folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetRootFolder(FenrirFS.AFolder)">
+            <summary>
+            Gets the root folder of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <returns>The root folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetRootFolderAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the root folder of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string task to get the root folder. The string is the root folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.GetRootFolderAsync(FenrirFS.AFolder,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the root folder of the folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string task to get the root folder. The string is the root folder.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Move(System.String,System.String,System.Boolean)">
+            <summary>
+            Moves the specified folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <returns>Whether the folder was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Move(FenrirFS.AFolder,System.String,System.Boolean)">
+            <summary>
+            Moves the specified folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <returns>Whether the folder was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.Move(FenrirFS.AFolder,FenrirFS.AFolder,System.Boolean)">
+            <summary>
+            Moves the specified folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <returns>Whether the folder was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.MoveAsync(System.String,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously moves the specified folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to move the folder. The boolean represents whether the folder was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.MoveAsync(FenrirFS.AFolder,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously moves the specified folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to move the folder. The boolean represents whether the folder was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.MoveAsync(FenrirFS.AFolder,FenrirFS.AFolder,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously moves the specified folder to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwriteFolder">if set to <c>true</c> overwrites the destination folder if it exists.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to move the folder. The boolean represents whether the folder was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.InternalGetFiles(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Internal function to get files.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>An enumerable representing the files.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.InternalGetFiles(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Internal function to get files.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>An enumerable representing the files.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.InternalGetFileSystemEntries(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Internal function to get file system entries.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>An enumerable representing the file system entries.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.InternalGetFileSystemEntries(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Internal function to get file system entries.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>An enumerable representing the file system entries.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.InternalGetFolders(System.String,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Internal function to get folders.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>An enumerable representing the folders.</returns>
+        </member>
+        <member name="M:FenrirFS.Folder.InternalGetFolders(FenrirFS.AFolder,System.String,FenrirFS.SearchOption)">
+            <summary>
+            Internal function to get folders.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="searchPattern">The search pattern.</param>
+            <param name="searchOption">The search option.</param>
+            <returns>An enumerable representing the folders.</returns>
+        </member>
         <member name="T:FenrirFS.Fenrir">
             <summary>
             Provides access to the implementation of <see cref="T:FenrirFS.AFileSystem"/> for the current platform.
@@ -27,6 +878,1082 @@
             Creates the correct implementation for the file system, based on the current platform.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:FenrirFS.File">
+            <summary>
+            Provides methods for interacting with files.
+            </summary>
+        </member>
+        <member name="M:FenrirFS.File.AppendAllLines(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Appends lines to a file. If the file doesn't exist, this method creates the file, writes the lines to the it, and then closes the it.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents to append.</param>
+            <returns>Whether the write was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendAllLines(FenrirFS.AFile,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Appends lines to a file. If the file doesn't exist, this method creates the file, writes the lines to the it, and then closes the it.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <returns>Whether the write was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendAllLinesAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously appends lines to a file. If the file doesn't exist, this method creates the file, writes the lines to the it, and then closes the it.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="cancellationToken">The cancellation token. Defaults to null.</param>
+            <returns>A boolean task to append lines to the file. The boolean represents whether the write was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendAllLinesAsync(FenrirFS.AFile,System.Collections.Generic.IEnumerable{System.String},System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously appends lines to a file. If the file doesn't exist, this method creates the file, writes the lines to the it, and then closes the it.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="cancellationToken">The cancellation token. Defaults to null.</param>
+            <returns>A boolean task to append lines to the file. The boolean represents whether the write was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendAllText(System.String,System.String)">
+            <summary>
+            Appends text to a file. If the file doesn't exist, this method creates the file, writes the text to the it, and then closes the it.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <returns>Whether the write was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendAllText(FenrirFS.AFile,System.String)">
+            <summary>
+            Appends text to a file. If the file doesn't exist, this method creates the file, writes the text to the it, and then closes the it.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <returns>Whether the write was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendAllTextAsync(System.String,System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously appends text to a file. If the file doesn't exist, this method creates the file, writes the text to the it, and then closes the it.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="cancellationToken">The cancellation token. Defaults to null.</param>
+            <returns>A boolean task to append lines to the file. The boolean represents whether the write was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendAllTextAsync(FenrirFS.AFile,System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously appends text to a file. If the file doesn't exist, this method creates the file, writes the text to the it, and then closes the it.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="cancellationToken">The cancellation token. Defaults to null.</param>
+            <returns>A boolean task to append lines to the file. The boolean represents whether the write was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendText(System.String)">
+            <summary>
+            Opens the file for appending. If the file does not exist, this method will create the file and then open it for appending.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A Stream for appending text to the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendText(FenrirFS.AFile)">
+            <summary>
+            Opens the file for appending. If the file does not exist, this method will create the file and then open it for appending.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A Stream for appending text to the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendTextAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the file for appending. If the file does not exist, this method will create the file and then open it for appending.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file for appending. The Stream is for appending text to the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.AppendTextAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the file for appending. If the file does not exist, this method will create the file and then open it for appending.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file for appending. The Stream is for appending text to the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Copy(System.String,System.String,System.Boolean)">
+            <summary>
+            Copies the file at the source to the destination. 
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite]. By default, is set to false (do not overwrite the destination file).</param>
+            <returns>Whether the copy was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Copy(FenrirFS.AFile,System.String,System.Boolean)">
+            <summary>
+            Copies the file at the source to the destination. 
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite]. By default, is set to false (do not overwrite the destination file).</param>
+            <returns>Whether the copy was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Copy(FenrirFS.AFile,FenrirFS.AFile,System.Boolean)">
+            <summary>
+            Copies the file at the source to the destination. 
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite]. By default, is set to false (do not overwrite the destination file).</param>
+            <returns>Whether the copy was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.CopyAsync(System.String,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously copies the file at the source to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite]. By default, is set to false (do not overwrite the destination file).</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to copy the file. The boolean represents whether the copy was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.CopyAsync(FenrirFS.AFile,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously copies the file at the source to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite]. By default, is set to false (do not overwrite the destination file).</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to copy the file. The boolean represents whether the copy was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.CopyAsync(FenrirFS.AFile,FenrirFS.AFile,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously copies the file at the source to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite]. By default, is set to false (do not overwrite the destination file).</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to copy the file. The boolean represents whether the copy was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Create(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>Returns whether the file was created or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.CreateAsync(System.String,FenrirFS.FileCollisionOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously creates the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="collisionOption">The collision option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to create the file. The boolean represents whether the file was created or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.CreateAFile(System.String,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>Returns an AFile representing the new file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.CreateAFileAsync(System.String,FenrirFS.FileCollisionOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously creates the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="collisionOption">The collision option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>An AFile task to create the file. The AFile represents the new file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.CreateAndOpen(System.String,FenrirFS.FileAccess,FenrirFS.FileMode,FenrirFS.FileCollisionOption)">
+            <summary>
+            Creates and opens the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="collisionOption">The collision option.</param>
+            <returns>Returns the file stream of the new file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.CreateAndOpenAsync(System.String,FenrirFS.FileAccess,FenrirFS.FileMode,FenrirFS.FileCollisionOption,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously creates and opens the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="collisionOption">The collision option.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to create and open the file. The Stream is the file's stream.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Delete(System.String)">
+            <summary>
+            Deletes the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Whether the file was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Delete(FenrirFS.AFile)">
+            <summary>
+            Deletes the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Whether the file was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.DeleteAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously deletes the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to delete the file. The boolean represents whether the file was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.DeleteAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously deletes the specified file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to delete the file. The boolean represents whether the file was deleted or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Exists(System.String)">
+            <summary>
+            Returns whether the specified file exists.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Whether the file exists or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Exists(FenrirFS.AFile)">
+            <summary>
+            Returns whether the specified file exists.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Whether the file exists or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ExistsAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns whether the specified file exists.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to check file existence. The boolean represents whether the file exists or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ExistsAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously returns whether the specified file exists.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to check file existence. The boolean represents whether the file exists or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetCreationTime(System.String)">
+            <summary>
+            Gets the creation time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was created.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetCreationTime(FenrirFS.AFile)">
+            <summary>
+            Gets the creation time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was created.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetCreationTimeAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the creation time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the creation time. The time represents the time the file was created.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetCreationTimeAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the creation time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the creation time. The time represents the time the file was created.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetCreationTimeUtc(System.String)">
+            <summary>
+            Gets the UTC creation time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was created.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetCreationTimeUtc(FenrirFS.AFile)">
+            <summary>
+            Gets the UTC creation time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was created.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetCreationTimeUtcAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC creation time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the creation time. The time represents the time the file was created.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetCreationTimeUtcAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC creation time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the creation time. The time represents the time the file was created.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastAccessTime(System.String)">
+            <summary>
+            Gets the last access time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was last accessed.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastAccessTime(FenrirFS.AFile)">
+            <summary>
+            Gets the last access time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was last accessed.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastAccessTimeAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the last access time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last access time. The time represents the time the file was last access.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastAccessTimeAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the last access time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last access time. The time represents the time the file was last access.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastAccessTimeUtc(System.String)">
+            <summary>
+            Gets the UTC last access time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was last accessed.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastAccessTimeUtc(FenrirFS.AFile)">
+            <summary>
+            Gets the UTC last access time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was last accessed.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastAccessTimeUtcAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC last access time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last access time. The time represents the time the file was last access.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastAccessTimeUtcAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC last access time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last access time. The time represents the time the file was last access.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastModifiedTime(System.String)">
+            <summary>
+            Gets the last modified time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was last accessed.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastModifiedTime(FenrirFS.AFile)">
+            <summary>
+            Gets the last modified time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was last accessed.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastModifiedTimeAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the last modified time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last modified time. The time represents the time the file was last modified.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastModifiedTimeAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the last modified time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last modified time. The time represents the time the file was last modified.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastModifiedTimeUtc(System.String)">
+            <summary>
+            Gets the UTC last modified time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was last accessed.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastModifiedTimeUtc(FenrirFS.AFile)">
+            <summary>
+            Gets the UTC last modified time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>The time the file was last accessed.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastModifiedTimeUtcAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC last modified time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last modified time. The time represents the time the file was last modified.</returns>
+        </member>
+        <member name="M:FenrirFS.File.GetLastModifiedTimeUtcAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously gets the UTC last modified time of the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A DateTime task to get the last modified time. The time represents the time the file was last modified.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Move(System.String,System.String,System.Boolean)">
+            <summary>
+            Moves the specified file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+            <returns>Whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Move(FenrirFS.AFile,System.String,System.Boolean)">
+            <summary>
+            Moves the specified file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+            <returns>Whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Move(FenrirFS.AFile,FenrirFS.AFile,System.Boolean)">
+            <summary>
+            Moves the specified file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+            <returns>Whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.MoveAsync(System.String,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously moves the specified file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to move the file. The boolean represents whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.MoveAsync(FenrirFS.AFile,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously moves the specified file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to move the file. The boolean represents whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.MoveAsync(FenrirFS.AFile,FenrirFS.AFile,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously moves the specified file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to move the file. The boolean represents whether the file was moved or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Open(System.String,FenrirFS.FileAccess,FenrirFS.FileMode)">
+            <summary>
+            Opens the specified file with the file access.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>The stream representing the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Open(FenrirFS.AFile,FenrirFS.FileAccess,FenrirFS.FileMode)">
+            <summary>
+            Opens the specified file with the file access.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>The stream representing the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenAsync(System.String,FenrirFS.FileAccess,FenrirFS.FileMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the specified file with the file access.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file. The stream represents the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenAsync(FenrirFS.AFile,FenrirFS.FileAccess,FenrirFS.FileMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the specified file with the file access.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileAccess">The file access.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file. The stream represents the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenRead(System.String,FenrirFS.FileMode)">
+            <summary>
+            Opens the specified file for reading.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>The stream representing the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenRead(FenrirFS.AFile,FenrirFS.FileMode)">
+            <summary>
+            Opens the specified file for reading.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>The stream representing the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenReadAsync(System.String,FenrirFS.FileMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the specified file for reading.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file for reading. The stream represents the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenReadAsync(FenrirFS.AFile,FenrirFS.FileMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the specified file for reading.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file for reading. The stream represents the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenReadWrite(System.String,FenrirFS.FileMode)">
+            <summary>
+            Opens the specified file for reading and writing.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>The stream representing the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenReadWrite(FenrirFS.AFile,FenrirFS.FileMode)">
+            <summary>
+            Opens the specified file for reading and writing.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>The stream representing the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenReadWriteAsync(System.String,FenrirFS.FileMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the specified file for reading and writing.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file for reading and writing. The stream represents the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenReadWriteAsync(FenrirFS.AFile,FenrirFS.FileMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the specified file for reading and writing.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file for reading and writing. The stream represents the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenWrite(System.String,FenrirFS.FileMode)">
+            <summary>
+            Opens the specified file for writing.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>The stream representing the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenWrite(FenrirFS.AFile,FenrirFS.FileMode)">
+            <summary>
+            Opens the specified file for writing.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <returns>The stream representing the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenWriteAsync(System.String,FenrirFS.FileMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the specified file for writing.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file for writing. The stream represents the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.OpenWriteAsync(FenrirFS.AFile,FenrirFS.FileMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously opens the specified file for writing.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="fileMode">The file mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A Stream task to open the file for writing. The stream represents the opened file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllBytes(System.String)">
+            <summary>
+            Reads the entire file and returns the contents as a byte array.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A byte array representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllBytes(FenrirFS.AFile)">
+            <summary>
+            Reads the entire file and returns the contents as a byte array.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A byte array representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllBytesAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a byte array.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A byte array task to read the file. The byte array represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllBytesAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a byte array.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A byte array task to read the file. The byte array represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllLines(System.String)">
+            <summary>
+            Reads the entire file and returns the contents as a string array, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A string array representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllLines(FenrirFS.AFile)">
+            <summary>
+            Reads the entire file and returns the contents as a string array, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A string array representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllLinesAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a string array, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string array task to read all lines in the file. The string array represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllLinesAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a string array, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string array task to read all lines in the file. The string array represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllText(System.String)">
+            <summary>
+            Reads the entire file and returns the contents as a string.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A string representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllText(FenrirFS.AFile)">
+            <summary>
+            Reads the entire file and returns the contents as a string.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A string representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllTextAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a string.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string task to read the file. The string represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadAllTextAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a string.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string task to read the file. The string represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadLines(System.String)">
+            <summary>
+            Reads the entire file and returns the contents as a string enumberable, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A string enumberable representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadLines(FenrirFS.AFile)">
+            <summary>
+            Reads the entire file and returns the contents as a string enumberable, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A string enumberable representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadLinesAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a string enumberable, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string enumberable task to read all lines in the file. The string enumberable represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadLinesAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a string enumberable, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string enumberable task to read all lines in the file. The string enumberable represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadLinesList(System.String)">
+            <summary>
+            Reads the entire file and returns the contents as a string list, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A string list representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadLinesList(FenrirFS.AFile)">
+            <summary>
+            Reads the entire file and returns the contents as a string list, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>A string list representing the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadLinesListAsync(System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a string list, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string list task to read all lines in the file. The string list represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReadLinesListAsync(FenrirFS.AFile,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously reads the entire file and returns the contents as a string list, with each item representing a different line.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A string list task to read all lines in the file. The string list represents the contents of the file.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Replace(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Replaces the contents of the destination file (if it exists) with the contents of the source file, making a backup of the original destination file (if it exists). If the file doesn't exist, this copies the source file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="backup">The backup.</param>
+            <param name="overwriteBackup">if set to <c>true</c>, will overwrite the backup file if it already exists.</param>
+            <returns>Whether the replace was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Replace(FenrirFS.AFile,System.String,System.String,System.Boolean)">
+            <summary>
+            Replaces the contents of the destination file (if it exists) with the contents of the source file, making a backup of the original destination file (if it exists). If the file doesn't exist, this copies the source file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="backup">The backup.</param>
+            <param name="overwriteBackup">if set to <c>true</c>, will overwrite the backup file if it already exists.</param>
+            <returns>Whether the replace was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Replace(FenrirFS.AFile,FenrirFS.AFile,System.String,System.Boolean)">
+            <summary>
+            Replaces the contents of the destination file (if it exists) with the contents of the source file, making a backup of the original destination file (if it exists). If the file doesn't exist, this copies the source file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="backup">The backup.</param>
+            <param name="overwriteBackup">if set to <c>true</c>, will overwrite the backup file if it already exists.</param>
+            <returns>Whether the replace was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.Replace(FenrirFS.AFile,FenrirFS.AFile,FenrirFS.AFile,System.Boolean)">
+            <summary>
+            Replaces the contents of the destination file (if it exists) with the contents of the source file, making a backup of the original destination file (if it exists). If the file doesn't exist, this copies the source file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="backup">The backup.</param>
+            <param name="overwriteBackup">if set to <c>true</c>, will overwrite the backup file if it already exists.</param>
+            <returns>Whether the replace was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReplaceAsync(System.String,System.String,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously replaces the contents of the destination file (if it exists) with the contents of the source file, making a backup of the original destination file (if it exists). If the file doesn't exist, this copies the source file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="backup">The backup.</param>
+            <param name="overwriteBackup">if set to <c>true</c>, will overwrite the backup file if it already exists.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to do the replace. The boolean represents whether the replace was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReplaceAsync(FenrirFS.AFile,System.String,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously replaces the contents of the destination file (if it exists) with the contents of the source file, making a backup of the original destination file (if it exists). If the file doesn't exist, this copies the source file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="backup">The backup.</param>
+            <param name="overwriteBackup">if set to <c>true</c>, will overwrite the backup file if it already exists.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to do the replace. The boolean represents whether the replace was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReplaceAsync(FenrirFS.AFile,FenrirFS.AFile,System.String,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously replaces the contents of the destination file (if it exists) with the contents of the source file, making a backup of the original destination file (if it exists). If the file doesn't exist, this copies the source file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="backup">The backup.</param>
+            <param name="overwriteBackup">if set to <c>true</c>, will overwrite the backup file if it already exists.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to do the replace. The boolean represents whether the replace was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.ReplaceAsync(FenrirFS.AFile,FenrirFS.AFile,FenrirFS.AFile,System.Boolean,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously replaces the contents of the destination file (if it exists) with the contents of the source file, making a backup of the original destination file (if it exists). If the file doesn't exist, this copies the source file to the destination.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="destination">The destination.</param>
+            <param name="backup">The backup.</param>
+            <param name="overwriteBackup">if set to <c>true</c>, will overwrite the backup file if it already exists.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to do the replace. The boolean represents whether the replace was successful or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllBytes(System.String,System.Byte[],FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllBytes(FenrirFS.AFile,System.Byte[],FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllBytesAsync(System.String,System.Byte[],FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write contents to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllBytesAsync(FenrirFS.AFile,System.Byte[],FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write contents to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLines(System.String,System.String[],FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLines(FenrirFS.AFile,System.String[],FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLines(System.String,System.Collections.Generic.IEnumerable{System.String},FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLines(FenrirFS.AFile,System.Collections.Generic.IEnumerable{System.String},FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLines(System.String,System.Collections.Generic.List{System.String},FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLines(FenrirFS.AFile,System.Collections.Generic.List{System.String},FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLinesAsync(System.String,System.String[],FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLinesAsync(FenrirFS.AFile,System.String[],FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLinesAsync(System.String,System.Collections.Generic.IEnumerable{System.String},FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLinesAsync(FenrirFS.AFile,System.Collections.Generic.IEnumerable{System.String},FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLinesAsync(System.String,System.Collections.Generic.List{System.String},FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllLinesAsync(FenrirFS.AFile,System.Collections.Generic.List{System.String},FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllText(System.String,System.String,FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllText(FenrirFS.AFile,System.String,FenrirFS.WriteMode)">
+            <summary>
+            Writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <returns>Whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllTextAsync(System.String,System.String,FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write to the file. The boolean represents whether the contents were written or not.</returns>
+        </member>
+        <member name="M:FenrirFS.File.WriteAllTextAsync(FenrirFS.AFile,System.String,FenrirFS.WriteMode,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Asynchronously writes content to the file. If the file does not exist, this method will create the file, write to the file, and then close the file.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="contents">The contents.</param>
+            <param name="writeMode">The write mode.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A boolean task to write to the file. The boolean represents whether the contents were written or not.</returns>
         </member>
         <member name="T:FenrirFS.FSHelpers">
             <summary>

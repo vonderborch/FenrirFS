@@ -57,7 +57,9 @@
     <Compile Include="..\common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Folder.cs" />
     <Compile Include="Fenrir.cs" />
+    <Compile Include="File.cs" />
     <Compile Include="FSHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

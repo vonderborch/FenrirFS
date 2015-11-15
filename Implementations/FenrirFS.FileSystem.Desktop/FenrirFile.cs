@@ -38,7 +38,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime CreationTime
         {
-            get { return File.GetCreationTime(FullPath); }
+            get { return System.IO.File.GetCreationTime(FullPath); }
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime CreationTimeUtc
         {
-            get { return File.GetCreationTimeUtc(FullPath); }
+            get { return System.IO.File.GetCreationTimeUtc(FullPath); }
         }
 
         /// <summary>
@@ -125,9 +125,9 @@ namespace FenrirFS.Desktop
         /// </value>
         public override FileAttributes FileAttributes
         {
-            get { return FenrirHelpers.SystemFileAttributesToFenrirFileAttributes(File.GetAttributes(FullPath)); }
+            get { return FenrirHelpers.SystemFileAttributesToFenrirFileAttributes(System.IO.File.GetAttributes(FullPath)); }
 
-            set { File.SetAttributes(FullPath, FenrirHelpers.FenrirFileAttributesToSystemFileAttributes(value)); }
+            set { System.IO.File.SetAttributes(FullPath, FenrirHelpers.FenrirFileAttributesToSystemFileAttributes(value)); }
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime LastAccessedTime
         {
-            get { return File.GetLastAccessTime(FullPath); }
+            get { return System.IO.File.GetLastAccessTime(FullPath); }
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime LastAccessedTimeUtc
         {
-            get { return File.GetLastAccessTimeUtc(FullPath); }
+            get { return System.IO.File.GetLastAccessTimeUtc(FullPath); }
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime LastModifiedTime
         {
-            get { return File.GetLastWriteTime(FullPath); }
+            get { return System.IO.File.GetLastWriteTime(FullPath); }
         }
 
         /// <summary>
@@ -171,7 +171,29 @@ namespace FenrirFS.Desktop
         /// </value>
         public override DateTime LastModifiedTimeUtc
         {
-            get { return File.GetLastWriteTimeUtc(FullPath); }
+            get { return System.IO.File.GetLastWriteTimeUtc(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the parent folder for the file.
+        /// </summary>
+        /// <value>
+        /// The parent folder.
+        /// </value>
+        public override string ParentFolder
+        {
+            get { return System.IO.Path.GetDirectoryName(FullPath); }
+        }
+
+        /// <summary>
+        /// Gets the root folder for the file.
+        /// </summary>
+        /// <value>
+        /// The root folder.
+        /// </value>
+        public override string RootFolder
+        {
+            get { return System.IO.Path.GetPathRoot(FullPath); }
         }
 
         /// <summary>
@@ -198,7 +220,7 @@ namespace FenrirFS.Desktop
         public override bool ChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             Exceptions.NotNullOrEmptyCheck(extension, nameof(extension));
-
+            
             if (!IsOpen)
             {
                 Exceptions.NotNullOrEmptyException(extension, nameof(extension));
@@ -217,12 +239,12 @@ namespace FenrirFS.Desktop
 
                     case FileCollisionOption.ReplaceExisting:
                         if (Fenrir.FileSystem.FileExists(newPath))
-                            File.Delete(newPath);
+                            System.IO.File.Delete(newPath);
                         break;
                 }
 
-                File.Copy(FullPath, newPath);
-                File.Delete(FullPath);
+                System.IO.File.Copy(FullPath, newPath);
+                System.IO.File.Delete(FullPath);
                 Extension = extension;
                 return true;
             }
@@ -231,11 +253,11 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Copies the file.
+        /// Copies the System.IO.File.
         /// </summary>
         /// <param name="destination">The full path of the destination.</param>
         /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
-        /// <returns>An AFile representing the copied file.</returns>
+        /// <returns>An AFile representing the copied System.IO.File.</returns>
         public override AFile Copy(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             if (!IsOpen)
@@ -254,7 +276,7 @@ namespace FenrirFS.Desktop
                         break;
                 }
 
-                File.Copy(FullPath, destination, collisionOption == FileCollisionOption.ReplaceExisting);
+                System.IO.File.Copy(FullPath, destination, collisionOption == FileCollisionOption.ReplaceExisting);
                 return new FenrirFile(destination);
             }
 
@@ -262,12 +284,12 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Copies the file.
+        /// Copies the System.IO.File.
         /// </summary>
         /// <param name="destinationPath">The destination path.</param>
         /// <param name="destinationName">Name of the destination.</param>
         /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
-        /// <returns>An AFile representing the copied file.</returns>
+        /// <returns>An AFile representing the copied System.IO.File.</returns>
         public override AFile Copy(AFolder destinationPath, string destinationName, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             if (!IsOpen)
@@ -289,7 +311,7 @@ namespace FenrirFS.Desktop
                         break;
                 }
 
-                File.Copy(FullPath, destination, collisionOption == FileCollisionOption.ReplaceExisting);
+                System.IO.File.Copy(FullPath, destination, collisionOption == FileCollisionOption.ReplaceExisting);
                 return new FenrirFile(destination);
             }
 
@@ -297,12 +319,12 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Copies the file.
+        /// Copies the System.IO.File.
         /// </summary>
         /// <param name="destinationPath">The destination path.</param>
         /// <param name="destinationName">Name of the destination.</param>
         /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
-        /// <returns>An AFile representing the copied file.</returns>
+        /// <returns>An AFile representing the copied System.IO.File.</returns>
         public override AFile Copy(string destinationPath, string destinationName, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             if (!IsOpen)
@@ -324,7 +346,7 @@ namespace FenrirFS.Desktop
                         break;
                 }
 
-                File.Copy(FullPath, destination, collisionOption == FileCollisionOption.ReplaceExisting);
+                System.IO.File.Copy(FullPath, destination, collisionOption == FileCollisionOption.ReplaceExisting);
                 return new FenrirFile(destination);
             }
 
@@ -332,7 +354,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Deletes the file.
+        /// Deletes the System.IO.File.
         /// </summary>
         /// <returns>Whether the file was deleted (true) or not (false).</returns>
         public override bool Delete()
@@ -341,7 +363,7 @@ namespace FenrirFS.Desktop
             {
                 if (Fenrir.FileSystem.FileExists(FullPath))
                 {
-                    File.Delete(FullPath);
+                    System.IO.File.Delete(FullPath);
                     return true;
                 }
             }
@@ -350,7 +372,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Moves the file.
+        /// Moves the System.IO.File.
         /// </summary>
         /// <param name="destination">The destination.</param>
         /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
@@ -374,11 +396,11 @@ namespace FenrirFS.Desktop
 
                     case FileCollisionOption.ReplaceExisting:
                         if (Fenrir.FileSystem.FileExists(destination))
-                            File.Delete(destination);
+                            System.IO.File.Delete(destination);
                         break;
                 }
 
-                File.Move(FullPath, destination);
+                System.IO.File.Move(FullPath, destination);
                 SetupFile(destination);
                 return true;
             }
@@ -387,7 +409,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Moves the file.
+        /// Moves the System.IO.File.
         /// </summary>
         /// <param name="destinationPath">The destination path.</param>
         /// <param name="destinationName">Name of the destination.</param>
@@ -414,11 +436,11 @@ namespace FenrirFS.Desktop
 
                     case FileCollisionOption.ReplaceExisting:
                         if (Fenrir.FileSystem.FileExists(newPath))
-                            File.Delete(newPath);
+                            System.IO.File.Delete(newPath);
                         break;
                 }
 
-                File.Move(FullPath, newPath);
+                System.IO.File.Move(FullPath, newPath);
                 SetupFile(newPath);
                 return true;
             }
@@ -427,7 +449,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Moves the file.
+        /// Moves the System.IO.File.
         /// </summary>
         /// <param name="destinationPath">The destination path.</param>
         /// <param name="destinationName">Name of the destination.</param>
@@ -454,11 +476,11 @@ namespace FenrirFS.Desktop
 
                     case FileCollisionOption.ReplaceExisting:
                         if (Fenrir.FileSystem.FileExists(newPath))
-                            File.Delete(newPath);
+                            System.IO.File.Delete(newPath);
                         break;
                 }
 
-                File.Move(FullPath, newPath);
+                System.IO.File.Move(FullPath, newPath);
                 SetupFile(newPath);
                 return true;
             }
@@ -483,8 +505,8 @@ namespace FenrirFS.Desktop
                 throw new Exception("Invalid File Access and File Mode parameters!");
 
             // Open a Stream with the options
-            //var str = File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
-            Stream = File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
+            //var str = System.IO.File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
+            Stream = System.IO.File.Open(FullPath, FenrirHelpers.FenrirFileModeToSystemFileMode(fileMode), FenrirHelpers.FenrirFileAccessToSystemFileAccess(fileAccess));
 
             // Set FileAccess and FileMode
             FileAccessMode = fileAccess;
@@ -494,45 +516,45 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Reads all the contents of the file.
+        /// Reads all the contents of the System.IO.File.
         /// </summary>
-        /// <returns>A string representing the contents of the file.</returns>
+        /// <returns>A string representing the contents of the System.IO.File.</returns>
         public override string ReadAll()
         {
-            return File.ReadAllText(FullPath);
+            return System.IO.File.ReadAllText(FullPath);
         }
 
         /// <summary>
         /// Reads all as the contents of the file as an XDocument.
         /// </summary>
-        /// <returns>An XDocument representing the contents of the file.</returns>
+        /// <returns>An XDocument representing the contents of the System.IO.File.</returns>
         public override XDocument ReadAllAsXElement()
         {
-            string contents = File.ReadAllText(FullPath);
+            string contents = System.IO.File.ReadAllText(FullPath);
 
             return XDocument.Parse(contents);
         }
 
         /// <summary>
-        /// Reads all lines in the file.
+        /// Reads all lines in the System.IO.File.
         /// </summary>
-        /// <returns>An array of strings, each item representing a line in the file.</returns>
+        /// <returns>An array of strings, each item representing a line in the System.IO.File.</returns>
         public override string[] ReadAllLines()
         {
-            return File.ReadAllLines(FullPath);
+            return System.IO.File.ReadAllLines(FullPath);
         }
 
         /// <summary>
         /// Reads a line.
         /// </summary>
-        /// <returns>A string representing a line in the file.</returns>
+        /// <returns>A string representing a line in the System.IO.File.</returns>
         public override IEnumerable<string> ReadLine()
         {
-            return File.ReadLines(FullPath);
+            return System.IO.File.ReadLines(FullPath);
         }
 
         /// <summary>
-        /// Renames the file.
+        /// Renames the System.IO.File.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="collisionOption">The collision option. Defaults to FailIfExists.</param>
@@ -559,12 +581,12 @@ namespace FenrirFS.Desktop
 
                     case FileCollisionOption.ReplaceExisting:
                         if (Fenrir.FileSystem.FileExists(newPath))
-                            File.Delete(newPath);
+                            System.IO.File.Delete(newPath);
                         break;
                 }
 
-                File.Copy(FullPath, newPath);
-                File.Delete(FullPath);
+                System.IO.File.Copy(FullPath, newPath);
+                System.IO.File.Delete(FullPath);
                 Name = name;
                 return true;
             }
@@ -718,7 +740,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Writes contents to the file.
+        /// Writes contents to the System.IO.File.
         /// </summary>
         /// <param name="contents">The contents.</param>
         /// <param name="writeMode">The write mode. Defaults to Truncate.</param>
@@ -734,12 +756,12 @@ namespace FenrirFS.Desktop
                     case WriteMode.Append:
                         if (Fenrir.FileSystem.FileExists(FullPath))
                         {
-                            contents = File.ReadAllText(FullPath, Encoding) + contents;
+                            contents = System.IO.File.ReadAllText(FullPath, Encoding) + contents;
                         }
 
                         break;
                 }
-                File.WriteAllText(FullPath, contents, Encoding);
+                System.IO.File.WriteAllText(FullPath, contents, Encoding);
 
                 return true;
             }
@@ -748,7 +770,7 @@ namespace FenrirFS.Desktop
         }
 
         /// <summary>
-        /// Writes a line to the file.
+        /// Writes a line to the System.IO.File.
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="writeMode">The write mode. Defaults to Append.</param>
@@ -766,12 +788,12 @@ namespace FenrirFS.Desktop
                     case WriteMode.Append:
                         if (Fenrir.FileSystem.FileExists(FullPath))
                         {
-                            line = File.ReadAllText(FullPath, Encoding) + line;
+                            line = System.IO.File.ReadAllText(FullPath, Encoding) + line;
                         }
 
                         break;
                 }
-                File.WriteAllText(FullPath, line, Encoding);
+                System.IO.File.WriteAllText(FullPath, line, Encoding);
 
                 return true;
             }

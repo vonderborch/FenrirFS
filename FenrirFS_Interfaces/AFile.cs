@@ -185,6 +185,15 @@ namespace FenrirFS
         /// The name.
         /// </value>
         public virtual string Name { get; protected set; }
+
+        /// <summary>
+        /// Gets the parent folder for the file.
+        /// </summary>
+        /// <value>
+        /// The parent folder.
+        /// </value>
+        public virtual string ParentFolder { get; }
+
         /// <summary>
         /// Gets or sets the file path.
         /// </summary>
@@ -192,6 +201,14 @@ namespace FenrirFS
         /// The path.
         /// </value>
         public virtual string Path { get; protected set; }
+
+        /// <summary>
+        /// Gets the root folder for the file.
+        /// </summary>
+        /// <value>
+        /// The root folder.
+        /// </value>
+        public virtual string RootFolder { get; }
 
         /// <summary>
         /// Gets the size of the file, in bytes.
