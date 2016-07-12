@@ -1,5 +1,0 @@
-C:\Users\Ricky\OneDrive\Personal Projects\FenrirFS\FenrirFS\obj\Debug\FenrirFS.Abstractions.dll
-C:\Users\Ricky\OneDrive\Personal Projects\FenrirFS\FenrirFS\obj\Debug\FenrirFS.Abstractions.pdb
-C:\Users\Ricky\OneDrive\Personal Projects\FenrirFS\FenrirFS\bin\Debug\FenrirFS.Abstractions.xml
-C:\Users\Ricky\OneDrive\Personal Projects\FenrirFS\FenrirFS\bin\Debug\FenrirFS.Abstractions.dll
-C:\Users\Ricky\OneDrive\Personal Projects\FenrirFS\FenrirFS\bin\Debug\FenrirFS.Abstractions.pdb
