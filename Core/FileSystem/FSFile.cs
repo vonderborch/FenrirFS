@@ -1,20 +1,56 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : FenrirFS
+// Component        : FSFile.cs
+// Author           : vonderborch
+// Created          : 07-12-2016
+// 
+// Version          : 1.0.0
+// Last Modified By : vonderborch
+// Last Modified On : 07-13-2016
+// ***********************************************************************
+// <copyright file="FSFile.cs"=>
+//		Copyright ©  2016
+// </copyright>
+// <summary>
+//      An abstract class representing a File.
+// </summary>
+//
+// Changelog: 
+//            - 1.0.0 (07-12-2016) - Initial version created.
+// ***********************************************************************
+using FenrirFS.Helpers;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using IO = System.IO;
 
 namespace FenrirFS
 {
+    /// <summary>
+    /// Class FSFile.
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="System.IEquatable{FenrirFS.FSFile}" />
     public abstract class FSFile : IDisposable, IEquatable<FSFile>
     {
-        public static implicit operator string(FSFile file)
-        {
-            return file.FullPath;
-        }
+        #region Private Fields
 
+        /// <summary>
+        /// The disposed value
+        /// </summary>
+        private bool disposedValue = false;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FSFile"/> class.
+        /// </summary>
+        /// <param name="path">The path.</param>
         public FSFile(string path)
         {
             Name = IO.Path.GetFileNameWithoutExtension(path);
@@ -22,6 +58,12 @@ namespace FenrirFS
             Extension = IO.Path.GetExtension(path);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FSFile"/> class.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="extension">The extension.</param>
         public FSFile(string path, string name, string extension)
         {
             Name = name;
@@ -29,50 +71,41 @@ namespace FenrirFS
             Extension = extension;
         }
 
-        public FileAccess StreamFileAccessMode { get; private set; }
-        public FileMode StreamFileMode { get; private set; }
+        #endregion Public Constructors
 
-        public FileAttributes FileAttributes
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the creation time.
+        /// </summary>
+        /// <value>The creation time.</value>
+        public DateTime CreationTime
         {
-            get { return GetFileAttributes(); }
+            get { return GetCreationTime(false); }
         }
 
-        public string ParentFolderPath
+        /// <summary>
+        /// Gets the creation time UTC.
+        /// </summary>
+        /// <value>The creation time UTC.</value>
+        public DateTime CreationTimeUtc
         {
-            get { return IO.Path.GetDirectoryName(Path); }
+            get { return GetCreationTime(true); }
         }
 
-        public FSFolder ParentFolder
+        /// <summary>
+        /// Gets the encoding.
+        /// </summary>
+        /// <value>The encoding.</value>
+        public Encoding Encoding
         {
-            get { return FS.GetFolder(IO.Path.GetDirectoryName(Path)); }
+            get { return GetEncoding(); }
         }
 
-        public string RootFolderPath
-        {
-            get { return IO.Path.GetPathRoot(Path); }
-        }
-
-        public FSFolder RootFolder
-        {
-            get { return FS.GetFolder(IO.Path.GetPathRoot(Path)); }
-        }
-
-        public string Name { get; private set; }
-        public string Path { get; private set; }
-        public string Extension { get; private set; }
-
-        public string FullPath
-        {
-            get { return IO.Path.Combine(Path, $"{Name}.{Extension}"); }
-        }
-
-        public IO.Stream Stream { get; private set; }
-
-        public bool IsFileOpen
-        {
-            get { return Stream != null; }
-        }
-
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="FSFile"/> is eos.
+        /// </summary>
+        /// <value><c>true</c> if eos; otherwise, <c>false</c>.</value>
         public bool EOS
         {
             get
@@ -82,156 +115,583 @@ namespace FenrirFS
                     : false;
             }
         }
-        
-        private bool disposedValue = false; // To detect redundant calls
 
-        protected virtual void Dispose(bool disposing)
+        /// <summary>
+        /// Gets the extension.
+        /// </summary>
+        /// <value>The extension.</value>
+        public string Extension { get; private set; }
+
+        /// <summary>
+        /// Gets the file attributes.
+        /// </summary>
+        /// <value>The file attributes.</value>
+        public FileAttributes FileAttributes
         {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
-            }
+            get { return GetFileAttributes(); }
         }
 
-        public void Dispose()
-        {
-            // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-            // ~FSFile() {
-            //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            //   Dispose(false);
-            // }
-
-            // This code added to correctly implement the disposable pattern.
-
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
-
-        public bool Equals(FSFile other)
-        {
-            return this.FullPath == other.FullPath;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj != null
-                ? FullPath == obj.ToString()
-                : false;
-        }
-
-        public override int GetHashCode()
-        {
-            return FullPath.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return FullPath;
-        }
-
-        public Encoding Encoding
-        {
-            get { return GetEncoding(); }
-        }
-
+        /// <summary>
+        /// Gets the size of the file.
+        /// </summary>
+        /// <value>The size of the file.</value>
         public long FileSize
         {
             get { return GetFileSize(); }
         }
 
-        public DateTime CreationTime
+        /// <summary>
+        /// Gets the full path.
+        /// </summary>
+        /// <value>The full path.</value>
+        public string FullPath
         {
-            get { return GetCreationTime(false); }
+            get { return IO.Path.Combine(Path, $"{Name}.{Extension}"); }
         }
 
-        public DateTime CreationTimeUtc
+        /// <summary>
+        /// Gets a value indicating whether this instance is file open.
+        /// </summary>
+        /// <value><c>true</c> if this instance is file open; otherwise, <c>false</c>.</value>
+        public bool IsFileOpen
         {
-            get { return GetCreationTime(true); }
+            get { return Stream != null; }
         }
 
+        /// <summary>
+        /// Gets the last accessed time.
+        /// </summary>
+        /// <value>The last accessed time.</value>
         public DateTime LastAccessedTime
         {
             get { return GetLastAccessedTime(false); }
         }
 
+        /// <summary>
+        /// Gets the last accessed time UTC.
+        /// </summary>
+        /// <value>The last accessed time UTC.</value>
         public DateTime LastAccessedTimeUtc
         {
             get { return GetLastAccessedTime(true); }
         }
 
+        /// <summary>
+        /// Gets the last modified time.
+        /// </summary>
+        /// <value>The last modified time.</value>
         public DateTime LastModifiedTime
         {
             get { return GetLastModifiedTime(false); }
         }
 
+        /// <summary>
+        /// Gets the last modified time UTC.
+        /// </summary>
+        /// <value>The last modified time UTC.</value>
         public DateTime LastModifiedTimeUtc
         {
             get { return GetLastModifiedTime(true); }
         }
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
+        public string Name { get; private set; }
 
-        public abstract FileAttributes GetFileAttributes();
-
-        public abstract bool SetFileAttributes(FileAttributes attributes);
-
-        public abstract long GetFileSize();
-
-        public abstract DateTime GetCreationTime(bool useUtc = false);
-        public abstract DateTime GetLastAccessedTime(bool useUtc = false);
-
-        public abstract DateTime GetLastModifiedTime(bool useUtc = false);
-
-        public abstract Encoding GetEncoding();
-
-        public abstract bool SetEncoding(Encoding encoding);
-
-        public abstract bool ChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
-
-        public bool Clear()
+        /// <summary>
+        /// Gets the parent folder.
+        /// </summary>
+        /// <value>The parent folder.</value>
+        public FSFolder ParentFolder
         {
-            return false;
+            get { return FS.GetFolder(IO.Path.GetDirectoryName(Path)); }
         }
 
-        public abstract bool Copy(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
+        /// <summary>
+        /// Gets the parent folder path.
+        /// </summary>
+        /// <value>The parent folder path.</value>
+        public string ParentFolderPath
+        {
+            get { return IO.Path.GetDirectoryName(Path); }
+        }
 
-        public abstract bool Delete();
+        /// <summary>
+        /// Gets the path.
+        /// </summary>
+        /// <value>The path.</value>
+        public string Path { get; private set; }
 
-        public abstract bool Move(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
+        /// <summary>
+        /// Gets the root folder.
+        /// </summary>
+        /// <value>The root folder.</value>
+        public FSFolder RootFolder
+        {
+            get { return FS.GetFolder(IO.Path.GetPathRoot(Path)); }
+        }
 
-        public abstract string ReadAll();
+        /// <summary>
+        /// Gets the root folder path.
+        /// </summary>
+        /// <value>The root folder path.</value>
+        public string RootFolderPath
+        {
+            get { return IO.Path.GetPathRoot(Path); }
+        }
 
-        public abstract XDocument ReadAllAsXDocument();
+        /// <summary>
+        /// Gets the stream.
+        /// </summary>
+        /// <value>The stream.</value>
+        public IO.Stream Stream { get; private set; }
 
-        public abstract string[] ReadAllLines();
+        /// <summary>
+        /// Gets the stream file access mode.
+        /// </summary>
+        /// <value>The stream file access mode.</value>
+        public FileAccess StreamFileAccessMode { get; private set; }
 
-        public abstract IEnumerable<string> ReadLine();
+        /// <summary>
+        /// Gets the stream file mode.
+        /// </summary>
+        /// <value>The stream file mode.</value>
+        public FileMode StreamFileMode { get; private set; }
 
-        public abstract bool Rename(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
+        #endregion Public Properties
 
-        public abstract bool WriteAll(string contents, WriteMode writeMode = WriteMode.Truncate);
+        #region Public Methods
 
-        public abstract bool WriteLine(string contents, WriteMode writeMode = WriteMode.Truncate);
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="FSFile"/> to <see cref="System.String"/>.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>The result of the conversion.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public static implicit operator string(FSFile file)
+        {
+            return file.FullPath;
+        }
 
+        /// <summary>
+        /// Asynchronouses the change extension.
+        /// </summary>
+        /// <param name="extension">The extension.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return ChangeExtension(extension);
+        }
 
+        /// <summary>
+        /// Asynchronouses the clear.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncClear(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return Clear();
+        }
 
+        /// <summary>
+        /// Asynchronouses the close.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncClose(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return Close();
+        }
 
+        /// <summary>
+        /// Asynchronouses the copy.
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncCopy(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return Copy(destination, collisionOption);
+        }
 
+        /// <summary>
+        /// Asynchronouses the delete.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncDelete(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return Delete();
+        }
 
+        /// <summary>
+        /// Asynchronouses the get creation time.
+        /// </summary>
+        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;DateTime&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<DateTime> AsyncGetCreationTime(bool useUtc = false, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return GetCreationTime(useUtc);
+        }
 
+        /// <summary>
+        /// Asynchronouses the get encoding.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;Encoding&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<Encoding> AsyncGetEncoding(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return GetEncoding();
+        }
 
+        /// <summary>
+        /// Asynchronouses the get file attributes.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;FileAttributes&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<FileAttributes> AsyncGetFileAttributes(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return GetFileAttributes();
+        }
 
+        /// <summary>
+        /// Asynchronouses the size of the get file.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Int64&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<long> AsyncGetFileSize(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return GetFileSize();
+        }
 
+        /// <summary>
+        /// Asynchronouses the get last accessed time.
+        /// </summary>
+        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;DateTime&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<DateTime> AsyncGetLastAccessedTime(bool useUtc = false, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return GetLastAccessedTime(useUtc);
+        }
 
+        /// <summary>
+        /// Asynchronouses the get last modified time.
+        /// </summary>
+        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;DateTime&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<DateTime> AsyncGetLastModifiedTime(bool useUtc = false, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return GetLastModifiedTime(useUtc);
+        }
+
+        /// <summary>
+        /// Asynchronouses the move.
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncMove(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return Move(destination, collisionOption);
+        }
+
+        /// <summary>
+        /// Asynchronouses the open.
+        /// </summary>
+        /// <param name="fileAccess">The file access.</param>
+        /// <param name="fileMode">The file mode.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;IO.Stream&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<IO.Stream> AsyncOpen(FileAccess fileAccess = FileAccess.ReadWrite, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return Open(fileAccess, fileMode);
+        }
+
+        /// <summary>
+        /// Asynchronouses the read all.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<string> AsyncReadAll(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return ReadAll();
+        }
+
+        /// <summary>
+        /// Asynchronouses the read all as x document.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;XDocument&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<XDocument> AsyncReadAllAsXDocument(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return ReadAllAsXDocument();
+        }
+
+        /// <summary>
+        /// Asynchronouses the read all lines.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.String[]&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<string[]> AsyncReadAllLines(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return ReadAllLines();
+        }
+
+        /// <summary>
+        /// Asynchronouses the read line.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<IEnumerable<string>> AsyncReadLine(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return ReadLine();
+        }
+
+        /// <summary>
+        /// Asynchronouses the rename.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncRename(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return Rename(name, collisionOption);
+        }
+
+        /// <summary>
+        /// Asynchronouses the set encoding.
+        /// </summary>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncSetEncoding(Encoding encoding, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return SetEncoding(encoding);
+        }
+
+        /// <summary>
+        /// Asynchronouses the set file attributes.
+        /// </summary>
+        /// <param name="attributes">The attributes.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncSetFileAttributes(FileAttributes attributes, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return SetFileAttributes(attributes);
+        }
+
+        /// <summary>
+        /// Asynchronouses the stream read.
+        /// </summary>
+        /// <param name="chars">The chars.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<string> AsyncStreamRead(int chars, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return StreamRead(chars);
+        }
+
+        /// <summary>
+        /// Asynchronouses the stream read all.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<string> AsyncStreamReadAll(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return StreamReadAll();
+        }
+
+        /// <summary>
+        /// Asynchronouses the stream read line.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<string> AsyncStreamReadLine(CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return StreamReadLine();
+        }
+
+        /// <summary>
+        /// Asynchronouses the stream set position.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncStreamSetPosition(int position, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return StreamSetPosition(position);
+        }
+
+        /// <summary>
+        /// Asynchronouses the stream write.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncStreamWrite(string contents, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return StreamWrite(contents);
+        }
+
+        /// <summary>
+        /// Asynchronouses the stream write line.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncStreamWriteLine(string contents, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return StreamWriteLine(contents);
+        }
+
+        /// <summary>
+        /// Asynchronouses the write all.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="writeMode">The write mode.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncWriteAll(string contents, WriteMode writeMode = WriteMode.Truncate, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return WriteAll(contents, writeMode);
+        }
+
+        /// <summary>
+        /// Asynchronouses the write line.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="writeMode">The write mode.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public async Task<bool> AsyncWriteLine(string contents, WriteMode writeMode = WriteMode.Truncate, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return WriteLine(contents, writeMode);
+        }
+
+        /// <summary>
+        /// Changes the extension.
+        /// </summary>
+        /// <param name="extension">The extension.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool ChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
+
+        /// <summary>
+        /// Clears this instance.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public bool Clear()
+        {
+            return IsFileOpen
+                ? false
+                : WriteAll("", WriteMode.Truncate);
+        }
+
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
         public bool Close()
         {
             if (IsFileOpen)
@@ -261,8 +721,220 @@ namespace FenrirFS
             return true;
         }
 
+        /// <summary>
+        /// Copies the specified destination.
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool Copy(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
+
+        /// <summary>
+        /// Deletes this instance.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool Delete();
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public void Dispose()
+        {
+            // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+            // ~FSFile() {
+            //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            //   Dispose(false);
+            // }
+
+            // This code added to correctly implement the disposable pattern.
+
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public bool Equals(FSFile other)
+        {
+            return this.FullPath == other.FullPath;
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public override bool Equals(object obj)
+        {
+            return obj != null
+                ? FullPath == obj.ToString()
+                : false;
+        }
+
+        /// <summary>
+        /// Gets the creation time.
+        /// </summary>
+        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
+        /// <returns>DateTime.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract DateTime GetCreationTime(bool useUtc = false);
+
+        /// <summary>
+        /// Gets the encoding.
+        /// </summary>
+        /// <returns>Encoding.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract Encoding GetEncoding();
+
+        /// <summary>
+        /// Gets the file attributes.
+        /// </summary>
+        /// <returns>FileAttributes.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract FileAttributes GetFileAttributes();
+
+        /// <summary>
+        /// Gets the size of the file.
+        /// </summary>
+        /// <returns>System.Int64.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract long GetFileSize();
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public override int GetHashCode()
+        {
+            return FullPath.GetHashCode();
+        }
+
+        /// <summary>
+        /// Gets the last accessed time.
+        /// </summary>
+        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
+        /// <returns>DateTime.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract DateTime GetLastAccessedTime(bool useUtc = false);
+
+        /// <summary>
+        /// Gets the last modified time.
+        /// </summary>
+        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
+        /// <returns>DateTime.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract DateTime GetLastModifiedTime(bool useUtc = false);
+
+        /// <summary>
+        /// Moves the specified destination.
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool Move(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
+
+        /// <summary>
+        /// Opens the specified file access.
+        /// </summary>
+        /// <param name="fileAccess">The file access.</param>
+        /// <param name="fileMode">The file mode.</param>
+        /// <returns>IO.Stream.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
         public abstract IO.Stream Open(FileAccess fileAccess = FileAccess.ReadWrite, FileMode fileMode = FileMode.OpenOrCreate);
 
+        /// <summary>
+        /// Reads all.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract string ReadAll();
+
+        /// <summary>
+        /// Reads all as x document.
+        /// </summary>
+        /// <returns>XDocument.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract XDocument ReadAllAsXDocument();
+
+        /// <summary>
+        /// Reads all lines.
+        /// </summary>
+        /// <returns>System.String[].</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract string[] ReadAllLines();
+
+        /// <summary>
+        /// Reads the line.
+        /// </summary>
+        /// <returns>IEnumerable&lt;System.String&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract IEnumerable<string> ReadLine();
+
+        /// <summary>
+        /// Renames the specified name.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="collisionOption">The collision option.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool Rename(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
+
+        /// <summary>
+        /// Sets the encoding.
+        /// </summary>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool SetEncoding(Encoding encoding);
+
+        /// <summary>
+        /// Sets the file attributes.
+        /// </summary>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool SetFileAttributes(FileAttributes attributes);
+
+        /// <summary>
+        /// Streams the read.
+        /// </summary>
+        /// <param name="chars">The chars.</param>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
         public string StreamRead(int chars)
         {
             if (!IsFileOpen && StreamFileAccessMode != FileAccess.Write)
@@ -277,6 +949,12 @@ namespace FenrirFS
             return null;
         }
 
+        /// <summary>
+        /// Streams the read all.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
         public string StreamReadAll()
         {
             if (IsFileOpen && StreamFileAccessMode != FileAccess.Write)
@@ -291,6 +969,12 @@ namespace FenrirFS
             return null;
         }
 
+        /// <summary>
+        /// Streams the read line.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
         public string StreamReadLine()
         {
             if (IsFileOpen && StreamFileAccessMode != FileAccess.Write)
@@ -326,6 +1010,13 @@ namespace FenrirFS
             return null;
         }
 
+        /// <summary>
+        /// Streams the set position.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
         public bool StreamSetPosition(int position)
         {
             if (IsFileOpen && position >= 0 && position < Stream.Length)
@@ -338,6 +1029,13 @@ namespace FenrirFS
             return false;
         }
 
+        /// <summary>
+        /// Streams the write.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
         public bool StreamWrite(string contents)
         {
             if (IsFileOpen && StreamFileAccessMode != FileAccess.Read)
@@ -354,6 +1052,13 @@ namespace FenrirFS
             return false;
         }
 
+        /// <summary>
+        /// Streams the write line.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
         public bool StreamWriteLine(string contents)
         {
             if (IsFileOpen && StreamFileAccessMode != FileAccess.Read && contents.Length == int.MaxValue)
@@ -369,5 +1074,62 @@ namespace FenrirFS
 
             return false;
         }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public override string ToString()
+        {
+            return FullPath;
+        }
+
+        /// <summary>
+        /// Writes all.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="writeMode">The write mode.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool WriteAll(string contents, WriteMode writeMode = WriteMode.Truncate);
+
+        /// <summary>
+        /// Writes the line.
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="writeMode">The write mode.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        public abstract bool WriteLine(string contents, WriteMode writeMode = WriteMode.Truncate);
+
+        #endregion Public Methods
+
+        #region Protected Methods
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        ///  Changelog:
+        ///             - 1.0.0 (07-12-2016) - Initial version.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (IsFileOpen)
+                        Close();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        #endregion Protected Methods
     }
 }

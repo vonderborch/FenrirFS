@@ -37,17 +37,27 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\ExistenceCheckResult.cs" />
     <Compile Include="Enums\FileAccess.cs" />
     <Compile Include="Enums\FileAttributes.cs" />
+    <Compile Include="Enums\FileCollisionOption.cs" />
     <Compile Include="Enums\FileMode.cs" />
+    <Compile Include="Enums\FolderCollisionOption.cs" />
+    <Compile Include="Enums\OpenMode.cs" />
+    <Compile Include="Enums\SearchOption.cs" />
+    <Compile Include="Enums\WriteMode.cs" />
     <Compile Include="FileSystem\FSFolder.cs" />
+    <Compile Include="FileSystem\NullFolder.cs" />
+    <Compile Include="FileSystem\NullFile.cs" />
     <Compile Include="FS.cs" />
     <Compile Include="FileSystem\FSFile.cs" />
+    <Compile Include="Helpers\Tasks.cs" />
     <Compile Include="IO\AsyncDirectory.cs" />
     <Compile Include="IO\AsyncFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IO\Directory.cs" />
     <Compile Include="IO\File.cs" />
+    <Compile Include="Structs\Awaiter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
