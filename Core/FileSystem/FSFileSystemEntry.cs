@@ -200,7 +200,7 @@ namespace FenrirFS
         /// <returns>The result of the conversion.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public static implicit operator string(FSObject item)
+        public static implicit operator string(FSFileSystemEntry item)
         {
             return item.FullPath;
         }
