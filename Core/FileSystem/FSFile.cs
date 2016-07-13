@@ -34,7 +34,7 @@ namespace FenrirFS
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     /// <seealso cref="System.IEquatable{FenrirFS.FSFile}" />
-    public abstract class FSFile : IDisposable, IEquatable<FSFile>
+    public abstract class FSFile : FSFileSystemEntry, IDisposable, IEquatable<FSFile>
     {
         #region Private Fields
 
@@ -74,25 +74,7 @@ namespace FenrirFS
         #endregion Public Constructors
 
         #region Public Properties
-
-        /// <summary>
-        /// Gets the creation time.
-        /// </summary>
-        /// <value>The creation time.</value>
-        public DateTime CreationTime
-        {
-            get { return GetCreationTime(false); }
-        }
-
-        /// <summary>
-        /// Gets the creation time UTC.
-        /// </summary>
-        /// <value>The creation time UTC.</value>
-        public DateTime CreationTimeUtc
-        {
-            get { return GetCreationTime(true); }
-        }
-
+        
         /// <summary>
         /// Gets the encoding.
         /// </summary>
@@ -120,7 +102,7 @@ namespace FenrirFS
         /// Gets the extension.
         /// </summary>
         /// <value>The extension.</value>
-        public string Extension { get; private set; }
+        public string Extension { get; protected set; }
 
         /// <summary>
         /// Gets the file attributes.
@@ -144,7 +126,7 @@ namespace FenrirFS
         /// Gets the full path.
         /// </summary>
         /// <value>The full path.</value>
-        public string FullPath
+        public override string FullPath
         {
             get { return IO.Path.Combine(Path, $"{Name}.{Extension}"); }
         }
@@ -157,108 +139,24 @@ namespace FenrirFS
         {
             get { return Stream != null; }
         }
-
-        /// <summary>
-        /// Gets the last accessed time.
-        /// </summary>
-        /// <value>The last accessed time.</value>
-        public DateTime LastAccessedTime
-        {
-            get { return GetLastAccessedTime(false); }
-        }
-
-        /// <summary>
-        /// Gets the last accessed time UTC.
-        /// </summary>
-        /// <value>The last accessed time UTC.</value>
-        public DateTime LastAccessedTimeUtc
-        {
-            get { return GetLastAccessedTime(true); }
-        }
-
-        /// <summary>
-        /// Gets the last modified time.
-        /// </summary>
-        /// <value>The last modified time.</value>
-        public DateTime LastModifiedTime
-        {
-            get { return GetLastModifiedTime(false); }
-        }
-
-        /// <summary>
-        /// Gets the last modified time UTC.
-        /// </summary>
-        /// <value>The last modified time UTC.</value>
-        public DateTime LastModifiedTimeUtc
-        {
-            get { return GetLastModifiedTime(true); }
-        }
-
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public string Name { get; private set; }
-
-        /// <summary>
-        /// Gets the parent folder.
-        /// </summary>
-        /// <value>The parent folder.</value>
-        public FSFolder ParentFolder
-        {
-            get { return FS.GetFolder(IO.Path.GetDirectoryName(Path)); }
-        }
-
-        /// <summary>
-        /// Gets the parent folder path.
-        /// </summary>
-        /// <value>The parent folder path.</value>
-        public string ParentFolderPath
-        {
-            get { return IO.Path.GetDirectoryName(Path); }
-        }
-
-        /// <summary>
-        /// Gets the path.
-        /// </summary>
-        /// <value>The path.</value>
-        public string Path { get; private set; }
-
-        /// <summary>
-        /// Gets the root folder.
-        /// </summary>
-        /// <value>The root folder.</value>
-        public FSFolder RootFolder
-        {
-            get { return FS.GetFolder(IO.Path.GetPathRoot(Path)); }
-        }
-
-        /// <summary>
-        /// Gets the root folder path.
-        /// </summary>
-        /// <value>The root folder path.</value>
-        public string RootFolderPath
-        {
-            get { return IO.Path.GetPathRoot(Path); }
-        }
-
+        
         /// <summary>
         /// Gets the stream.
         /// </summary>
         /// <value>The stream.</value>
-        public IO.Stream Stream { get; private set; }
+        public IO.Stream Stream { get; protected set; }
 
         /// <summary>
         /// Gets the stream file access mode.
         /// </summary>
         /// <value>The stream file access mode.</value>
-        public FileAccess StreamFileAccessMode { get; private set; }
+        public FileAccess StreamFileAccessMode { get; protected set; }
 
         /// <summary>
         /// Gets the stream file mode.
         /// </summary>
         /// <value>The stream file mode.</value>
-        public FileMode StreamFileMode { get; private set; }
+        public FileMode StreamFileMode { get; protected set; }
 
         #endregion Public Properties
 
@@ -346,20 +244,6 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get creation time.
-        /// </summary>
-        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>Task&lt;DateTime&gt;.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<DateTime> AsyncGetCreationTime(bool useUtc = false, CancellationToken? cancellationToken = null)
-        {
-            await Tasks.ScheduleTask(cancellationToken);
-            return GetCreationTime(useUtc);
-        }
-
-        /// <summary>
         /// Asynchronouses the get encoding.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
@@ -396,34 +280,6 @@ namespace FenrirFS
         {
             await Tasks.ScheduleTask(cancellationToken);
             return GetFileSize();
-        }
-
-        /// <summary>
-        /// Asynchronouses the get last accessed time.
-        /// </summary>
-        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>Task&lt;DateTime&gt;.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<DateTime> AsyncGetLastAccessedTime(bool useUtc = false, CancellationToken? cancellationToken = null)
-        {
-            await Tasks.ScheduleTask(cancellationToken);
-            return GetLastAccessedTime(useUtc);
-        }
-
-        /// <summary>
-        /// Asynchronouses the get last modified time.
-        /// </summary>
-        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>Task&lt;DateTime&gt;.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<DateTime> AsyncGetLastModifiedTime(bool useUtc = false, CancellationToken? cancellationToken = null)
-        {
-            await Tasks.ScheduleTask(cancellationToken);
-            return GetLastModifiedTime(useUtc);
         }
 
         /// <summary>
@@ -773,29 +629,6 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
-        /// </summary>
-        /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public override bool Equals(object obj)
-        {
-            return obj != null
-                ? FullPath == obj.ToString()
-                : false;
-        }
-
-        /// <summary>
-        /// Gets the creation time.
-        /// </summary>
-        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <returns>DateTime.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public abstract DateTime GetCreationTime(bool useUtc = false);
-
-        /// <summary>
         /// Gets the encoding.
         /// </summary>
         /// <returns>Encoding.</returns>
@@ -818,35 +651,6 @@ namespace FenrirFS
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
         public abstract long GetFileSize();
-
-        /// <summary>
-        /// Returns a hash code for this instance.
-        /// </summary>
-        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public override int GetHashCode()
-        {
-            return FullPath.GetHashCode();
-        }
-
-        /// <summary>
-        /// Gets the last accessed time.
-        /// </summary>
-        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <returns>DateTime.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public abstract DateTime GetLastAccessedTime(bool useUtc = false);
-
-        /// <summary>
-        /// Gets the last modified time.
-        /// </summary>
-        /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <returns>DateTime.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public abstract DateTime GetLastModifiedTime(bool useUtc = false);
 
         /// <summary>
         /// Moves the specified destination.

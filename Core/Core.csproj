@@ -47,6 +47,7 @@
     <Compile Include="Enums\SearchOption.cs" />
     <Compile Include="Enums\WriteMode.cs" />
     <Compile Include="FileSystem\FSFolder.cs" />
+    <Compile Include="FileSystem\FSFileSystemEntry.cs" />
     <Compile Include="FileSystem\NullFolder.cs" />
     <Compile Include="FileSystem\NullFile.cs" />
     <Compile Include="FS.cs" />

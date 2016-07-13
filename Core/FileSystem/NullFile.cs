@@ -44,6 +44,19 @@ namespace FenrirFS.FileSystem
 
         #endregion Public Constructors
 
+        #region Public Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [file exists].
+        /// </summary>
+        /// <value><c>true</c> if [file exists]; otherwise, <c>false</c>.</value>
+        public override bool Exists
+        {
+            get { return false; }
+        }
+
+        #endregion Public Properties
+
         #region Public Methods
 
         /// <summary>
