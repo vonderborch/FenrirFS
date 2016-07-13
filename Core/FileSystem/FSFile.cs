@@ -110,6 +110,21 @@ namespace FenrirFS
             return FullPath;
         }
 
+        public Encoding Encoding
+        {
+            get { return null; }
+            set { }
+        }
+
+
+
+
+
+
+
+
+
+
 
     }
 }
