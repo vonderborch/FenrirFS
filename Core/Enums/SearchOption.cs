@@ -5,14 +5,12 @@ using System.Text;
 
 namespace FenrirFS
 {
-    public enum FileAccess
+    public enum SearchOption
     {
-        Read = 0,
+        All = 0,
         
-        ReadWrite = 2,
+        TopDirectoryOnly = 1,
         
-        Write = 1,
-        
-        None = -1
+        SubDirectoriesOnly = 2,
     }
 }

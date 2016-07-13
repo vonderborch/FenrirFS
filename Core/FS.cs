@@ -8,7 +8,7 @@ namespace FenrirFS
 {
     public static class FS
     {
-        public static FSFile GetFile()
+        public static FSFile GetFile(string path)
         {
 #if CORE
             return null;
@@ -19,7 +19,7 @@ namespace FenrirFS
 #endif
         }
 
-        public static FSFolder GetFolder()
+        public static FSFolder GetFolder(string path)
         {
 #if CORE
             return null;

@@ -2,11 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace FenrirFS.Enums
+namespace FenrirFS
 {
-    class FileMode
+    public enum FileMode
     {
+        Append = 3,
+        
+        Create = 1,
+        
+        CreateNew = 2,
+        
+        Open = 4,
+        
+        OpenOrCreate = 5,
+        
+        Truncate = 0,
+        
+        None = -1
     }
 }
