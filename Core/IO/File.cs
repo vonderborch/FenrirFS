@@ -25,17 +25,45 @@ namespace FenrirFS.Static
 
         public static bool AppendAllText(string file, string contents)
         {
-            return false;
+            bool result = false;
+            using (var f = FS.GetFile(file, OpenMode.CreateIfDoesNotExist))
+                result = f.WriteAll(contents, WriteMode.Append);
+
+            return result;
         }
 
         public static bool Copy(string source, string destination, bool overwrite = false)
         {
-            return false;
+            if ((!overwrite && Exists(destination)) || !Exists(source))
+                return false;
+
+            bool result = false;
+            using (var s = FS.GetFile(source, OpenMode.ThrowIfDoesNotExist))
+                result = s.Copy(destination, FileCollisionOption.ThrowIfExists);
+
+            return result;
         }
 
         public static bool Create(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
-            return false;
+            if (Exists(file))
+            {
+                switch (collisionOption)
+                {
+                    case FileCollisionOption.FailIfExists:
+                        break;
+                    case FileCollisionOption.GenerateUniqueName:
+                        break;
+                    case FileCollisionOption.OpenIfExists:
+                        break;
+                    case FileCollisionOption.ReplaceExisting:
+                        break;
+                    case FileCollisionOption.ThrowIfExists:
+                        break;
+                }
+            }
+
+            return FS.GetFile(file, OpenMode.CreateIfDoesNotExist) != null;
         }
 
         public static FSFile CreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
@@ -103,7 +131,7 @@ namespace FenrirFS.Static
             return null;
         }
 
-        public static bool Replace(string source, string destination, string bckup, bool overwriteBackup = false)
+        public static bool Replace(string source, string destination, string backup, bool overwriteBackup = false)
         {
             return false;
         }

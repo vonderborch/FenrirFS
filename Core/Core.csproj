@@ -53,6 +53,7 @@
     <Compile Include="FS.cs" />
     <Compile Include="FileSystem\FSFile.cs" />
     <Compile Include="Helpers\Tasks.cs" />
+    <Compile Include="Helpers\Validation.cs" />
     <Compile Include="IO\AsyncDirectory.cs" />
     <Compile Include="IO\AsyncFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

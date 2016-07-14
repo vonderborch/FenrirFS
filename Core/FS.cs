@@ -41,6 +41,8 @@ namespace FenrirFS
         ///             - 1.0.0 (07-12-2016) - Initial version.
         public static FSFile GetFile(string path, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
         {
+            Helpers.Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
+
 #if CORE
             return new NullFile(path);
 #elif IMPLEMENTATION
@@ -62,6 +64,10 @@ namespace FenrirFS
         ///             - 1.0.0 (07-14-2016) - Initial version.
         public static FSFile GetFile(string path, string name, string extension, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
         {
+            Helpers.Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
+            Helpers.Validation.NotNullOrWhiteSpaceCheck(name, nameof(name));
+            Helpers.Validation.NotNullOrWhiteSpaceCheck(extension, nameof(extension));
+
 #if CORE
             return new NullFile(path, name, extension);
 #elif IMPLEMENTATION
@@ -82,6 +88,8 @@ namespace FenrirFS
         ///             - 1.0.0 (07-12-2016) - Initial version.
         public static FSFolder GetFolder(string path, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
         {
+            Helpers.Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
+
 #if CORE
             return new NullFolder(path);
 #elif IMPLEMENTATION
@@ -101,6 +109,9 @@ namespace FenrirFS
         ///             - 1.0.0 (07-14-2016) - Initial version.
         public static FSFolder GetFolder(string path, string name, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
         {
+            Helpers.Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
+            Helpers.Validation.NotNullOrWhiteSpaceCheck(name, nameof(name));
+
 #if CORE
             return new NullFolder(path, name);
 #elif IMPLEMENTATION
