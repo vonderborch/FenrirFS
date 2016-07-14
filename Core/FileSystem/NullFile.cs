@@ -12,7 +12,7 @@
 //		Copyright ©  2016
 // </copyright>
 // <summary>
-//      A null implementation of FSFile.
+//      A null implementation of the FSFile class.
 // </summary>
 //
 // Changelog: 
@@ -39,6 +39,16 @@ namespace FenrirFS.FileSystem
         /// </summary>
         /// <param name="path">The path.</param>
         public NullFile(string path) : base(path)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NullFile" /> class.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="extension">The extension.</param>
+        public NullFile(string path, string name, string extension) : base(path, name, extension)
         {
         }
 
