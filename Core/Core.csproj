@@ -44,6 +44,7 @@
     <Compile Include="Enums\FileMode.cs" />
     <Compile Include="Enums\FolderCollisionOption.cs" />
     <Compile Include="Enums\OpenMode.cs" />
+    <Compile Include="Enums\RenameMode.cs" />
     <Compile Include="Enums\SearchOption.cs" />
     <Compile Include="Enums\WriteMode.cs" />
     <Compile Include="FileSystem\FSFolder.cs" />

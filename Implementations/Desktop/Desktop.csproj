@@ -61,6 +61,9 @@
     <Compile Include="..\..\Core\Enums\OpenMode.cs">
       <Link>Enums\OpenMode.cs</Link>
     </Compile>
+    <Compile Include="..\..\Core\Enums\RenameMode.cs">
+      <Link>Enums\RenameMode.cs</Link>
+    </Compile>
     <Compile Include="..\..\Core\Enums\SearchOption.cs">
       <Link>Enums\SearchOption.cs</Link>
     </Compile>

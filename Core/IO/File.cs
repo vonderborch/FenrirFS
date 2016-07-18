@@ -51,15 +51,17 @@ namespace FenrirFS.Static
                 switch (collisionOption)
                 {
                     case FileCollisionOption.FailIfExists:
-                        break;
+                        return false;
                     case FileCollisionOption.GenerateUniqueName:
+                        file = GenerateUniqueFileName(file);
                         break;
                     case FileCollisionOption.OpenIfExists:
-                        break;
+                        return true;
                     case FileCollisionOption.ReplaceExisting:
+                        Delete(file);
                         break;
                     case FileCollisionOption.ThrowIfExists:
-                        break;
+                        throw new IO.IOException($"File [{file}] already exists!");
                 }
             }
 
@@ -68,42 +70,72 @@ namespace FenrirFS.Static
 
         public static FSFile CreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
-            return null;
+            if (Exists(file))
+            {
+                switch (collisionOption)
+                {
+                    case FileCollisionOption.FailIfExists:
+                        return null;
+                    case FileCollisionOption.GenerateUniqueName:
+                        file = GenerateUniqueFileName(file);
+                        break;
+                    case FileCollisionOption.ReplaceExisting:
+                        Delete(file);
+                        break;
+                    case FileCollisionOption.ThrowIfExists:
+                        throw new IO.IOException($"File [{file}] already exists!");
+                }
+            }
+
+            return FS.GetFile(file, OpenMode.CreateIfDoesNotExist);
         }
 
         public static bool Delete(string file)
         {
-            return false;
+            return FS.GetFile(file, OpenMode.CreateIfDoesNotExist).Delete();
         }
 
         public static bool Exists(string  file)
         {
-            return false;
+            return FS.GetFile(file, OpenMode.ReturnNullIfDoesNotExist) != null;
         }
 
         public static DateTime GetCreationTime(string file, bool useUtc = false)
         {
-            return DateTime.MinValue;
+            return FS.GetFile(file, OpenMode.ThrowIfDoesNotExist).GetCreationTime(useUtc);
         }
 
         public static DateTime GetLastAccessedTime(string file, bool useUtc = false)
         {
-            return DateTime.MinValue;
+            return FS.GetFile(file, OpenMode.ThrowIfDoesNotExist).GetLastAccessedTime(useUtc);
         }
 
         public static DateTime GetLastModifiedTime(string file, bool useUtc = false)
         {
-            return DateTime.MinValue;
+            return FS.GetFile(file, OpenMode.ThrowIfDoesNotExist).GetLastModifiedTime(useUtc);
+        }
+
+        public static Encoding GetFileEncoding(string file)
+        {
+            return FS.GetFile(file, OpenMode.ThrowIfDoesNotExist).GetEncoding();
         }
 
         public static FileAttributes GetFileAttributes(string file)
         {
-            return FileAttributes.Offline;
+            return FS.GetFile(file, OpenMode.ThrowIfDoesNotExist).GetFileAttributes();
         }
 
         public static bool Move(string source, string destination, bool overwrite = false)
         {
-            return false;
+            if (Exists(destination))
+            {
+                if (overwrite)
+                    Delete(destination);
+                else
+                    return false;
+            }
+
+            return FS.GetFile(source, OpenMode.ThrowIfDoesNotExist).Move(destination, FileCollisionOption.ThrowIfExists);
         }
 
         public static byte[] ReadAllBytes(string file)
@@ -197,5 +229,42 @@ namespace FenrirFS.Static
         }
 
 
+
+
+
+
+
+
+
+
+
+        public static string GenerateUniqueFileName(string file, int maxNumberOfTries = 9, RenameMode renameMode = RenameMode.TimeStamp)
+        {
+            string path = IO.Path.GetDirectoryName(file);
+            string extension = IO.Path.GetExtension(file);
+            string name = IO.Path.GetFileNameWithoutExtension(file);
+
+            int tries = 0;
+            while (Exists(file) && tries < maxNumberOfTries)
+            {
+                string newName;
+                switch (renameMode)
+                {
+                    case RenameMode.Integer:
+                        newName = $"{name} - {tries}";
+                        break;
+                    case RenameMode.TimeStamp:
+                        newName = $"{name} - {DateTime.Now.Ticks}";
+                        break;
+                    default:
+                        newName = name;
+                        break;
+                }
+
+                file = IO.Path.Combine(path, $"{newName}.{extension}");
+            }
+
+            return file;
+        }
     }
 }

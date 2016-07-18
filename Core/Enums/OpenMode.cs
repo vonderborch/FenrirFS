@@ -33,6 +33,11 @@ namespace FenrirFS
         /// <summary>
         /// The throw if does not exist
         /// </summary>
-        ThrowIfDoesNotExist = 0
+        ThrowIfDoesNotExist = 0,
+
+        /// <summary>
+        /// The return null if does not exist
+        /// </summary>
+        ReturnNullIfDoesNotExist = 2
     }
 }
