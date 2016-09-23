@@ -43,6 +43,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Core\Enums\ExistenceCheckResult.cs">
+      <Link>Enums\ExistenceCheckResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\FileAccess.cs">
+      <Link>Enums\FileAccess.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\FileAttributes.cs">
+      <Link>Enums\FileAttributes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\FileCollisionOption.cs">
+      <Link>Enums\FileCollisionOption.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\FileMode.cs">
+      <Link>Enums\FileMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\FolderCollisionOption.cs">
+      <Link>Enums\FolderCollisionOption.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\OpenMode.cs">
+      <Link>Enums\OpenMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\RenameMode.cs">
+      <Link>Enums\RenameMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\SearchOption.cs">
+      <Link>Enums\SearchOption.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Enums\WriteMode.cs">
+      <Link>Enums\WriteMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\FileSystem\FSFile.cs">
+      <Link>FileSystem\FSFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\FileSystem\FSFileSystemEntry.cs">
+      <Link>FileSystem\FSFileSystemEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\FileSystem\FSFolder.cs">
+      <Link>FileSystem\FSFolder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\FileSystem\NullFile.cs">
+      <Link>FileSystem\NullFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\FileSystem\NullFolder.cs">
+      <Link>FileSystem\NullFolder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\FS.cs">
+      <Link>FS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Helpers\IOHelper.cs">
+      <Link>Helpers\IOHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Helpers\Tasks.cs">
+      <Link>Helpers\Tasks.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Helpers\Validation.cs">
+      <Link>Helpers\Validation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\IO\AsyncDirectory.cs">
+      <Link>IO\AsyncDirectory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\IO\AsyncFile.cs">
+      <Link>IO\AsyncFile.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\IO\Directory.cs">
+      <Link>IO\Directory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\IO\File.cs">
+      <Link>IO\File.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Structs\Awaiter.cs">
+      <Link>Structs\Awaiter.cs</Link>
+    </Compile>
+    <Compile Include="..\Desktop\FileSystem\FenrirFile.cs">
+      <Link>FileSystem\FenrirFile.cs</Link>
+    </Compile>
+    <Compile Include="..\Desktop\FileSystem\FenrirFolder.cs">
+      <Link>FileSystem\FenrirFolder.cs</Link>
+    </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,13 +130,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-    <Folder Include="FileSystem\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="IO\" />
-    <Folder Include="Structs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
