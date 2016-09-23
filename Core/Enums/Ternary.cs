@@ -1,48 +1,43 @@
 ﻿// ***********************************************************************
 // Assembly         : FenrirFS
-// Component        : ExistenceCheckResult.cs
+// Component        : Ternary.cs
 // Author           : vonderborch
-// Created          : 07-13-2016
-//
+// Created          : 09-22-2016
+// 
 // Version          : 1.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-22-2016
 // ***********************************************************************
-// <copyright file="ExistenceCheckResult.cs">
+// <copyright file="SearchOption.cs">
 //		Copyright ©  2016
 // </copyright>
 // <summary>
-//      Defines the ExistenceCheckResult enum.
+//      Defines the Ternary enum.
 // </summary>
 //
-// Changelog:
-//            - 1.0.0 (07-13-2016) - Initial version created.
+// Changelog: 
+//            - 1.0.0 (09-22-2016) - Initial version created.
 // ***********************************************************************
 namespace FenrirFS
 {
     /// <summary>
-    /// Enum ExistenceCheckResult
+    /// Enum Ternary
     /// </summary>
-    public enum ExistenceCheckResult
+    public enum Ternary
     {
         /// <summary>
-        /// The none
+        /// The negative value
         /// </summary>
-        None = 0,
+        Negative = -1,
 
         /// <summary>
-        /// The file exists
+        /// The neutral value
         /// </summary>
-        FileExists = 1,
+        Neutral = 0,
 
         /// <summary>
-        /// The folder exists
+        /// The positive value
         /// </summary>
-        FolderExists = 2,
-
-        /// <summary>
-        /// The file and folder exists
-        /// </summary>
-        FileAndFolderExists = 3
+        Positive = 1
     }
 }

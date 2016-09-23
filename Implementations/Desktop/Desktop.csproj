@@ -67,6 +67,9 @@
     <Compile Include="..\..\Core\Enums\SearchOption.cs">
       <Link>Enums\SearchOption.cs</Link>
     </Compile>
+    <Compile Include="..\..\Core\Enums\Ternary.cs">
+      <Link>Enums\Ternary.cs</Link>
+    </Compile>
     <Compile Include="..\..\Core\Enums\WriteMode.cs">
       <Link>Enums\WriteMode.cs</Link>
     </Compile>
@@ -87,6 +90,9 @@
     </Compile>
     <Compile Include="..\..\Core\FS.cs">
       <Link>FS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Core\Helpers\IOHelper.cs">
+      <Link>Helpers\IOHelper.cs</Link>
     </Compile>
     <Compile Include="..\..\Core\Helpers\Tasks.cs">
       <Link>Helpers\Tasks.cs</Link>

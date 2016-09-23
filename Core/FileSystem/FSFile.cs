@@ -4,9 +4,9 @@
 // Author           : vonderborch
 // Created          : 07-12-2016
 // 
-// Version          : 1.0.0
+// Version          : 1.0.1
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-22-2016
 // ***********************************************************************
 // <copyright file="FSFile.cs"=>
 //		Copyright ©  2016
@@ -16,6 +16,7 @@
 // </summary>
 //
 // Changelog: 
+//            - 1.0.1 (09-22-2016) - Added RemoveAttribute function.
 //            - 1.0.0 (07-12-2016) - Initial version created.
 // ***********************************************************************
 using FenrirFS.Helpers;
@@ -27,6 +28,9 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using IO = System.IO;
 
+/// <summary>
+/// The FenrirFS namespace.
+/// </summary>
 namespace FenrirFS
 {
     /// <summary>
@@ -123,12 +127,18 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the full path.
+        /// Gets or sets the full path.
         /// </summary>
         /// <value>The full path.</value>
         public override string FullPath
         {
             get { return IO.Path.Combine(Path, $"{Name}.{Extension}"); }
+            protected set
+            {
+                Path = IO.Path.GetDirectoryName(value);
+                Name = IO.Path.GetFileNameWithoutExtension(value);
+                Extension = IO.Path.GetExtension(value);
+            }
         }
 
         /// <summary>
@@ -362,6 +372,20 @@ namespace FenrirFS
         {
             await Tasks.ScheduleTask(cancellationToken);
             return ReadLine();
+        }
+
+        /// <summary>
+        /// Asynchronouses the remove attribute.
+        /// </summary>
+        /// <param name="attribute">The attribute.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (09-22-2016) - Initial version.
+        public async Task<bool> AsyncRemoveAttribute(FileAttributes attribute, CancellationToken? cancellationToken = null)
+        {
+            await Tasks.ScheduleTask(cancellationToken);
+            return RemoveAttribute(attribute);
         }
 
         /// <summary>
@@ -703,6 +727,15 @@ namespace FenrirFS
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
         public abstract IEnumerable<string> ReadLine();
+
+        /// <summary>
+        /// Removes an attribute.
+        /// </summary>
+        /// <param name="attribute">The attribute.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (09-22-2016) - Initial version.
+        public abstract bool RemoveAttribute(FileAttributes attribute);
 
         /// <summary>
         /// Renames the specified name.

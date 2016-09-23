@@ -74,6 +74,11 @@ namespace FenrirFS
         public override string FullPath
         {
             get { return IO.Path.Combine(Path, Name); }
+            protected set
+            {
+                Path = IO.Path.GetDirectoryName(value);
+                Name = IO.Path.GetFileNameWithoutExtension(value);
+            }
         }
 
         #endregion Public Properties

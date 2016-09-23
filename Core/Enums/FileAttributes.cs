@@ -61,6 +61,11 @@ namespace FenrirFS
         IntegrityStream = 32768,
 
         /// <summary>
+        /// No Attributes
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// The file is a standard file that has no special attributes. This attribute is valid only if it is used alone.
         /// </summary>
         Normal = 128,

@@ -45,6 +45,7 @@
     <Compile Include="Enums\FolderCollisionOption.cs" />
     <Compile Include="Enums\OpenMode.cs" />
     <Compile Include="Enums\RenameMode.cs" />
+    <Compile Include="Enums\Ternary.cs" />
     <Compile Include="Enums\SearchOption.cs" />
     <Compile Include="Enums\WriteMode.cs" />
     <Compile Include="FileSystem\FSFolder.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="FileSystem\NullFile.cs" />
     <Compile Include="FS.cs" />
     <Compile Include="FileSystem\FSFile.cs" />
+    <Compile Include="Helpers\IOHelper.cs" />
     <Compile Include="Helpers\Tasks.cs" />
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="IO\AsyncDirectory.cs" />

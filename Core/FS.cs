@@ -20,6 +20,7 @@
 //            - 1.0.0 (07-12-2016) - Initial version created.
 // ***********************************************************************
 using FenrirFS.FileSystem;
+using FenrirFS.Static;
 
 namespace FenrirFS
 {
@@ -29,6 +30,22 @@ namespace FenrirFS
     public static class FS
     {
         #region Public Methods
+
+        public static ExistenceCheckResult Exists(string path)
+        {
+            Helpers.Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
+
+            byte result = File.Exists(path) ? (byte)1 : (byte)0;
+            //result += Directory.Exists(path) ? (byte)2 : (byte)0;
+
+            switch (result)
+            {
+                case 3: return ExistenceCheckResult.FileAndFolderExists;
+                case 2: return ExistenceCheckResult.FolderExists;
+                case 1: return ExistenceCheckResult.FileExists;
+                default: return ExistenceCheckResult.None;
+            }
+        }
 
         /// <summary>
         /// Gets the file.

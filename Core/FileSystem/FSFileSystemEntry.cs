@@ -58,10 +58,13 @@ namespace FenrirFS
         public abstract bool Exists { get; }
 
         /// <summary>
-        /// Gets the full path.
+        /// Gets or sets the full path.
         /// </summary>
         /// <value>The full path.</value>
-        public abstract string FullPath { get; }
+        public abstract string FullPath
+        {
+            get; protected set;
+        }
 
         /// <summary>
         /// Gets the last accessed time.

@@ -4,9 +4,9 @@
 // Author           : vonderborch
 // Created          : 07-13-2016
 // 
-// Version          : 1.0.0
+// Version          : 1.0.1
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-22-2016
 // ***********************************************************************
 // <copyright file="NullFile.cs">
 //		Copyright ©  2016
@@ -16,6 +16,7 @@
 // </summary>
 //
 // Changelog: 
+//            - 1.0.1 (09-22-2016) - Added RemoveAttribute function.
 //            - 1.0.0 (07-13-2016) - Initial version created.
 // ***********************************************************************
 using System;
@@ -273,6 +274,21 @@ namespace FenrirFS.FileSystem
         public override IEnumerable<string> ReadLine()
         {
             return null;
+        }
+
+        /// <summary>
+        /// Removes an attribute.
+        /// </summary>
+        /// <param name="attribute">The attribute.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        /// Changelog:
+        /// - 1.0.0 (09-22-2016) - Initial version.
+        ///  Changelog:
+        ///             - 1.0.0 (09-22-2016) - Initial version.
+        public override bool RemoveAttribute(FileAttributes attribute)
+        {
+            return false;
         }
 
         /// <summary>

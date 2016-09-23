@@ -10,6 +10,6 @@ namespace FenrirFS
     {
         Integer,
 
-        TimeStamp
+        TimeStampTicks
     }
 }
