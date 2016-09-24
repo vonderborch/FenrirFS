@@ -60,6 +60,8 @@ namespace FenrirFS
             Name = IO.Path.GetFileNameWithoutExtension(path);
             Path = IO.Path.GetDirectoryName(path);
             Extension = IO.Path.GetExtension(path);
+
+            FileSystemEntryType = FileSystemEntryType.File;
         }
 
         /// <summary>
@@ -73,6 +75,8 @@ namespace FenrirFS
             Name = name;
             Path = path;
             Extension = extension;
+
+            FileSystemEntryType = FileSystemEntryType.File;
         }
 
         #endregion Public Constructors
@@ -968,5 +972,7 @@ namespace FenrirFS
         }
 
         #endregion Protected Methods
+
+
     }
 }

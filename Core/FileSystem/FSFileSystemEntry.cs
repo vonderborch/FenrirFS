@@ -114,7 +114,7 @@ namespace FenrirFS
         /// <value>The parent folder.</value>
         public FSFolder ParentFolder
         {
-            get { return FS.GetFolder(IO.Path.GetDirectoryName(Path)); }
+            get { return FS.GetDirectory(IO.Path.GetDirectoryName(Path)); }
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace FenrirFS
         /// <value>The root folder.</value>
         public FSFolder RootFolder
         {
-            get { return FS.GetFolder(IO.Path.GetPathRoot(Path)); }
+            get { return FS.GetDirectory(IO.Path.GetPathRoot(Path)); }
         }
 
         /// <summary>
@@ -149,6 +149,12 @@ namespace FenrirFS
         {
             get { return IO.Path.GetPathRoot(Path); }
         }
+
+        /// <summary>
+        /// Gets or sets the type of the file system entry.
+        /// </summary>
+        /// <value>The type of the file system entry.</value>
+        public FileSystemEntryType FileSystemEntryType { get; protected set; }
 
         #endregion Public Properties
 

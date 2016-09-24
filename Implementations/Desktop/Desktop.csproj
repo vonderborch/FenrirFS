@@ -55,6 +55,9 @@
     <Compile Include="..\..\Core\Enums\FileMode.cs">
       <Link>Enums\FileMode.cs</Link>
     </Compile>
+    <Compile Include="..\..\Core\Enums\FileSystemEntryType.cs">
+      <Link>Enums\FileSystemEntryType.cs</Link>
+    </Compile>
     <Compile Include="..\..\Core\Enums\FolderCollisionOption.cs">
       <Link>Enums\FolderCollisionOption.cs</Link>
     </Compile>
@@ -66,9 +69,6 @@
     </Compile>
     <Compile Include="..\..\Core\Enums\SearchOption.cs">
       <Link>Enums\SearchOption.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Core\Enums\Ternary.cs">
-      <Link>Enums\Ternary.cs</Link>
     </Compile>
     <Compile Include="..\..\Core\Enums\WriteMode.cs">
       <Link>Enums\WriteMode.cs</Link>

@@ -35,7 +35,8 @@ namespace FenrirFS
                         newFullPath = IOHelper.GenerateUniquePath(newFullPath, true);
                         break;
                     case FileCollisionOption.ReplaceExisting:
-                        IO.File.Delete(newFullPath);
+                        if (IO.File.Exists(newFullPath))
+                            IO.File.Delete(newFullPath);
                         break;
                     case FileCollisionOption.ThrowIfExists:
                         throw new IO.IOException($"A file with the new path [{newFullPath}] already exists!");
@@ -66,7 +67,8 @@ namespace FenrirFS
                         destination = IOHelper.GenerateUniquePath(destination, true);
                         break;
                     case FileCollisionOption.ReplaceExisting:
-                        IO.File.Delete(destination);
+                        if (IO.File.Exists(destination))
+                            IO.File.Delete(destination);
                         break;
                     case FileCollisionOption.ThrowIfExists:
                         throw new IO.IOException($"A file with the new path [{destination}] already exists!");
@@ -93,14 +95,11 @@ namespace FenrirFS
 
         public override DateTime GetCreationTime(bool useUtc = false)
         {
-            if (Exists)
-            {
-                return useUtc
+            return !Exists
+                ? DateTime.MinValue
+                : useUtc
                     ? IO.File.GetCreationTimeUtc(this)
                     : IO.File.GetCreationTime(this);
-            }
-
-            return DateTime.MinValue;
         }
 
         public override Encoding GetEncoding()
@@ -140,26 +139,20 @@ namespace FenrirFS
 
         public override DateTime GetLastAccessedTime(bool useUtc = false)
         {
-            if (Exists)
-            {
-                return useUtc
+            return !Exists
+                ? DateTime.MinValue
+                : useUtc
                     ? IO.File.GetLastAccessTimeUtc(this)
                     : IO.File.GetLastAccessTime(this);
-            }
-
-            return DateTime.MinValue;
         }
 
         public override DateTime GetLastModifiedTime(bool useUtc = false)
         {
-            if (Exists)
-            {
-                return useUtc
+            return !Exists
+                ? DateTime.MinValue
+                : useUtc
                     ? IO.File.GetLastWriteTimeUtc(this)
                     : IO.File.GetLastWriteTime(this);
-            }
-
-            return DateTime.MinValue;
         }
 
         public override bool Move(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
@@ -177,7 +170,8 @@ namespace FenrirFS
                         destination = IOHelper.GenerateUniquePath(destination, true);
                         break;
                     case FileCollisionOption.ReplaceExisting:
-                        IO.File.Delete(destination);
+                        if (IO.File.Exists(destination))
+                            IO.File.Delete(destination);
                         break;
                     case FileCollisionOption.ThrowIfExists:
                         throw new IO.IOException($"A file with the new path [{destination}] already exists!");
@@ -282,7 +276,8 @@ namespace FenrirFS
                         newFullPath = IOHelper.GenerateUniquePath(newFullPath, true);
                         break;
                     case FileCollisionOption.ReplaceExisting:
-                        IO.File.Delete(newFullPath);
+                        if (IO.File.Exists(newFullPath))
+                            IO.File.Delete(newFullPath);
                         break;
                     case FileCollisionOption.ThrowIfExists:
                         throw new IO.IOException($"A file with the new path [{newFullPath}] already exists!");

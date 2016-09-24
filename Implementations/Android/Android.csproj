@@ -58,6 +58,9 @@
     <Compile Include="..\..\Core\Enums\FileMode.cs">
       <Link>Enums\FileMode.cs</Link>
     </Compile>
+    <Compile Include="..\..\Core\Enums\FileSystemEntryType.cs">
+      <Link>Enums\FileSystemEntryType.cs</Link>
+    </Compile>
     <Compile Include="..\..\Core\Enums\FolderCollisionOption.cs">
       <Link>Enums\FolderCollisionOption.cs</Link>
     </Compile>

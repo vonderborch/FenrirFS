@@ -71,43 +71,41 @@ namespace FenrirFS.FileSystem
         /// <param name="destination">The destination.</param>
         /// <param name="collisionOption">The collision option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool Copy(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override FSFolder Copy(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
         {
-            return false;
+            return null;
         }
 
         /// <summary>
         /// Creates the file.
         /// </summary>
-        /// <param name="name">The name.</param>
+        /// <param name="file">The name.</param>
         /// <param name="collisionOption">The collision option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         /// Changelog:
         /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool CreateFile(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
+        public override FSFile CreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
-            return false;
+            return null;
         }
 
         /// <summary>
         /// Creates the folder.
         /// </summary>
-        /// <param name="name">The name.</param>
+        /// <param name="folder">The name.</param>
         /// <param name="collisionOption">The collision option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         /// Changelog:
         /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool CreateFolder(string name, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override FSFolder CreateFolder(string folder, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
         {
-            return false;
+            return null;
         }
 
         /// <summary>
@@ -126,13 +124,13 @@ namespace FenrirFS.FileSystem
         /// <summary>
         /// Deletes the file.
         /// </summary>
-        /// <param name="name">The name.</param>
+        /// <param name="file">The name.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         /// Changelog:
         /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool DeleteFile(string name)
+        public override bool DeleteFile(string file)
         {
             return false;
         }
@@ -140,43 +138,13 @@ namespace FenrirFS.FileSystem
         /// <summary>
         /// Deletes the folder.
         /// </summary>
-        /// <param name="name">The name.</param>
+        /// <param name="folder">The name.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         /// Changelog:
         /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool DeleteFolder(string name)
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// Files the exists.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="searchOption">The search option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
-        ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool FileExists(string name, SearchOption searchOption = SearchOption.TopDirectoryOnly)
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// Folders the exists.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="searchOption">The search option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
-        ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool FolderExists(string name, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+        public override bool DeleteFolder(string folder)
         {
             return false;
         }
@@ -193,86 +161,6 @@ namespace FenrirFS.FileSystem
         public override DateTime GetCreationTime(bool useUtc = false)
         {
             return DateTime.MinValue;
-        }
-
-        /// <summary>
-        /// Gets the file.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>FSFile.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
-        ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override FSFile GetFile(string name)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the file names.
-        /// </summary>
-        /// <returns>List&lt;System.String&gt;.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
-        ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override List<string> GetFileNames()
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the files.
-        /// </summary>
-        /// <returns>List&lt;FSFile&gt;.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
-        ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override List<FSFile> GetFiles()
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the folder.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>FSFolder.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
-        ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override FSFolder GetFolder(string name)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the folder names.
-        /// </summary>
-        /// <returns>List&lt;System.String&gt;.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
-        ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override List<string> GetFolderNames()
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the folders.
-        /// </summary>
-        /// <returns>List&lt;FSFolder&gt;.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
-        ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override List<FSFolder> GetFolders()
-        {
-            return null;
         }
 
         /// <summary>
@@ -331,6 +219,11 @@ namespace FenrirFS.FileSystem
         public override bool Rename(string name, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
         {
             return false;
+        }
+
+        protected override List<FSFileSystemEntry> InternalGetFileSystemEntries(bool grabFiles, bool grabDirectories, string searchPattern = "*", SearchOption searchOption = SearchOption.All)
+        {
+            return new List<FSFileSystemEntry>();
         }
 
         #endregion Public Methods

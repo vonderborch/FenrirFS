@@ -21,6 +21,8 @@
 // ***********************************************************************
 using FenrirFS.FileSystem;
 using FenrirFS.Static;
+using System.Collections.Generic;
+using IO = System.IO;
 
 namespace FenrirFS
 {
@@ -103,7 +105,7 @@ namespace FenrirFS
         ///  Changelog:
         ///             - 1.1.0 (07-14-2016) - Added OpenMode parameter
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public static FSFolder GetFolder(string path, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
+        public static FSFolder GetDirectory(string path, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
         {
             Helpers.Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
 
@@ -133,6 +135,40 @@ namespace FenrirFS
             return new NullFolder(path, name);
 #elif IMPLEMENTATION
             return new FenrirFolder(path, name);
+#else
+            throw new NotSupportedException("There is no Folder implementation on the current platform!");
+#endif
+        }
+
+
+        public static FSFolder GetCurrentDirectory()
+        {
+#if CORE
+            return new NullFolder("");
+#elif IMPLEMENTATION
+            return new FenrirFolder(IO.Directory.GetCurrentDirectory());
+#else
+            throw new NotSupportedException("There is no Folder implementation on the current platform!");
+#endif
+        }
+
+        /// <summary>
+        /// Gets the root directories.
+        /// </summary>
+        /// <returns>FSFolder.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (09-22-2016) - Initial version.
+        public static List<FSFolder> GetRootDirectories()
+        {
+#if CORE
+            return new List<FSFolder>();
+#elif IMPLEMENTATION
+            var roots = IO.Directory.GetLogicalDrives();
+            var output = new List<FSFolder>();
+            for (int i = 0; i < roots.Length; i++)
+                output.Add(new FenrirFolder(roots[i]));
+
+            return output;
 #else
             throw new NotSupportedException("There is no Folder implementation on the current platform!");
 #endif

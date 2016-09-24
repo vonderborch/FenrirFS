@@ -40,6 +40,7 @@
     <Compile Include="Enums\ExistenceCheckResult.cs" />
     <Compile Include="Enums\FileAccess.cs" />
     <Compile Include="Enums\FileAttributes.cs" />
+    <Compile Include="Enums\FileSystemEntryType.cs" />
     <Compile Include="Enums\FileCollisionOption.cs" />
     <Compile Include="Enums\FileMode.cs" />
     <Compile Include="Enums\FolderCollisionOption.cs" />
