@@ -1,52 +1,52 @@
 ﻿// ***********************************************************************
 // Assembly         : FenrirFS
-// Component        : FolderCollisionOption.cs
+// Component        : DirectoryCollisionOption.cs
 // Author           : vonderborch
 // Created          : 07-13-2016
-// 
-// Version          : 1.0.0
+//
+// Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-24-2016
 // ***********************************************************************
-// <copyright file="FolderCollisionOption.cs">
+// <copyright file="DirectoryCollisionOption.cs">
 //		Copyright ©  2016
 // </copyright>
 // <summary>
-//      Defines the FolderCollisionOption enum.
+//      Defines the DirectoryCollisionOption enum.
 // </summary>
 //
-// Changelog: 
-//            - 1.0.0 (07-13-2016) - Initial version created.
+// Changelog:
+//            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
 namespace FenrirFS
 {
     /// <summary>
-    /// Enum FolderCollisionOption
+    /// Defines the options that can occur when a directory collision occurs.
     /// </summary>
     public enum DirectoryCollisionOption
     {
         /// <summary>
-        /// The generate unique name
+        /// Generate a unique name on a collision
         /// </summary>
         GenerateUniqueName = 0,
 
         /// <summary>
-        /// The replace existing
+        /// Replace an existing directory on a collision
         /// </summary>
         ReplaceExisting = 1,
 
         /// <summary>
-        /// The fail if exists
+        /// Fail on a collision
         /// </summary>
         FailIfExists = 2,
 
         /// <summary>
-        /// The throw if exists
+        /// Throw an error on a collision
         /// </summary>
         ThrowIfExists = 3,
 
         /// <summary>
-        /// The open if exists
+        /// Open the existing directory on a collision
         /// </summary>
         OpenIfExists = 4,
     }

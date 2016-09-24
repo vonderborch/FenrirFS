@@ -4,9 +4,9 @@
 // Author           : vonderborch
 // Created          : 07-13-2016
 // 
-// Version          : 1.0.0
+// Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-24-2016
 // ***********************************************************************
 // <copyright file="Tasks.cs">
 //		Copyright ©  2016
@@ -16,8 +16,9 @@
 // </summary>
 //
 // Changelog: 
-//            - 1.0.1 (07-13-2016)- Removed VerifyCancellationToken function.
-//            - 1.0.0 (07-13-2016) - Initial version created.
+//            - 2.0.0 (09-24-2016) - Beta version.
+//            - 2.0.0 (07-13-2016)- Removed VerifyCancellationToken function.
+//            - 2.0.0 (07-13-2016) - Initial version created.
 // ***********************************************************************
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,19 +26,19 @@ using System.Threading.Tasks;
 namespace FenrirFS.Helpers
 {
     /// <summary>
-    /// Class Tasks.
+    /// Provides static functions to help with threading.
     /// </summary>
     public static class Tasks
     {
         #region Public Methods
 
         /// <summary>
-        /// Schedules the task.
+        /// Schedules the task to run asynchronously.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>Awaiter.</returns>
+        /// <returns>The scheduled task awaiter.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public static Awaiter ScheduleTask(CancellationToken? cancellationToken)
         {
             // Check if a cancellation has been requested, and error out if one has.

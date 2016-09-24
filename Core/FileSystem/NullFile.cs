@@ -3,10 +3,10 @@
 // Component        : NullFile.cs
 // Author           : vonderborch
 // Created          : 07-13-2016
-// 
-// Version          : 1.0.1
+//
+// Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 09-22-2016
+// Last Modified On : 09-24-2016
 // ***********************************************************************
 // <copyright file="NullFile.cs">
 //		Copyright ©  2016
@@ -15,9 +15,8 @@
 //      A null implementation of the FSFile class.
 // </summary>
 //
-// Changelog: 
-//            - 1.0.1 (09-22-2016) - Added RemoveAttribute function.
-//            - 1.0.0 (07-13-2016) - Initial version created.
+// Changelog:
+//            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
 using System;
 using System.Collections.Generic;
@@ -71,13 +70,11 @@ namespace FenrirFS.FileSystem
         #region Public Methods
 
         /// <summary>
-        /// Changes the extension.
+        /// Changes the extension of the file.
         /// </summary>
         /// <param name="extension">The extension.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <param name="collisionOption">The collision option, if another file already exists.</param>
+        /// <returns><c>true</c> if the extension change succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
         public override bool ChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
@@ -271,7 +268,7 @@ namespace FenrirFS.FileSystem
         /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override IEnumerable<string> ReadLine()
+        public override IEnumerable<string> ReadLines()
         {
             return null;
         }

@@ -3,10 +3,10 @@
 // Component        : FSFolder.cs
 // Author           : vonderborch
 // Created          : 07-12-2016
-// 
-// Version          : 1.0.0
+//
+// Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-24-2016
 // ***********************************************************************
 // <copyright file="FSFolder.cs">
 //		Copyright ©  2016
@@ -15,8 +15,8 @@
 //      An abstract class representing a folder.
 // </summary>
 //
-// Changelog: 
-//            - 1.0.0 (07-12-2016) - Initial version created.
+// Changelog:
+//            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
 using FenrirFS.Helpers;
 using System;
@@ -28,7 +28,7 @@ using IO = System.IO;
 namespace FenrirFS
 {
     /// <summary>
-    /// Class FSFolder.
+    /// An abstract representation of a directory.
     /// </summary>
     /// <seealso cref="FenrirFS.FSFileSystemEntry" />
     /// <seealso cref="System.IDisposable" />
@@ -76,7 +76,7 @@ namespace FenrirFS
         #region Public Properties
 
         /// <summary>
-        /// Gets the full path.
+        /// Gets the full path of the directory.
         /// </summary>
         /// <value>The full path.</value>
         public override string FullPath
@@ -99,21 +99,21 @@ namespace FenrirFS
         /// <param name="folder">The folder.</param>
         /// <returns>The result of the conversion.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public static implicit operator string(FSDirectory folder)
         {
             return folder.FullPath;
         }
 
         /// <summary>
-        /// Asynchronouses the copy.
+        /// Asynchronously the copy.
         /// </summary>
         /// <param name="destination">The destination.</param>
         /// <param name="collisionOption">The collision option.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<FSDirectory> AsyncCopy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -121,14 +121,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the create file.
+        /// Asynchronously the create file.
         /// </summary>
         /// <param name="file">The name.</param>
         /// <param name="collisionOption">The collision option.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<FSFile> AsyncCreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -136,14 +136,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the create folder.
+        /// Asynchronously the create folder.
         /// </summary>
         /// <param name="folder">The name.</param>
         /// <param name="collisionOption">The collision option.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<FSDirectory> AsyncCreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -151,12 +151,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the delete.
+        /// Asynchronously the delete.
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<bool> AsyncDelete(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -164,13 +164,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the delete file.
+        /// Asynchronously the delete file.
         /// </summary>
         /// <param name="file">The name.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<bool> AsyncDeleteFile(string file, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -178,13 +178,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the delete folder.
+        /// Asynchronously the delete folder.
         /// </summary>
         /// <param name="folder">The name.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<bool> AsyncDeleteFolder(string folder, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -192,14 +192,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the file exists.
+        /// Asynchronously the file exists.
         /// </summary>
         /// <param name="file">The name.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<bool> AsyncFileExists(string file, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -207,14 +207,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the folder exists.
+        /// Asynchronously the folder exists.
         /// </summary>
         /// <param name="folder">The name.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<bool> AsyncFolderExists(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -222,13 +222,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get file.
+        /// Asynchronously the get file.
         /// </summary>
         /// <param name="file">The name.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;FSFile&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<FSFile> AsyncGetFile(string file, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -236,25 +236,25 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get file names.
+        /// Asynchronously the get file names.
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<List<string>> AsyncGetFileNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken ? cancellationToken = null)
+        ///             - 2.0.0 (09-24-2016) - Beta version.
+        public async Task<List<string>> AsyncGetFileNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
             return GetFileNames(searchPattern, searchOption);
         }
 
         /// <summary>
-        /// Asynchronouses the get files.
+        /// Asynchronously the get files.
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;List&lt;FSFile&gt;&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<FSFile>> AsyncGetFiles(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -262,12 +262,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get file system entries.
+        /// Asynchronously the get file system entries.
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;List&lt;FSFileSystemEntry&gt;&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<FSFileSystemEntry>> AsyncGetFileSystemEntries(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -275,14 +275,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get file system entry.
+        /// Asynchronously the get file system entry.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="returnFileOverFolder">if set to <c>true</c> [return file over folder].</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;FSFileSystemEntry&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<FSFileSystemEntry> AsyncGetFileSystemEntry(string name, bool returnFileOverFolder = true, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -290,12 +290,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get file system entry names.
+        /// Asynchronously the get file system entry names.
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<string>> AsyncGetFileSystemEntryNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -303,13 +303,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get folder.
+        /// Asynchronously the get folder.
         /// </summary>
         /// <param name="folder">The name.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;FSFolder&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<FSDirectory> AsyncGetFolder(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -317,12 +317,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get folder names.
+        /// Asynchronously the get folder names.
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<string>> AsyncGetFolderNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -330,12 +330,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the get folders.
+        /// Asynchronously the get folders.
         /// </summary>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;List&lt;FSFolder&gt;&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<FSDirectory>> AsyncGetFolders(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -343,15 +343,15 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the item exists.
+        /// Asynchronously the item exists.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="fileSearchOption">The file search option.</param>
         /// <param name="folderSearchOption">The folder search option.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;ExistenceCheckResult&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<ExistenceCheckResult> AsyncItemExists(string name, SearchOption fileSearchOption = SearchOption.TopDirectoryOnly, SearchOption folderSearchOption = SearchOption.TopDirectoryOnly, bool fileIgnoreCase = true, bool folderIgnoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -359,14 +359,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the move.
+        /// Asynchronously the move.
         /// </summary>
         /// <param name="destination">The destination.</param>
         /// <param name="collisionOption">The collision option.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<bool> AsyncMove(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -374,14 +374,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronouses the rename.
+        /// Asynchronously the rename.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="collisionOption">The collision option.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<bool> AsyncRename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -395,7 +395,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public abstract FSDirectory Copy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
@@ -405,7 +405,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public abstract FSFile CreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public abstract FSDirectory CreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
@@ -423,7 +423,7 @@ namespace FenrirFS
         /// </summary>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public abstract bool Delete();
 
         /// <summary>
@@ -432,7 +432,7 @@ namespace FenrirFS
         /// <param name="file">The name.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public abstract bool DeleteFile(string file);
 
         /// <summary>
@@ -441,14 +441,14 @@ namespace FenrirFS
         /// <param name="folder">The name.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public abstract bool DeleteFolder(string folder);
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public void Dispose()
         {
             // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
@@ -471,7 +471,7 @@ namespace FenrirFS
         /// <param name="other">The other.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public bool Equals(FSDirectory other)
         {
             return FullPath == other.FullPath;
@@ -484,7 +484,7 @@ namespace FenrirFS
         /// <param name="searchOption">The search option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public bool FileExists(string file, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             return GetFile(file, searchOption, ignoreCase) != null;
@@ -497,18 +497,19 @@ namespace FenrirFS
         /// <param name="searchOption">The search option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public bool FolderExists(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             return GetFolder(folder, searchOption, ignoreCase) != null;
         }
+
         /// <summary>
         /// Gets the file.
         /// </summary>
         /// <param name="file">The name.</param>
         /// <returns>FSFile.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public FSFile GetFile(string file, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             if (Exists)
@@ -551,7 +552,7 @@ namespace FenrirFS
         /// </summary>
         /// <returns>List&lt;System.String&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<string> GetFileNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var entries = InternalGetFileSystemEntries(true, false, searchPattern, searchOption);
@@ -568,7 +569,7 @@ namespace FenrirFS
         /// </summary>
         /// <returns>List&lt;FSFile&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<FSFile> GetFiles(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var entries = InternalGetFileSystemEntries(true, false, searchPattern, searchOption);
@@ -585,7 +586,7 @@ namespace FenrirFS
         /// </summary>
         /// <returns>List&lt;FSFileSystemEntry&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<FSFileSystemEntry> GetFileSystemEntries(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             return InternalGetFileSystemEntries(true, true, searchPattern, searchOption);
@@ -598,7 +599,7 @@ namespace FenrirFS
         /// <param name="returnFileOverFolder">if set to <c>true</c> [return file over folder].</param>
         /// <returns>FSFileSystemEntry.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public FSFileSystemEntry GetFileSystemEntry(string name, bool returnFileOverFolder = true, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             FSFile file = GetFile(name, searchOption, ignoreCase);
@@ -624,7 +625,7 @@ namespace FenrirFS
         /// </summary>
         /// <returns>List&lt;System.String&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<string> GetFileSystemEntryNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var entries = InternalGetFileSystemEntries(true, false, searchPattern, searchOption);
@@ -642,7 +643,7 @@ namespace FenrirFS
         /// <param name="folder">The name.</param>
         /// <returns>FSFolder.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public FSDirectory GetFolder(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             if (Exists)
@@ -677,7 +678,7 @@ namespace FenrirFS
         /// </summary>
         /// <returns>List&lt;System.String&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<string> GetFolderNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var entries = InternalGetFileSystemEntries(false, true, searchPattern, searchOption);
@@ -694,7 +695,7 @@ namespace FenrirFS
         /// </summary>
         /// <returns>List&lt;FSFolder&gt;.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<FSDirectory> GetFolders(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var entries = InternalGetFileSystemEntries(false, true, searchPattern, searchOption);
@@ -714,7 +715,7 @@ namespace FenrirFS
         /// <param name="folderSearchOption">The folder search option.</param>
         /// <returns>ExistenceCheckResult.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public ExistenceCheckResult ItemExists(string name, SearchOption fileSearchOption = SearchOption.TopDirectoryOnly, SearchOption folderSearchOption = SearchOption.TopDirectoryOnly, bool fileIgnoreCase = true, bool folderIgnoreCase = true)
         {
             bool fileExists = FileExists(name, fileSearchOption, fileIgnoreCase);
@@ -737,7 +738,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public abstract bool Move(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
@@ -747,7 +748,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         public abstract bool Rename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         #endregion Public Methods
@@ -759,7 +760,7 @@ namespace FenrirFS
         /// </summary>
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         ///  Changelog:
-        ///             - 1.0.0 (07-12-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -776,9 +777,18 @@ namespace FenrirFS
             }
         }
 
-        #endregion Protected Methods
-
-
+        /// <summary>
+        /// Internals the get file system entries.
+        /// </summary>
+        /// <param name="grabFiles">if set to <c>true</c> [grab files].</param>
+        /// <param name="grabDirectories">if set to <c>true</c> [grab directories].</param>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>List&lt;FSFileSystemEntry&gt;.</returns>
+        ///  Changelog:
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         protected abstract List<FSFileSystemEntry> InternalGetFileSystemEntries(bool grabFiles, bool grabDirectories, string searchPattern = "*", SearchOption searchOption = SearchOption.All);
+
+        #endregion Protected Methods
     }
 }

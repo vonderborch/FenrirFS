@@ -4,9 +4,9 @@
 // Author           : vonderborch
 // Created          : 07-13-2016
 // 
-// Version          : 1.0.0
+// Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-24-2016
 // ***********************************************************************
 // <copyright file="FileAccess.cs">
 //		Copyright ©  2016
@@ -16,32 +16,32 @@
 // </summary>
 //
 // Changelog: 
-//            - 1.0.0 (07-13-2016) - Initial version created.
+//            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
 namespace FenrirFS
 {
     /// <summary>
-    /// Enum FileAccess
+    /// Defines the possible file access modes.
     /// </summary>
     public enum FileAccess
     {
         /// <summary>
-        /// The read
+        /// Read mode
         /// </summary>
         Read = 0,
 
         /// <summary>
-        /// The read write
+        /// Read and Write mode
         /// </summary>
         ReadWrite = 2,
 
         /// <summary>
-        /// The write
+        /// Write mode
         /// </summary>
         Write = 1,
 
         /// <summary>
-        /// The none
+        /// No file access mode selected
         /// </summary>
         None = -1
     }

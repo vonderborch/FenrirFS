@@ -189,7 +189,7 @@ namespace FenrirFS
         /// <returns>The desired directory.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public static FSDirectory GetFolder(string path, string name, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
+        public static FSDirectory GetDirectory(string path, string name, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
         {
             Helpers.Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
             Helpers.Validation.NotNullOrWhiteSpaceCheck(name, nameof(name));

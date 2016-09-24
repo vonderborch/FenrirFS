@@ -4,9 +4,9 @@
 // Author           : vonderborch
 // Created          : 07-13-2016
 // 
-// Version          : 1.0.0
+// Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-24-2016
 // ***********************************************************************
 // <copyright file="OpenMode.cs">
 //		Copyright ©  2016
@@ -16,27 +16,27 @@
 // </summary>
 //
 // Changelog: 
-//            - 1.0.0 (07-13-2016) - Initial version created.
+//            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
 namespace FenrirFS
 {
     /// <summary>
-    /// Enum OpenMode
+    /// Defines the various modes to open a directory or file object.
     /// </summary>
     public enum OpenMode
     {
         /// <summary>
-        /// The create if does not exist
+        /// Create the file if it does not exist
         /// </summary>
         CreateIfDoesNotExist = 1,
 
         /// <summary>
-        /// The throw if does not exist
+        /// Throw an error if the file does not exist
         /// </summary>
         ThrowIfDoesNotExist = 0,
 
         /// <summary>
-        /// The return null if does not exist
+        /// Retrun a null object if the file does not exist
         /// </summary>
         ReturnNullIfDoesNotExist = 2
     }

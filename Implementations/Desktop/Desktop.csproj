@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="FileSystem\FenrirFile.cs" />
     <Compile Include="FileSystem\FenrirDirectory.cs" />
+    <Compile Include="Helpers\ConversionHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -322,12 +322,12 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Opens the specified file.
+        /// Opens a stream for the specified file.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <param name="fileAccess">The file access.</param>
-        /// <param name="fileMode">The file mode.</param>
-        /// <returns>IO.Stream.</returns>
+        /// <param name="fileAccess">The file access mode.</param>
+        /// <param name="fileMode">The file open mode.</param>
+        /// <returns>The stream for the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static IO.Stream Open(string file, FileAccess fileAccess = FileAccess.ReadWrite, FileMode fileMode = FileMode.OpenOrCreate)
@@ -341,11 +341,11 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Opens the read.
+        /// Opens a stream for reading the specified file.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <param name="fileMode">The file mode.</param>
-        /// <returns>IO.Stream.</returns>
+        /// <param name="fileMode">The file open mode.</param>
+        /// <returns>The stream for the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static IO.Stream OpenRead(string file, FileMode fileMode = FileMode.OpenOrCreate)
@@ -359,15 +359,14 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Opens the read write.
+        /// Opens a stream for reading and writing the specified file.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <param name="writeMode">The write mode.</param>
         /// <param name="fileMode">The file mode.</param>
-        /// <returns>IO.Stream.</returns>
+        /// <returns>The stream for the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
-        public static IO.Stream OpenReadWrite(string file, WriteMode writeMode = WriteMode.Truncate, FileMode fileMode = FileMode.OpenOrCreate)
+        public static IO.Stream OpenReadWrite(string file, FileMode fileMode = FileMode.OpenOrCreate)
         {
             Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
 
@@ -378,15 +377,14 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Opens the write.
+        /// Opens a stream for writing the specified file.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <param name="writeMode">The write mode.</param>
         /// <param name="fileMode">The file mode.</param>
-        /// <returns>IO.Stream.</returns>
+        /// <returns>The stream for the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
-        public static IO.Stream OpenWrite(string file, WriteMode writeMode = WriteMode.Truncate, FileMode fileMode = FileMode.OpenOrCreate)
+        public static IO.Stream OpenWrite(string file, FileMode fileMode = FileMode.OpenOrCreate)
         {
             Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
 
@@ -397,10 +395,10 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Reads all bytes.
+        /// Reads all content from the file and returns it as a byte array.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <returns>System.Byte[].</returns>
+        /// <returns>A byte array representing the contents of the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static byte[] ReadAllBytes(string file)
@@ -439,10 +437,10 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Reads all lines.
+        /// Reads all content from a file and returns it as a string array (line-separated).
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <returns>System.String[].</returns>
+        /// <returns>A string array representing the contents of the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static string[] ReadAllLines(string file)
@@ -460,10 +458,10 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Reads all text.
+        /// Reads all content from a file and returns it as a string.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <returns>System.String.</returns>
+        /// <returns>A string representing the contents of the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static string ReadAllText(string file)
@@ -481,30 +479,30 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Reads the line.
+        /// Reads lines from a file and returns them as a enumerable.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <returns>IEnumerable&lt;System.String&gt;.</returns>
+        /// <returns>An enumerable representing the contents of the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
-        public static IEnumerable<string> ReadLine(string file)
+        public static IEnumerable<string> ReadLines(string file)
         {
             Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
 
             if (Exists(file))
             {
                 using (var f = FS.GetFile(file, OpenMode.ThrowIfDoesNotExist))
-                    f.ReadLine();
+                    f.ReadLines();
             }
 
             return null;
         }
 
         /// <summary>
-        /// Reads the lines list.
+        /// Reads lines from a file and returns them as a list.
         /// </summary>
         /// <param name="file">The file.</param>
-        /// <returns>List&lt;System.String&gt;.</returns>
+        /// <returns>An list representing the contents of the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static List<string> ReadLinesList(string file)
@@ -522,16 +520,17 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Replaces the specified source.
+        /// Replaces the file at the destination with the specified source, optionally creating a backup file of the destination.
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
         /// <param name="backup">The backup.</param>
+        /// <param name="createBackup">if set to <c>true</c> [creates a backup].</param>
         /// <param name="overwriteBackup">if set to <c>true</c> [overwrite backup].</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the replacement succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
-        public static bool Replace(string source, string destination, string backup, bool overwriteBackup = false)
+        public static bool Replace(string source, string destination, string backup, bool createBackup = true, bool overwriteBackup = false)
         {
             Validation.NotNullOrWhiteSpaceCheck(source, nameof(source));
             Validation.NotNullOrWhiteSpaceCheck(destination, nameof(destination));
@@ -539,7 +538,8 @@ namespace FenrirFS.Static
 
             if (Exists(source))
             {
-                Copy(destination, backup, overwriteBackup ? FileCollisionOption.ReplaceExisting : FileCollisionOption.FailIfExists);
+                if (createBackup)
+                    Copy(destination, backup, overwriteBackup ? FileCollisionOption.ReplaceExisting : FileCollisionOption.FailIfExists);
 
                 return Copy(source, destination, FileCollisionOption.ReplaceExisting);
             }
@@ -548,12 +548,12 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Writes all bytes.
+        /// Writes the contents represented by the byte array to the file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <param name="contents">The contents.</param>
         /// <param name="writeMode">The write mode.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the write succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static bool WriteAllBytes(string file, byte[] contents, WriteMode writeMode = WriteMode.Truncate)
@@ -566,12 +566,12 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Writes all lines.
+        /// Writes the contents represented by the string array to the file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <param name="contents">The contents.</param>
         /// <param name="writeMode">The write mode.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the write succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static bool WriteAllLines(string file, string[] contents, WriteMode writeMode = WriteMode.Truncate)
@@ -588,12 +588,12 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Writes all lines.
+        /// Writes the contents represented by the string enumerable to the file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <param name="contents">The contents.</param>
         /// <param name="writeMode">The write mode.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the write succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static bool WriteAllLines(string file, IEnumerable<string> contents, WriteMode writeMode = WriteMode.Truncate)
@@ -610,12 +610,12 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Writes all lines.
+        /// Writes the contents represented by the string list to the file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <param name="contents">The contents.</param>
         /// <param name="writeMode">The write mode.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the write succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static bool WriteAllLines(string file, List<string> contents, WriteMode writeMode = WriteMode.Truncate)
@@ -632,12 +632,12 @@ namespace FenrirFS.Static
         }
 
         /// <summary>
-        /// Writes all text.
+        /// Writes the contents represented by the string to the file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <param name="contents">The contents.</param>
         /// <param name="writeMode">The write mode.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the write succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static bool WriteAllText(string file, string contents, WriteMode writeMode = WriteMode.Truncate)

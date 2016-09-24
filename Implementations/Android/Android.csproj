@@ -124,6 +124,9 @@
     <Compile Include="..\Desktop\FileSystem\FenrirFile.cs">
       <Link>FileSystem\FenrirFile.cs</Link>
     </Compile>
+    <Compile Include="..\Desktop\Helpers\ConversionHelpers.cs">
+      <Link>Helpers\ConversionHelpers.cs</Link>
+    </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

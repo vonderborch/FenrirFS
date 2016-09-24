@@ -4,9 +4,9 @@
 // Author           : vonderborch
 // Created          : 07-13-2016
 //
-// Version          : 1.0.0
+// Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 07-13-2016
+// Last Modified On : 09-24-2016
 // ***********************************************************************
 // <copyright file="ExistenceCheckResult.cs">
 //		Copyright ©  2016
@@ -16,32 +16,32 @@
 // </summary>
 //
 // Changelog:
-//            - 1.0.0 (07-13-2016) - Initial version created.
+//            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
 namespace FenrirFS
 {
     /// <summary>
-    /// Enum ExistenceCheckResult
+    /// Defines the results that can occur on an existence check
     /// </summary>
     public enum ExistenceCheckResult
     {
         /// <summary>
-        /// The none
+        /// No collision has occurred
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// The file exists
+        /// A file exists
         /// </summary>
         FileExists = 1,
 
         /// <summary>
-        /// The folder exists
+        /// A folder exists
         /// </summary>
         FolderExists = 2,
 
         /// <summary>
-        /// The file and folder exists
+        /// A file and a folder exists
         /// </summary>
         FileAndFolderExists = 3
     }
