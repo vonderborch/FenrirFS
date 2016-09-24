@@ -112,7 +112,7 @@ namespace FenrirFS
         /// Gets the parent folder.
         /// </summary>
         /// <value>The parent folder.</value>
-        public FSFolder ParentFolder
+        public FSDirectory ParentFolder
         {
             get { return FS.GetDirectory(IO.Path.GetDirectoryName(Path)); }
         }
@@ -136,7 +136,7 @@ namespace FenrirFS
         /// Gets the root folder.
         /// </summary>
         /// <value>The root folder.</value>
-        public FSFolder RootFolder
+        public FSDirectory RootFolder
         {
             get { return FS.GetDirectory(IO.Path.GetPathRoot(Path)); }
         }

@@ -32,8 +32,8 @@ namespace FenrirFS
     /// </summary>
     /// <seealso cref="FenrirFS.FSFileSystemEntry" />
     /// <seealso cref="System.IDisposable" />
-    /// <seealso cref="System.IEquatable{FenrirFS.FSFolder}" />
-    public abstract class FSFolder : FSFileSystemEntry, IDisposable, IEquatable<FSFolder>
+    /// <seealso cref="System.IEquatable{FenrirFS.FSDirectory}" />
+    public abstract class FSDirectory : FSFileSystemEntry, IDisposable, IEquatable<FSDirectory>
     {
         #region Private Fields
 
@@ -47,10 +47,10 @@ namespace FenrirFS
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FSFolder"/> class.
+        /// Initializes a new instance of the <see cref="FSDirectory"/> class.
         /// </summary>
         /// <param name="path">The path.</param>
-        public FSFolder(string path)
+        public FSDirectory(string path)
         {
             Name = IO.Path.GetFileNameWithoutExtension(path);
             Path = IO.Path.GetDirectoryName(path);
@@ -59,11 +59,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FSFolder"/> class.
+        /// Initializes a new instance of the <see cref="FSDirectory"/> class.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="name">The name.</param>
-        public FSFolder(string path, string name)
+        public FSDirectory(string path, string name)
         {
             Name = name;
             Path = path;
@@ -94,13 +94,13 @@ namespace FenrirFS
         #region Public Methods
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="FSFolder"/> to <see cref="System.String"/>.
+        /// Performs an implicit conversion from <see cref="FSDirectory"/> to <see cref="System.String"/>.
         /// </summary>
         /// <param name="folder">The folder.</param>
         /// <returns>The result of the conversion.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public static implicit operator string(FSFolder folder)
+        public static implicit operator string(FSDirectory folder)
         {
             return folder.FullPath;
         }
@@ -114,7 +114,7 @@ namespace FenrirFS
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<FSFolder> AsyncCopy(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        public async Task<FSDirectory> AsyncCopy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
             return Copy(destination);
@@ -144,7 +144,7 @@ namespace FenrirFS
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<FSFolder> AsyncCreateFolder(string folder, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        public async Task<FSDirectory> AsyncCreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
             return CreateFolder(folder);
@@ -310,7 +310,7 @@ namespace FenrirFS
         /// <returns>Task&lt;FSFolder&gt;.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<FSFolder> AsyncGetFolder(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
+        public async Task<FSDirectory> AsyncGetFolder(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
             return GetFolder(folder, searchOption, ignoreCase);
@@ -336,7 +336,7 @@ namespace FenrirFS
         /// <returns>Task&lt;List&lt;FSFolder&gt;&gt;.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<List<FSFolder>> AsyncGetFolders(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
+        public async Task<List<FSDirectory>> AsyncGetFolders(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
             return GetFolders(searchPattern, searchOption);
@@ -367,7 +367,7 @@ namespace FenrirFS
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<bool> AsyncMove(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        public async Task<bool> AsyncMove(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
             return Move(destination);
@@ -382,7 +382,7 @@ namespace FenrirFS
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public async Task<bool> AsyncRename(string name, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        public async Task<bool> AsyncRename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
             return Rename(Name);
@@ -396,7 +396,7 @@ namespace FenrirFS
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public abstract FSFolder Copy(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists);
+        public abstract FSDirectory Copy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
         /// Creates the file.
@@ -416,7 +416,7 @@ namespace FenrirFS
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public abstract FSFolder CreateFolder(string folder, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists);
+        public abstract FSDirectory CreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
         /// Deletes this instance.
@@ -472,7 +472,7 @@ namespace FenrirFS
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public bool Equals(FSFolder other)
+        public bool Equals(FSDirectory other)
         {
             return FullPath == other.FullPath;
         }
@@ -602,7 +602,7 @@ namespace FenrirFS
         public FSFileSystemEntry GetFileSystemEntry(string name, bool returnFileOverFolder = true, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             FSFile file = GetFile(name, searchOption, ignoreCase);
-            FSFolder folder = GetFolder(name, searchOption, ignoreCase);
+            FSDirectory folder = GetFolder(name, searchOption, ignoreCase);
 
             if (file != null && folder != null)
             {
@@ -643,7 +643,7 @@ namespace FenrirFS
         /// <returns>FSFolder.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public FSFolder GetFolder(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
+        public FSDirectory GetFolder(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             if (Exists)
             {
@@ -695,13 +695,13 @@ namespace FenrirFS
         /// <returns>List&lt;FSFolder&gt;.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public List<FSFolder> GetFolders(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
+        public List<FSDirectory> GetFolders(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var entries = InternalGetFileSystemEntries(false, true, searchPattern, searchOption);
-            var results = new List<FSFolder>();
+            var results = new List<FSDirectory>();
 
             for (int i = 0; i < entries.Count; i++)
-                results.Add((FSFolder)entries[i]);
+                results.Add((FSDirectory)entries[i]);
 
             return results;
         }
@@ -738,7 +738,7 @@ namespace FenrirFS
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public abstract bool Move(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists);
+        public abstract bool Move(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
         /// Renames the specified name.
@@ -748,7 +748,7 @@ namespace FenrirFS
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-12-2016) - Initial version.
-        public abstract bool Rename(string name, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists);
+        public abstract bool Rename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         #endregion Public Methods
 

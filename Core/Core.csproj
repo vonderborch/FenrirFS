@@ -43,14 +43,14 @@
     <Compile Include="Enums\FileSystemEntryType.cs" />
     <Compile Include="Enums\FileCollisionOption.cs" />
     <Compile Include="Enums\FileMode.cs" />
-    <Compile Include="Enums\FolderCollisionOption.cs" />
+    <Compile Include="Enums\DirectoryCollisionOption.cs" />
     <Compile Include="Enums\OpenMode.cs" />
     <Compile Include="Enums\RenameMode.cs" />
     <Compile Include="Enums\SearchOption.cs" />
     <Compile Include="Enums\WriteMode.cs" />
-    <Compile Include="FileSystem\FSFolder.cs" />
+    <Compile Include="FileSystem\FSDirectory.cs" />
     <Compile Include="FileSystem\FSFileSystemEntry.cs" />
-    <Compile Include="FileSystem\NullFolder.cs" />
+    <Compile Include="FileSystem\NullDirectory.cs" />
     <Compile Include="FileSystem\NullFile.cs" />
     <Compile Include="FS.cs" />
     <Compile Include="FileSystem\FSFile.cs" />

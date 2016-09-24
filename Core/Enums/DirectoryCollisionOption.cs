@@ -23,7 +23,7 @@ namespace FenrirFS
     /// <summary>
     /// Enum FolderCollisionOption
     /// </summary>
-    public enum FolderCollisionOption
+    public enum DirectoryCollisionOption
     {
         /// <summary>
         /// The generate unique name

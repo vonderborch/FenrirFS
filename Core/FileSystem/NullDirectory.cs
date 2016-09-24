@@ -26,25 +26,25 @@ namespace FenrirFS.FileSystem
     /// <summary>
     /// Class NullFolder.
     /// </summary>
-    /// <seealso cref="FenrirFS.FSFolder" />
-    public class NullFolder : FSFolder
+    /// <seealso cref="FenrirFS.FSDirectory" />
+    public class NullDirectory : FSDirectory
     {
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NullFolder"/> class.
+        /// Initializes a new instance of the <see cref="NullDirectory"/> class.
         /// </summary>
         /// <param name="path">The path.</param>
-        public NullFolder(string path) : base(path)
+        public NullDirectory(string path) : base(path)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NullFolder" /> class.
+        /// Initializes a new instance of the <see cref="NullDirectory" /> class.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="name">The name.</param>
-        public NullFolder(string path, string name) : base(path, name)
+        public NullDirectory(string path, string name) : base(path, name)
         {
         }
 
@@ -73,7 +73,7 @@ namespace FenrirFS.FileSystem
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override FSFolder Copy(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override FSDirectory Copy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             return null;
         }
@@ -103,7 +103,7 @@ namespace FenrirFS.FileSystem
         /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override FSFolder CreateFolder(string folder, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override FSDirectory CreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             return null;
         }
@@ -201,7 +201,7 @@ namespace FenrirFS.FileSystem
         /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool Move(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override bool Move(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             return false;
         }
@@ -216,7 +216,7 @@ namespace FenrirFS.FileSystem
         /// - 1.0.0 (07-12-2016) - Initial version.
         ///  Changelog:
         ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool Rename(string name, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override bool Rename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             return false;
         }

@@ -1,16 +1,39 @@
-﻿using FenrirFS.Helpers;
+﻿// ***********************************************************************
+// Assembly         : FenrirFS
+// Component        : AsyncFile.cs
+// Author           : vonderborch
+// Created          : 09-22-2016
+// 
+// Version          : 2.0.0
+// Last Modified By : vonderborch
+// Last Modified On : 09-24-2016
+// ***********************************************************************
+// <copyright file="AsyncFile.cs">
+//		Copyright ©  2016
+// </copyright>
+// <summary>
+//      Defines the asynchronous File static class.
+// </summary>
+//
+// Changelog: 
+//            - 2.0.0 (09-24-2016) - Beta Version.
+// ***********************************************************************
+using FenrirFS.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using IO = System.IO;
 
 namespace FenrirFS.Static
 {
+    /// <summary>
+    /// Provides asynchronous static methods for the creation, copying, deletion, moving, and opening of a single file, and aids in the creation of FileStream objects.
+    /// </summary>
     public static class AsyncFile
     {
+        #region Public Methods
+
         public static async Task<bool> AppendAllLines(string file, IEnumerable<string> lines, CancellationToken? cancellationToken = null)
         {
             Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
@@ -29,13 +52,13 @@ namespace FenrirFS.Static
             return File.AppendAllText(file, contents);
         }
 
-        public static async Task<bool> Copy(string source, string destination, bool overwrite = false, CancellationToken? cancellationToken = null)
+        public static async Task<bool> Copy(string source, string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             Validation.NotNullOrWhiteSpaceCheck(source, nameof(source));
             Validation.NotNullOrWhiteSpaceCheck(destination, nameof(destination));
 
             await Tasks.ScheduleTask(cancellationToken);
-            return File.Copy(source, destination, overwrite);
+            return File.Copy(source, destination, collisionOption);
         }
 
         public static async Task<bool> Create(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
@@ -78,6 +101,14 @@ namespace FenrirFS.Static
             return File.GetCreationTime(file, useUtc);
         }
 
+        public static async Task<FileAttributes> GetFileAttributes(string file, CancellationToken? cancellationToken = null)
+        {
+            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
+
+            await Tasks.ScheduleTask(cancellationToken);
+            return File.GetFileAttributes(file);
+        }
+
         public static async Task<DateTime> GetLastAccessedTime(string file, bool useUtc = false, CancellationToken? cancellationToken = null)
         {
             Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
@@ -94,21 +125,45 @@ namespace FenrirFS.Static
             return File.GetLastModifiedTime(file, useUtc);
         }
 
-        public static async Task<FileAttributes> GetFileAttributes(string file, CancellationToken? cancellationToken = null)
-        {
-            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
-
-            await Tasks.ScheduleTask(cancellationToken);
-            return File.GetFileAttributes(file);
-        }
-
-        public static async Task<bool> Move(string source, string destination, bool overwrite = false, CancellationToken? cancellationToken = null)
+        public static async Task<bool> Move(string source, string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             Validation.NotNullOrWhiteSpaceCheck(source, nameof(source));
             Validation.NotNullOrWhiteSpaceCheck(destination, nameof(destination));
 
             await Tasks.ScheduleTask(cancellationToken);
-            return File.Move(source, destination);
+            return File.Move(source, destination, collisionOption);
+        }
+
+        public static async Task<IO.Stream> Open(string file, FileAccess fileAccess = FileAccess.ReadWrite, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
+        {
+            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
+
+            await Tasks.ScheduleTask(cancellationToken);
+            return File.Open(file, fileAccess, fileMode);
+        }
+
+        public static async Task<IO.Stream> OpenRead(string file, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
+        {
+            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
+
+            await Tasks.ScheduleTask(cancellationToken);
+            return File.OpenRead(file, fileMode);
+        }
+
+        public static async Task<IO.Stream> OpenReadWrite(string file, WriteMode writeMode = WriteMode.Truncate, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
+        {
+            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
+
+            await Tasks.ScheduleTask(cancellationToken);
+            return File.OpenReadWrite(file, writeMode, fileMode);
+        }
+
+        public static async Task<IO.Stream> OpenWrite(string file, WriteMode writeMode = WriteMode.Truncate, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
+        {
+            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
+
+            await Tasks.ScheduleTask(cancellationToken);
+            return File.OpenWrite(file, writeMode, fileMode);
         }
 
         public static async Task<byte[]> ReadAllBytes(string file, CancellationToken? cancellationToken = null)
@@ -205,51 +260,6 @@ namespace FenrirFS.Static
             return File.WriteAllText(file, contents, writeMode);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public static async Task<IO.Stream> Open(string file, FileAccess fileAccess = FileAccess.ReadWrite, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
-        {
-            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
-
-            await Tasks.ScheduleTask(cancellationToken);
-            return File.Open(file, fileAccess, fileMode);
-        }
-
-        public static async Task<IO.Stream> OpenRead(string file, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
-        {
-            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
-
-            await Tasks.ScheduleTask(cancellationToken);
-            return File.OpenRead(file, fileMode);
-        }
-
-        public static async Task<IO.Stream> OpenReadWrite(string file, WriteMode writeMode = WriteMode.Truncate, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
-        {
-            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
-
-            await Tasks.ScheduleTask(cancellationToken);
-            return File.OpenReadWrite(file, writeMode, fileMode);
-        }
-
-        public static async Task<IO.Stream> OpenWrite(string file, WriteMode writeMode = WriteMode.Truncate, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
-        {
-            Validation.NotNullOrWhiteSpaceCheck(file, nameof(file));
-
-            await Tasks.ScheduleTask(cancellationToken);
-            return File.OpenWrite(file, writeMode, fileMode);
-        }
+        #endregion Public Methods
     }
 }

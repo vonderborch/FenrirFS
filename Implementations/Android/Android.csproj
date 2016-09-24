@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Core\Enums\DirectoryCollisionOption.cs">
+      <Link>Enums\DirectoryCollisionOption.cs</Link>
+    </Compile>
     <Compile Include="..\..\Core\Enums\ExistenceCheckResult.cs">
       <Link>Enums\ExistenceCheckResult.cs</Link>
     </Compile>
@@ -61,9 +64,6 @@
     <Compile Include="..\..\Core\Enums\FileSystemEntryType.cs">
       <Link>Enums\FileSystemEntryType.cs</Link>
     </Compile>
-    <Compile Include="..\..\Core\Enums\FolderCollisionOption.cs">
-      <Link>Enums\FolderCollisionOption.cs</Link>
-    </Compile>
     <Compile Include="..\..\Core\Enums\OpenMode.cs">
       <Link>Enums\OpenMode.cs</Link>
     </Compile>
@@ -76,20 +76,20 @@
     <Compile Include="..\..\Core\Enums\WriteMode.cs">
       <Link>Enums\WriteMode.cs</Link>
     </Compile>
+    <Compile Include="..\..\Core\FileSystem\FSDirectory.cs">
+      <Link>FileSystem\FSDirectory.cs</Link>
+    </Compile>
     <Compile Include="..\..\Core\FileSystem\FSFile.cs">
       <Link>FileSystem\FSFile.cs</Link>
     </Compile>
     <Compile Include="..\..\Core\FileSystem\FSFileSystemEntry.cs">
       <Link>FileSystem\FSFileSystemEntry.cs</Link>
     </Compile>
-    <Compile Include="..\..\Core\FileSystem\FSFolder.cs">
-      <Link>FileSystem\FSFolder.cs</Link>
+    <Compile Include="..\..\Core\FileSystem\NullDirectory.cs">
+      <Link>FileSystem\NullDirectory.cs</Link>
     </Compile>
     <Compile Include="..\..\Core\FileSystem\NullFile.cs">
       <Link>FileSystem\NullFile.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Core\FileSystem\NullFolder.cs">
-      <Link>FileSystem\NullFolder.cs</Link>
     </Compile>
     <Compile Include="..\..\Core\FS.cs">
       <Link>FS.cs</Link>
@@ -118,11 +118,11 @@
     <Compile Include="..\..\Core\Structs\Awaiter.cs">
       <Link>Structs\Awaiter.cs</Link>
     </Compile>
+    <Compile Include="..\Desktop\FileSystem\FenrirDirectory.cs">
+      <Link>FileSystem\FenrirDirectory.cs</Link>
+    </Compile>
     <Compile Include="..\Desktop\FileSystem\FenrirFile.cs">
       <Link>FileSystem\FenrirFile.cs</Link>
-    </Compile>
-    <Compile Include="..\Desktop\FileSystem\FenrirFolder.cs">
-      <Link>FileSystem\FenrirFolder.cs</Link>
     </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

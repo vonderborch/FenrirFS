@@ -9,17 +9,17 @@ using IO = System.IO;
 
 namespace FenrirFS
 {
-    public class FenrirFolder : FSFolder
+    public class FenrirDirectory : FSDirectory
     {
-        public FenrirFolder(string path) : base(path) { }
-        public FenrirFolder(string path, string name) : base(path, name) { }
+        public FenrirDirectory(string path) : base(path) { }
+        public FenrirDirectory(string path, string name) : base(path, name) { }
 
         public override bool Exists
         {
             get { return IO.Directory.Exists(this); }
         }
 
-        public override FSFolder Copy(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override FSDirectory Copy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             if (Exists)
             {
@@ -27,18 +27,18 @@ namespace FenrirFS
 
                 switch (collisionOption)
                 {
-                    case FolderCollisionOption.OpenIfExists:
+                    case DirectoryCollisionOption.OpenIfExists:
                         return FS.GetDirectory(destination, OpenMode.ThrowIfDoesNotExist);
-                    case FolderCollisionOption.FailIfExists:
+                    case DirectoryCollisionOption.FailIfExists:
                         return null;
-                    case FolderCollisionOption.GenerateUniqueName:
+                    case DirectoryCollisionOption.GenerateUniqueName:
                         destination = IOHelper.GenerateUniquePath(destination, false);
                         break;
-                    case FolderCollisionOption.ReplaceExisting:
+                    case DirectoryCollisionOption.ReplaceExisting:
                         if (IO.Directory.Exists(destination))
                             IO.Directory.Delete(destination, true);
                         break;
-                    case FolderCollisionOption.ThrowIfExists:
+                    case DirectoryCollisionOption.ThrowIfExists:
                         throw new IO.IOException($"A folder with the new path [{destination}] already exists!");
                 }
 
@@ -64,7 +64,7 @@ namespace FenrirFS
                     try
                     {
                         var newPath = IO.Path.Combine(destination, directories[i].Name);
-                        directories[i].Copy(newPath, FolderCollisionOption.FailIfExists);
+                        directories[i].Copy(newPath, DirectoryCollisionOption.FailIfExists);
                     }
                     catch(Exception ex)
                     {
@@ -106,7 +106,7 @@ namespace FenrirFS
             return FS.GetFile(newFullPath, OpenMode.CreateIfDoesNotExist);
         }
 
-        public override FSFolder CreateFolder(string folder, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override FSDirectory CreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             Validation.NotNullOrWhiteSpaceCheck(folder, nameof(folder));
 
@@ -116,18 +116,18 @@ namespace FenrirFS
             string newFullPath = IO.Path.Combine(this, folder);
             switch (collisionOption)
             {
-                case FolderCollisionOption.OpenIfExists:
+                case DirectoryCollisionOption.OpenIfExists:
                     return FS.GetDirectory(newFullPath, OpenMode.ThrowIfDoesNotExist);
-                case FolderCollisionOption.FailIfExists:
+                case DirectoryCollisionOption.FailIfExists:
                     return null;
-                case FolderCollisionOption.GenerateUniqueName:
+                case DirectoryCollisionOption.GenerateUniqueName:
                     newFullPath = IOHelper.GenerateUniquePath(newFullPath, false);
                     break;
-                case FolderCollisionOption.ReplaceExisting:
+                case DirectoryCollisionOption.ReplaceExisting:
                     if (IO.Directory.Exists(newFullPath))
                         IO.Directory.Delete(newFullPath);
                     break;
-                case FolderCollisionOption.ThrowIfExists:
+                case DirectoryCollisionOption.ThrowIfExists:
                     throw new IO.IOException($"A folder with the new path [{newFullPath}] already exists!");
             }
 
@@ -197,7 +197,7 @@ namespace FenrirFS
                     : IO.Directory.GetLastWriteTime(this);
         }
 
-        public override bool Move(string destination, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override bool Move(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             if (Exists)
             {
@@ -205,17 +205,17 @@ namespace FenrirFS
 
                 switch (collisionOption)
                 {
-                    case FolderCollisionOption.OpenIfExists:
-                    case FolderCollisionOption.FailIfExists:
+                    case DirectoryCollisionOption.OpenIfExists:
+                    case DirectoryCollisionOption.FailIfExists:
                         return false;
-                    case FolderCollisionOption.GenerateUniqueName:
+                    case DirectoryCollisionOption.GenerateUniqueName:
                         destination = IOHelper.GenerateUniquePath(destination, false);
                         break;
-                    case FolderCollisionOption.ReplaceExisting:
+                    case DirectoryCollisionOption.ReplaceExisting:
                         if (IO.Directory.Exists(destination))
                             IO.Directory.Delete(destination);
                         break;
-                    case FolderCollisionOption.ThrowIfExists:
+                    case DirectoryCollisionOption.ThrowIfExists:
                         throw new IO.IOException($"A folder with the new path [{destination}] already exists!");
                 }
 
@@ -227,7 +227,7 @@ namespace FenrirFS
             return false;
         }
 
-        public override bool Rename(string name, FolderCollisionOption collisionOption = FolderCollisionOption.FailIfExists)
+        public override bool Rename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             if (Exists)
             {
@@ -236,17 +236,17 @@ namespace FenrirFS
                 string newFullPath = IO.Path.Combine(this, name);
                 switch (collisionOption)
                 {
-                    case FolderCollisionOption.OpenIfExists:
-                    case FolderCollisionOption.FailIfExists:
+                    case DirectoryCollisionOption.OpenIfExists:
+                    case DirectoryCollisionOption.FailIfExists:
                         return false;
-                    case FolderCollisionOption.GenerateUniqueName:
+                    case DirectoryCollisionOption.GenerateUniqueName:
                         newFullPath = IOHelper.GenerateUniquePath(newFullPath, false);
                         break;
-                    case FolderCollisionOption.ReplaceExisting:
+                    case DirectoryCollisionOption.ReplaceExisting:
                         if (IO.Directory.Exists(newFullPath))
                             IO.Directory.Delete(newFullPath);
                         break;
-                    case FolderCollisionOption.ThrowIfExists:
+                    case DirectoryCollisionOption.ThrowIfExists:
                         throw new IO.IOException($"A folder with the new path [{newFullPath}] already exists!");
                 }
 
@@ -283,7 +283,7 @@ namespace FenrirFS
 
                 foreach (var folder in IO.Directory.EnumerateDirectories(this))
                 {
-                    var newFolder = new FenrirFolder(folder);
+                    var newFolder = new FenrirDirectory(folder);
                     if (grabDirectories && Regex.IsMatch(folder, searchPattern))
                         filesAndFolders.Add(newFolder);
 
