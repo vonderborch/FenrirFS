@@ -97,7 +97,7 @@ namespace FenrirFS.Static
             return Directory.EnumerateFileSystemEntryNames(path, searchPattern, searchOption);
         }
 
-        public static async Task<ExistenceCheckResult> Exists(string path, CancellationToken? cancellationToken = null)
+        public static async Task<bool> Exists(string path, CancellationToken? cancellationToken = null)
         {
             Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
 

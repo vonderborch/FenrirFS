@@ -85,7 +85,7 @@ namespace FenrirFS
             if (!Exists)
                 IO.Directory.CreateDirectory(this);
 
-            string newFullPath = IO.Path.Combine(Path, file);
+            string newFullPath = IO.Path.Combine(this, file);
             switch (collisionOption)
             {
                 case FileCollisionOption.OpenIfExists:
@@ -113,7 +113,7 @@ namespace FenrirFS
             if (!Exists)
                 IO.Directory.CreateDirectory(this);
 
-            string newFullPath = IO.Path.Combine(Path, folder);
+            string newFullPath = IO.Path.Combine(this, folder);
             switch (collisionOption)
             {
                 case FolderCollisionOption.OpenIfExists:
@@ -233,7 +233,7 @@ namespace FenrirFS
             {
                 Validation.NotNullOrWhiteSpaceCheck(name, nameof(name));
 
-                string newFullPath = IO.Path.Combine(Path, name);
+                string newFullPath = IO.Path.Combine(this, name);
                 switch (collisionOption)
                 {
                     case FolderCollisionOption.OpenIfExists:

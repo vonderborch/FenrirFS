@@ -37,8 +37,9 @@ namespace FenrirFS
         {
             Helpers.Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
 
-            byte result = File.Exists(path) ? (byte)1 : (byte)0;
-            //result += Directory.Exists(path) ? (byte)2 : (byte)0;
+#if IMPLEMENTATION
+            byte result = IO.File.Exists(path) ? (byte)1 : (byte)0;
+            result += IO.Directory.Exists(path) ? (byte)2 : (byte)0;
 
             switch (result)
             {
@@ -47,6 +48,9 @@ namespace FenrirFS
                 case 1: return ExistenceCheckResult.FileExists;
                 default: return ExistenceCheckResult.None;
             }
+#else
+            return ExistenceCheckResult.None;
+#endif
         }
 
         /// <summary>
@@ -65,6 +69,19 @@ namespace FenrirFS
 #if CORE
             return new NullFile(path);
 #elif IMPLEMENTATION
+            if (!IO.File.Exists(path))
+            {
+                switch (openMode)
+                {
+                    case OpenMode.CreateIfDoesNotExist:
+                        IO.File.Create(path).Close();
+                        break;
+                    case OpenMode.ReturnNullIfDoesNotExist:
+                        return null;
+                    case OpenMode.ThrowIfDoesNotExist:
+                        throw new System.Exception("File does not exist!");
+                }
+            }
             return new FenrirFile(path);
 #else
             throw new NotSupportedException("There is no File implementation on the current platform!");
@@ -90,6 +107,20 @@ namespace FenrirFS
 #if CORE
             return new NullFile(path, name, extension);
 #elif IMPLEMENTATION
+            var fullName = IO.Path.Combine(path, $"{name}{extension}");
+            if (!IO.File.Exists(fullName))
+            {
+                switch (openMode)
+                {
+                    case OpenMode.CreateIfDoesNotExist:
+                        IO.File.Create(fullName).Close();
+                        break;
+                    case OpenMode.ReturnNullIfDoesNotExist:
+                        return null;
+                    case OpenMode.ThrowIfDoesNotExist:
+                        throw new System.Exception("File does not exist!");
+                }
+            }
             return new FenrirFile(path, name, extension);
 #else
             throw new NotSupportedException("There is no File implementation on the current platform!");
@@ -112,6 +143,19 @@ namespace FenrirFS
 #if CORE
             return new NullFolder(path);
 #elif IMPLEMENTATION
+            if (!IO.Directory.Exists(path))
+            {
+                switch (openMode)
+                {
+                    case OpenMode.CreateIfDoesNotExist:
+                        IO.Directory.CreateDirectory(path);
+                        break;
+                    case OpenMode.ReturnNullIfDoesNotExist:
+                        return null;
+                    case OpenMode.ThrowIfDoesNotExist:
+                        throw new System.Exception("Directory does not exist!");
+                }
+            }
             return new FenrirFolder(path);
 #else
             throw new NotSupportedException("There is no Folder implementation on the current platform!");
@@ -134,6 +178,20 @@ namespace FenrirFS
 #if CORE
             return new NullFolder(path, name);
 #elif IMPLEMENTATION
+            var fullName = IO.Path.Combine(path, name);
+            if (!IO.Directory.Exists(fullName))
+            {
+                switch (openMode)
+                {
+                    case OpenMode.CreateIfDoesNotExist:
+                        IO.Directory.CreateDirectory(fullName);
+                        break;
+                    case OpenMode.ReturnNullIfDoesNotExist:
+                        return null;
+                    case OpenMode.ThrowIfDoesNotExist:
+                        throw new System.Exception("File does not exist!");
+                }
+            }
             return new FenrirFolder(path, name);
 #else
             throw new NotSupportedException("There is no Folder implementation on the current platform!");
@@ -174,6 +232,6 @@ namespace FenrirFS
 #endif
         }
 
-        #endregion Public Methods
+#endregion Public Methods
     }
 }

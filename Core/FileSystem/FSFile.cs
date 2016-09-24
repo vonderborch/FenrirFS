@@ -47,6 +47,9 @@ namespace FenrirFS
         /// </summary>
         private bool disposedValue = false;
 
+        protected Encoding encoding = Encoding.UTF8;
+        protected bool encodingHasSet = false;
+
         #endregion Private Fields
 
         #region Public Constructors
@@ -89,7 +92,7 @@ namespace FenrirFS
         /// <value>The encoding.</value>
         public Encoding Encoding
         {
-            get { return GetEncoding(); }
+            get { return encodingHasSet ? encoding : GetEncoding(); }
         }
 
         /// <summary>
@@ -136,7 +139,7 @@ namespace FenrirFS
         /// <value>The full path.</value>
         public override string FullPath
         {
-            get { return IO.Path.Combine(Path, $"{Name}.{Extension}"); }
+            get { return IO.Path.Combine(Path, $"{Name}{Extension}"); }
             protected set
             {
                 Path = IO.Path.GetDirectoryName(value);

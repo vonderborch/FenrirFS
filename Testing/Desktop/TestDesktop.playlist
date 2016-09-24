@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="TestingCore.BasicFileTests.CreateFile" /><Add Test="TestingCore.BasicFileTests.OpenFile" /><Add Test="TestingCore.BasicFileTests.WriteToFile" /><Add Test="TestingCore.BasicFileTests.ReadFile" /><Add Test="TestingCore.BasicFileTests.DeleteFile" /></Playlist>

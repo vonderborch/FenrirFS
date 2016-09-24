@@ -106,10 +106,21 @@ namespace FenrirFS
         {
             if (Exists)
             {
-                using (IO.StreamReader reader = new IO.StreamReader(this, Encoding.UTF8, true))
+                try
                 {
-                    reader.Peek();
-                    return reader.CurrentEncoding;
+                    using (IO.StreamReader reader = new IO.StreamReader(this, Encoding.UTF8, true))
+                    {
+                        reader.Peek();
+                        encoding = reader.CurrentEncoding;
+                        encodingHasSet = true;
+                    }
+
+                    return encoding;
+                }
+                catch
+                {
+                    encoding = Encoding.Default;
+                    encodingHasSet = true;
                 }
             }
 
@@ -300,6 +311,9 @@ namespace FenrirFS
             {
                 using (var writer = new IO.StreamWriter(this, true, encoding))
                     writer.Write("");
+
+                this.encoding = encoding;
+                encodingHasSet = true;
             }
 
             return false;
@@ -331,10 +345,10 @@ namespace FenrirFS
                 {
                     case WriteMode.Append:
                         if (FS.Exists(this) == ExistenceCheckResult.FileExists)
-                            contents = $"{System.IO.File.ReadAllText(this, Encoding)}{contents}";
+                            contents = IO.File.ReadAllText(this, Encoding) + contents;
                         break;
                 }
-                System.IO.File.WriteAllText(this, contents, Encoding);
+                IO.File.WriteAllText(this, contents, Encoding);
 
                 return true;
             }
@@ -354,7 +368,7 @@ namespace FenrirFS
                 {
                     case WriteMode.Append:
                         if (FS.Exists(this) == ExistenceCheckResult.FileExists)
-                            contents = $"{System.IO.File.ReadAllText(this, Encoding)}{contents}";
+                            contents = IO.File.ReadAllText(this, Encoding) + contents;
                         break;
                 }
                 System.IO.File.WriteAllText(this, contents, Encoding);

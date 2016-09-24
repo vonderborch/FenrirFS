@@ -14,7 +14,7 @@ namespace FenrirFS.Static
             Validation.NotNullOrWhiteSpaceCheck(source, nameof(source));
             Validation.NotNullOrWhiteSpaceCheck(destination, nameof(destination));
 
-            if (Exists(source) != ExistenceCheckResult.FolderExists)
+            if (Exists(source))
                 return false;
 
             var folder = FS.GetDirectory(source, OpenMode.ThrowIfDoesNotExist);
@@ -112,11 +112,11 @@ namespace FenrirFS.Static
                 : null;
         }
 
-        public static ExistenceCheckResult Exists(string path)
+        public static bool Exists(string path)
         {
             Validation.NotNullOrWhiteSpaceCheck(path, nameof(path));
 
-            return FS.Exists(path);
+            return FS.GetDirectory(path, OpenMode.ReturnNullIfDoesNotExist) != null;
         }
 
         public static DateTime GetCreationTime(string path, bool useUTC = false)
@@ -285,7 +285,7 @@ namespace FenrirFS.Static
             Validation.NotNullOrWhiteSpaceCheck(source, nameof(source));
             Validation.NotNullOrWhiteSpaceCheck(destination, nameof(destination));
 
-            if (Exists(source) != ExistenceCheckResult.FolderExists)
+            if (Exists(source))
                 return false;
 
             var folder = FS.GetDirectory(source, OpenMode.ThrowIfDoesNotExist);
