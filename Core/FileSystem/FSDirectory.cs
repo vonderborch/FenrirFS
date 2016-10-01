@@ -778,13 +778,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Internals the get file system entries.
+        /// Internal method to get file system entries.
         /// </summary>
-        /// <param name="grabFiles">if set to <c>true</c> [grab files].</param>
-        /// <param name="grabDirectories">if set to <c>true</c> [grab directories].</param>
+        /// <param name="grabFiles">if set to <c>true</c> [grabs files].</param>
+        /// <param name="grabDirectories">if set to <c>true</c> [grabs directories].</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <returns>List&lt;FSFileSystemEntry&gt;.</returns>
+        /// <returns>A list of file system entries matching the desired parameters.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         protected abstract List<FSFileSystemEntry> InternalGetFileSystemEntries(bool grabFiles, bool grabDirectories, string searchPattern = "*", SearchOption searchOption = SearchOption.All);

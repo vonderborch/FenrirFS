@@ -53,9 +53,9 @@ namespace FenrirFS.FileSystem
         #region Public Properties
 
         /// <summary>
-        /// Gets a value indicating whether [file exists].
+        /// Gets a value indicating whether [directory exists].
         /// </summary>
-        /// <value><c>true</c> if [file exists]; otherwise, <c>false</c>.</value>
+        /// <value><c>true</c> if [directory exists]; otherwise, <c>false</c>.</value>
         public override bool Exists
         {
             get { return false; }

@@ -41,8 +41,14 @@ namespace FenrirFS
     {
         #region Private Fields
 
+        /// <summary>
+        /// The encoding
+        /// </summary>
         protected Encoding encoding = Encoding.UTF8;
 
+        /// <summary>
+        /// Whether the encoding has been set
+        /// </summary>
         protected bool encodingHasSet = false;
 
         /// <summary>
@@ -96,9 +102,9 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="FSFile"/> is eos.
+        /// Gets a value indicating whether this <see cref="FSFile"/> is at the end of the stream.
         /// </summary>
-        /// <value><c>true</c> if eos; otherwise, <c>false</c>.</value>
+        /// <value><c>true</c> if at the end of the stream; otherwise, <c>false</c>.</value>
         public bool EOS
         {
             get
@@ -185,21 +191,21 @@ namespace FenrirFS
         /// <param name="file">The file.</param>
         /// <returns>The result of the conversion.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public static implicit operator string(FSFile file)
         {
             return file.FullPath;
         }
 
         /// <summary>
-        /// Asynchronously the change extension.
+        /// Changes the extension of the file.
         /// </summary>
         /// <param name="extension">The extension.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="collisionOption">The collision option, if another file already exists.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the extension change succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -207,12 +213,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the clear.
+        /// Clears the contents of the file.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the contents were cleared, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncClear(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -220,12 +226,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the close.
+        /// Closes the file stream if it is open.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the file stream was closed, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncClose(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -233,14 +239,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the copy.
+        /// Copies the file to the specified destination
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the copy succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncCopy(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -248,12 +254,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the delete.
+        /// Deletes the file.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the deletion succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncDelete(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -261,12 +267,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the get encoding.
+        /// Gets the encoding of the file.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;Encoding&gt;.</returns>
+        /// <returns>The encoding of the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<Encoding> AsyncGetEncoding(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -274,12 +280,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the get file attributes.
+        /// Gets the file attributes.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;FileAttributes&gt;.</returns>
+        /// <returns>The file attributes.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<FileAttributes> AsyncGetFileAttributes(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -287,12 +293,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the size of the get file.
+        /// Gets the size of the file.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Int64&gt;.</returns>
+        /// <returns>The size of the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<long> AsyncGetFileSize(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -300,14 +306,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the move.
+        /// Moves the file to the specified specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the move succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncMove(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -315,14 +321,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the open.
+        /// Opens the file with the specified access and file mode.
         /// </summary>
         /// <param name="fileAccess">The file access.</param>
         /// <param name="fileMode">The file mode.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;IO.Stream&gt;.</returns>
+        /// <returns>A stream representing the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<IO.Stream> AsyncOpen(FileAccess fileAccess = FileAccess.ReadWrite, FileMode fileMode = FileMode.OpenOrCreate, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -330,12 +336,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the read all.
+        /// Reads all the contents of the file.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.String&gt;.</returns>
+        /// <returns>The contents of the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<string> AsyncReadAll(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -343,12 +349,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the read all as x document.
+        /// Reads the contents of the file as an XDocument.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;XDocument&gt;.</returns>
+        /// <returns>An XDocument representing the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<XDocument> AsyncReadAllAsXDocument(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -356,12 +362,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the read all lines.
+        /// Reads the contents of the file and returns it as a string array.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.String[]&gt;.</returns>
+        /// <returns>A string array representing the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<string[]> AsyncReadAllLines(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -369,12 +375,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the read line.
+        /// Reads the contents of the file and returns a string enumerable.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</returns>
+        /// <returns>An enumerable representing the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<IEnumerable<string>> AsyncReadLines(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -382,13 +388,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the remove attribute.
+        /// Removes an attribute from the file.
         /// </summary>
-        /// <param name="attribute">The attribute.</param>
+        /// <param name="attribute">The attribute to remove.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the attribute was removed, <c>false</c> otherwise.</returns>
+        /// <exception cref="NotImplementedException"></exception>
         ///  Changelog:
-        ///             - 1.0.0 (09-22-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Initial version.
         public async Task<bool> AsyncRemoveAttribute(FileAttributes attribute, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -396,14 +403,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the rename.
+        /// Renames the file to the specified name.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="collisionOption">The collision option if a file with the new name already exists.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the rename was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncRename(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -411,13 +418,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the set encoding.
+        /// Sets the encoding of the file.
         /// </summary>
         /// <param name="encoding">The encoding.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the encoding change was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncSetEncoding(Encoding encoding, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -425,27 +432,27 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the set file attributes.
+        /// Adds an attribute to the file.
         /// </summary>
-        /// <param name="attributes">The attributes.</param>
+        /// <param name="attribute">The attribute to add.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the attribute was added, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
-        public async Task<bool> AsyncSetFileAttributes(FileAttributes attributes, CancellationToken? cancellationToken = null)
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
+        public async Task<bool> AsyncSetFileAttribute(FileAttributes attribute, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
-            return SetFileAttributes(attributes);
+            return SetFileAttribute(attribute);
         }
 
         /// <summary>
-        /// Asynchronously the stream read.
+        /// Reads the specified number of characters from the stream and returns it as a string.
         /// </summary>
-        /// <param name="chars">The chars.</param>
+        /// <param name="chars">The number of characters to read.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.String&gt;.</returns>
+        /// <returns>A string representing the characters.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<string> AsyncStreamRead(int chars, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -453,12 +460,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the stream read all.
+        /// Reads the entire stream and returns it as a string.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.String&gt;.</returns>
+        /// <returns>The contents of the stream.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<string> AsyncStreamReadAll(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -466,12 +473,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the stream read line.
+        /// Reads the a line from the stream and returns it as a string.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.String&gt;.</returns>
+        /// <returns>The next line of the stream.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<string> AsyncStreamReadLine(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -479,13 +486,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the stream set position.
+        /// Sets the position of the stream.
         /// </summary>
         /// <param name="position">The position.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the position was set, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncStreamSetPosition(int position, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -493,13 +500,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the stream write.
+        /// Writes the contents to the stream.
         /// </summary>
-        /// <param name="contents">The contents.</param>
+        /// <param name="contents">The contents to write to the stream.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the stream was written too, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncStreamWrite(string contents, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -507,13 +514,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the stream write line.
+        /// Writes the contents to the stream and adds a new line to the end of the contents.
         /// </summary>
-        /// <param name="contents">The contents.</param>
+        /// <param name="contents">The contents to write to the stream.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the stream was written too, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncStreamWriteLine(string contents, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -521,14 +528,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the write all.
+        /// Writes the contents to the file.
         /// </summary>
         /// <param name="contents">The contents.</param>
-        /// <param name="writeMode">The write mode.</param>
+        /// <param name="writeMode">The write mode to use.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the write was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncWriteAll(string contents, WriteMode writeMode = WriteMode.Truncate, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -536,14 +543,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the write line.
+        /// Writes the contents to the file and add a new line at the end.
         /// </summary>
         /// <param name="contents">The contents.</param>
-        /// <param name="writeMode">The write mode.</param>
+        /// <param name="writeMode">The write mode to use.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the write was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncWriteLine(string contents, WriteMode writeMode = WriteMode.Truncate, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -551,21 +558,21 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Changes the extension.
+        /// Changes the extension of the file.
         /// </summary>
         /// <param name="extension">The extension.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="collisionOption">The collision option, if another file already exists.</param>
+        /// <returns><c>true</c> if the extension change succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool ChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
 
         /// <summary>
-        /// Clears this instance.
+        /// Clears the contents of the file.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the contents were cleared, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public bool Clear()
         {
             return IsFileOpen
@@ -574,11 +581,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Closes this instance.
+        /// Closes the file stream if it is open.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the file stream was closed, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public bool Close()
         {
             if (IsFileOpen)
@@ -609,28 +616,28 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Copies the specified destination.
+        /// Copies the file to the specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns><c>true</c> if the copy succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool Copy(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
 
         /// <summary>
-        /// Deletes this instance.
+        /// Deletes the file.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the deletion succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool Delete();
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public void Dispose()
         {
             // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
@@ -653,132 +660,133 @@ namespace FenrirFS
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public bool Equals(FSFile other)
         {
             return this.FullPath == other.FullPath;
         }
 
         /// <summary>
-        /// Gets the encoding.
+        /// Gets the encoding of the file.
         /// </summary>
-        /// <returns>Encoding.</returns>
+        /// <returns>The encoding of the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract Encoding GetEncoding();
 
         /// <summary>
         /// Gets the file attributes.
         /// </summary>
-        /// <returns>FileAttributes.</returns>
+        /// <returns>The file attributes.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract FileAttributes GetFileAttributes();
 
         /// <summary>
         /// Gets the size of the file.
         /// </summary>
-        /// <returns>System.Int64.</returns>
+        /// <returns>The size of the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract long GetFileSize();
 
         /// <summary>
-        /// Moves the specified destination.
+        /// Moves the file to the specified specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns><c>true</c> if the move succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool Move(string destination, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
 
         /// <summary>
-        /// Opens the specified file access.
+        /// Opens the file with the specified access and file mode.
         /// </summary>
         /// <param name="fileAccess">The file access.</param>
         /// <param name="fileMode">The file mode.</param>
-        /// <returns>IO.Stream.</returns>
+        /// <returns>A stream representing the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract IO.Stream Open(FileAccess fileAccess = FileAccess.ReadWrite, FileMode fileMode = FileMode.OpenOrCreate);
 
         /// <summary>
-        /// Reads all.
+        /// Reads all the contents of the file.
         /// </summary>
-        /// <returns>System.String.</returns>
+        /// <returns>The contents of the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract string ReadAll();
 
         /// <summary>
-        /// Reads all as x document.
+        /// Reads the contents of the file as an XDocument.
         /// </summary>
-        /// <returns>XDocument.</returns>
+        /// <returns>An XDocument representing the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract XDocument ReadAllAsXDocument();
 
         /// <summary>
-        /// Reads all lines.
+        /// Reads the contents of the file and returns it as a string array.
         /// </summary>
-        /// <returns>System.String[].</returns>
+        /// <returns>A string array representing the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract string[] ReadAllLines();
 
         /// <summary>
-        /// Reads the line.
+        /// Reads the contents of the file and returns a string enumerable.
         /// </summary>
-        /// <returns>IEnumerable&lt;System.String&gt;.</returns>
+        /// <returns>An enumerable representing the file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract IEnumerable<string> ReadLines();
 
         /// <summary>
-        /// Removes an attribute.
+        /// Removes an attribute from the file.
         /// </summary>
-        /// <param name="attribute">The attribute.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="attribute">The attribute to remove.</param>
+        /// <returns><c>true</c> if the attribute was removed, <c>false</c> otherwise.</returns>
+        /// <exception cref="NotImplementedException"></exception>
         ///  Changelog:
-        ///             - 1.0.0 (09-22-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Initial version.
         public abstract bool RemoveAttribute(FileAttributes attribute);
 
         /// <summary>
-        /// Renames the specified name.
+        /// Renames the file to the specified name.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="collisionOption">The collision option if a file with the new name already exists.</param>
+        /// <returns><c>true</c> if the rename was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool Rename(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
 
         /// <summary>
-        /// Sets the encoding.
+        /// Sets the encoding of the file.
         /// </summary>
         /// <param name="encoding">The encoding.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the encoding change was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool SetEncoding(Encoding encoding);
 
         /// <summary>
-        /// Sets the file attributes.
+        /// Adds an attribute to the file.
         /// </summary>
-        /// <param name="attributes">The attributes.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="attribute">The attribute to add.</param>
+        /// <returns><c>true</c> if the attribute was added, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
-        public abstract bool SetFileAttributes(FileAttributes attributes);
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
+        public abstract bool SetFileAttribute(FileAttributes attribute);
 
         /// <summary>
-        /// Streams the read.
+        /// Reads the specified number of characters from the stream and returns it as a string.
         /// </summary>
-        /// <param name="chars">The chars.</param>
-        /// <returns>System.String.</returns>
+        /// <param name="chars">The number of characters to read.</param>
+        /// <returns>A string representing the characters.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public string StreamRead(int chars)
         {
             if (!IsFileOpen && StreamFileAccessMode != FileAccess.Write)
@@ -794,11 +802,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Streams the read all.
+        /// Reads the entire stream and returns it as a string.
         /// </summary>
-        /// <returns>System.String.</returns>
+        /// <returns>The contents of the stream.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public string StreamReadAll()
         {
             if (IsFileOpen && StreamFileAccessMode != FileAccess.Write)
@@ -814,11 +822,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Streams the read line.
+        /// Reads the a line from the stream and returns it as a string.
         /// </summary>
-        /// <returns>System.String.</returns>
+        /// <returns>The next line of the stream.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public string StreamReadLine()
         {
             if (IsFileOpen && StreamFileAccessMode != FileAccess.Write)
@@ -855,12 +863,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Streams the set position.
+        /// Sets the position of the stream.
         /// </summary>
         /// <param name="position">The position.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the position was set, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public bool StreamSetPosition(int position)
         {
             if (IsFileOpen && position >= 0 && position < Stream.Length)
@@ -874,12 +882,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Streams the write.
+        /// Writes the contents to the stream.
         /// </summary>
-        /// <param name="contents">The contents.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="contents">The contents to write to the stream.</param>
+        /// <returns><c>true</c> if the stream was written too, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public bool StreamWrite(string contents)
         {
             if (IsFileOpen && StreamFileAccessMode != FileAccess.Read)
@@ -897,12 +905,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Streams the write line.
+        /// Writes the contents to the stream and adds a new line to the end of the contents.
         /// </summary>
-        /// <param name="contents">The contents.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="contents">The contents to write to the stream.</param>
+        /// <returns><c>true</c> if the stream was written too, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public bool StreamWriteLine(string contents)
         {
             if (IsFileOpen && StreamFileAccessMode != FileAccess.Read && contents.Length == int.MaxValue)
@@ -924,30 +932,30 @@ namespace FenrirFS
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override string ToString()
         {
             return FullPath;
         }
 
         /// <summary>
-        /// Writes all.
+        /// Writes the contents to the file.
         /// </summary>
         /// <param name="contents">The contents.</param>
-        /// <param name="writeMode">The write mode.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="writeMode">The write mode to use.</param>
+        /// <returns><c>true</c> if the write was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool WriteAll(string contents, WriteMode writeMode = WriteMode.Truncate);
 
         /// <summary>
-        /// Writes the line.
+        /// Writes the contents to the file and add a new line at the end.
         /// </summary>
         /// <param name="contents">The contents.</param>
-        /// <param name="writeMode">The write mode.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="writeMode">The write mode to use.</param>
+        /// <returns><c>true</c> if the write was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool WriteLine(string contents, WriteMode writeMode = WriteMode.Truncate);
 
         #endregion Public Methods
@@ -959,7 +967,7 @@ namespace FenrirFS
         /// </summary>
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         ///  Changelog:
-        ///             - 2.0.0 (07-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

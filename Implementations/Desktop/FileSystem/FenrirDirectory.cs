@@ -1,7 +1,7 @@
 ﻿// ***********************************************************************
 // Assembly         : FenrirFS
 // Component        : FenrirDirectory.cs
-// Author           : ricky
+// Author           : vonderborch
 // Created          : 09-22-2016
 // 
 // Version          : 2.0.0
@@ -56,9 +56,9 @@ namespace FenrirFS
         #region Public Properties
 
         /// <summary>
-        /// Gets a value indicating whether the entry exists or not.
+        /// Gets a value indicating whether [directory exists].
         /// </summary>
-        /// <value><c>true</c> if [entry exists]; otherwise, <c>false</c>.</value>
+        /// <value><c>true</c> if [directory exists]; otherwise, <c>false</c>.</value>
         public override bool Exists
         {
             get { return IO.Directory.Exists(this); }
@@ -443,15 +443,15 @@ namespace FenrirFS
         #region Protected Methods
 
         /// <summary>
-        /// Internals the get file system entries.
+        /// Internal method to get file system entries.
         /// </summary>
-        /// <param name="grabFiles">if set to <c>true</c> [grab files].</param>
-        /// <param name="grabDirectories">if set to <c>true</c> [grab directories].</param>
+        /// <param name="grabFiles">if set to <c>true</c> [grabs files].</param>
+        /// <param name="grabDirectories">if set to <c>true</c> [grabs directories].</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <returns>List&lt;FSFileSystemEntry&gt;.</returns>
+        /// <returns>A list of file system entries matching the desired parameters.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (09-22-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         protected override List<FSFileSystemEntry> InternalGetFileSystemEntries(bool grabFiles, bool grabDirectories, string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var filesAndFolders = new List<FSFileSystemEntry>();
