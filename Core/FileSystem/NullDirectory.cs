@@ -66,161 +66,151 @@ namespace FenrirFS.FileSystem
         #region Public Methods
 
         /// <summary>
-        /// Copies the specified destination.
+        /// Copies the directory to the specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns><c>true</c> if the copy succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override FSDirectory Copy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             return null;
         }
 
         /// <summary>
-        /// Creates the file.
+        /// Creates a new file in the directory.
         /// </summary>
-        /// <param name="file">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <param name="file">The name for the file.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns>A file structure representing the new file.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override FSFile CreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
             return null;
         }
 
         /// <summary>
-        /// Creates the folder.
+        /// Creates a new directory in the directory.
         /// </summary>
-        /// <param name="folder">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <param name="directory">The name for the directory.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns>A directory structure representing the new directory.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override FSDirectory CreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
+        public override FSDirectory CreateDirectory(string directory, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             return null;
         }
 
         /// <summary>
-        /// Deletes this instance.
+        /// Deletes the directory.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <returns><c>true</c> if the directory was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool Delete()
         {
             return false;
         }
 
         /// <summary>
-        /// Deletes the file.
+        /// Deletes a file in the directory.
         /// </summary>
-        /// <param name="file">The name.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <param name="file">The name of the file to delete.</param>
+        /// <returns><c>true</c> if the file was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool DeleteFile(string file)
         {
             return false;
         }
 
         /// <summary>
-        /// Deletes the folder.
+        /// Deletes a directory in the directory.
         /// </summary>
-        /// <param name="folder">The name.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <param name="directory">The name of the directory to delete.</param>
+        /// <returns><c>true</c> if the directory was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
-        public override bool DeleteFolder(string folder)
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
+        public override bool DeleteDirectory(string directory)
         {
             return false;
         }
 
         /// <summary>
-        /// Gets the creation time.
+        /// Gets the creation time of the directory.
         /// </summary>
         /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <returns>DateTime.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <returns>The creation time.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override DateTime GetCreationTime(bool useUtc = false)
         {
             return DateTime.MinValue;
         }
 
         /// <summary>
-        /// Gets the last accessed time.
+        /// Gets the last accessed time of the directory.
         /// </summary>
         /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <returns>DateTime.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <returns>The last accessed time.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override DateTime GetLastAccessedTime(bool useUtc = false)
         {
             return DateTime.MinValue;
         }
 
         /// <summary>
-        /// Gets the last modified time.
+        /// Gets the last modified time of the directory.
         /// </summary>
         /// <param name="useUtc">if set to <c>true</c> [use UTC].</param>
-        /// <returns>DateTime.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <returns>The last modified time.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override DateTime GetLastModifiedTime(bool useUtc = false)
         {
             return DateTime.MinValue;
         }
 
         /// <summary>
-        /// Moves the specified destination.
+        /// Moves the directory to the specified specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns><c>true</c> if the move succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool Move(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             return false;
         }
 
         /// <summary>
-        /// Renames the specified name.
+        /// Renames the directory to the specified name.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// Changelog:
-        /// - 1.0.0 (07-12-2016) - Initial version.
+        /// <param name="collisionOption">The collision option if a file with the new name already exists.</param>
+        /// <returns><c>true</c> if the rename was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 1.0.0 (07-13-2016) - Initial version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool Rename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
             return false;
         }
 
+        /// <summary>
+        /// Internal method to get file system entries.
+        /// </summary>
+        /// <param name="grabFiles">if set to <c>true</c> [grabs files].</param>
+        /// <param name="grabDirectories">if set to <c>true</c> [grabs directories].</param>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>A list of file system entries matching the desired parameters.</returns>
+        /// Changelog:
+        ///             - 2.0.0 (09-24-2016) - Beta version.
         protected override List<FSFileSystemEntry> InternalGetFileSystemEntries(bool grabFiles, bool grabDirectories, string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             return new List<FSFileSystemEntry>();

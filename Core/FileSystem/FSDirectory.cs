@@ -96,24 +96,24 @@ namespace FenrirFS
         /// <summary>
         /// Performs an implicit conversion from <see cref="FSDirectory"/> to <see cref="System.String"/>.
         /// </summary>
-        /// <param name="folder">The folder.</param>
+        /// <param name="directory">The directory.</param>
         /// <returns>The result of the conversion.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public static implicit operator string(FSDirectory folder)
+        public static implicit operator string(FSDirectory directory)
         {
-            return folder.FullPath;
+            return directory.FullPath;
         }
 
         /// <summary>
-        /// Asynchronously the copy.
+        /// Copies the directory to the specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the copy succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<FSDirectory> AsyncCopy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -121,14 +121,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the create file.
+        /// Creates a new file in the directory.
         /// </summary>
-        /// <param name="file">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="file">The name for the file.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns>A file structure representing the new file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<FSFile> AsyncCreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -136,27 +136,27 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the create folder.
+        /// Creates a new directory in the directory.
         /// </summary>
-        /// <param name="folder">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="directory">The name for the directory.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns>A directory structure representing the new directory.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
-        public async Task<FSDirectory> AsyncCreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
+        public async Task<FSDirectory> AsyncCreateDirectory(string directory, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
-            return CreateFolder(folder);
+            return CreateDirectory(directory);
         }
 
         /// <summary>
-        /// Asynchronously the delete.
+        /// Deletes the directory.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the directory was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncDelete(CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -164,13 +164,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the delete file.
+        /// Deletes a file in the directory.
         /// </summary>
-        /// <param name="file">The name.</param>
+        /// <param name="file">The name of the file to delete.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the file was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncDeleteFile(string file, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -178,26 +178,26 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the delete folder.
+        /// Deletes a directory in the directory.
         /// </summary>
-        /// <param name="folder">The name.</param>
+        /// <param name="directory">The name of the directory to delete.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the directory was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
-        public async Task<bool> AsyncDeleteFolder(string folder, CancellationToken? cancellationToken = null)
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
+        public async Task<bool> AsyncDeleteDirectory(string directory, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
-            return DeleteFolder(folder);
+            return DeleteDirectory(directory);
         }
 
         /// <summary>
-        /// Asynchronously the file exists.
+        /// Determines if the file exists in the directory.
         /// </summary>
         /// <param name="file">The name.</param>
         /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the file exists, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<bool> AsyncFileExists(string file, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
@@ -207,26 +207,26 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the folder exists.
+        /// Determines if the directory exists in the directory.
         /// </summary>
-        /// <param name="folder">The name.</param>
+        /// <param name="directory">The name.</param>
         /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the directory exists, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public async Task<bool> AsyncFolderExists(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
+        public async Task<bool> AsyncDirectoryExists(string directory, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
-            return FolderExists(folder, searchOption, ignoreCase);
+            return DirectoryExists(directory, searchOption, ignoreCase);
         }
 
         /// <summary>
-        /// Asynchronously the get file.
+        /// Returns the file with the name, if it exists in the directory and with the specified search option.
         /// </summary>
         /// <param name="file">The name.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;FSFile&gt;.</returns>
+        /// <returns>A file structure representing the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<FSFile> AsyncGetFile(string file, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
@@ -236,10 +236,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the get file names.
+        /// Returns a list of all files with a name matching the search parameters.
         /// </summary>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
+        /// <returns>A list of file names of matching files.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<string>> AsyncGetFileNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
@@ -249,10 +251,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the get files.
+        /// Returns a list of all files with a name matching the search parameters.
         /// </summary>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;List&lt;FSFile&gt;&gt;.</returns>
+        /// <returns>A list of files of matching files.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<FSFile>> AsyncGetFiles(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
@@ -262,10 +266,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the get file system entries.
+        /// Returns a list of all file system entries with a name matching the search parameters.
         /// </summary>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;List&lt;FSFileSystemEntry&gt;&gt;.</returns>
+        /// <returns>A list of file system entries of matching file system entries.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<FSFileSystemEntry>> AsyncGetFileSystemEntries(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
@@ -275,12 +281,13 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the get file system entry.
+        /// Returns a file system entry matching the search parameters.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="returnFileOverFolder">if set to <c>true</c> [return file over folder].</param>
+        /// <param name="returnFileOverFolder">Whether to prefer a file (true) or a folder (false).</param>
+        /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;FSFileSystemEntry&gt;.</returns>
+        /// <returns>A file system entry matching the parameters.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<FSFileSystemEntry> AsyncGetFileSystemEntry(string name, bool returnFileOverFolder = true, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
@@ -290,10 +297,12 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the get file system entry names.
+        /// Returns a list of all file system entry names with a name matching the search parameters.
         /// </summary>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
+        /// <returns>A list of file system entry names of matching file system entries.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<List<string>> AsyncGetFileSystemEntryNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
@@ -303,53 +312,57 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the get folder.
+        /// Returns the directory with the name, if it exists in the directory and with the specified search option.
         /// </summary>
-        /// <param name="folder">The name.</param>
+        /// <param name="directory">The name.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;FSFolder&gt;.</returns>
+        /// <returns>A directory structure representing the directory.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public async Task<FSDirectory> AsyncGetFolder(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
+        public async Task<FSDirectory> AsyncGetDirectory(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
-            return GetFolder(folder, searchOption, ignoreCase);
+            return GetDirectory(folder, searchOption, ignoreCase);
         }
 
         /// <summary>
-        /// Asynchronously the get folder names.
+        /// Returns a list of all directory names with a name matching the search parameters.
         /// </summary>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
+        /// <returns>A list of directory names of matching directories.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public async Task<List<string>> AsyncGetFolderNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
+        public async Task<List<string>> AsyncGetDirectoryNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
-            return GetFolderNames(searchPattern, searchOption);
+            return GetDirectoryNames(searchPattern, searchOption);
         }
 
         /// <summary>
-        /// Asynchronously the get folders.
+        /// Returns a list of all directories with a name matching the search parameters.
         /// </summary>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;List&lt;FSFolder&gt;&gt;.</returns>
+        /// <returns>A list of directories of matching directories.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public async Task<List<FSDirectory>> AsyncGetFolders(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
+        public async Task<List<FSDirectory>> AsyncGetDirectories(string searchPattern = "*", SearchOption searchOption = SearchOption.All, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
-            return GetFolders(searchPattern, searchOption);
+            return GetDirectories(searchPattern, searchOption);
         }
 
         /// <summary>
-        /// Asynchronously the item exists.
+        /// Determines whether a file system entry exists that matches the search parameters.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="fileSearchOption">The file search option.</param>
         /// <param name="folderSearchOption">The folder search option.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;ExistenceCheckResult&gt;.</returns>
+        /// <returns>The existence check result for the search.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public async Task<ExistenceCheckResult> AsyncItemExists(string name, SearchOption fileSearchOption = SearchOption.TopDirectoryOnly, SearchOption folderSearchOption = SearchOption.TopDirectoryOnly, bool fileIgnoreCase = true, bool folderIgnoreCase = true, CancellationToken? cancellationToken = null)
@@ -359,14 +372,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the move.
+        /// Moves the directory to the specified specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the move succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncMove(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -374,14 +387,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Asynchronously the rename.
+        /// Renames the directory to the specified name.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
+        /// <param name="collisionOption">The collision option if a file with the new name already exists.</param>
         /// <param name="cancellationToken">The cancellation token, defaults to null.</param>
-        /// <returns>Task&lt;System.Boolean&gt;.</returns>
+        /// <returns><c>true</c> if the rename was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public async Task<bool> AsyncRename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists, CancellationToken? cancellationToken = null)
         {
             await Tasks.ScheduleTask(cancellationToken);
@@ -389,60 +402,60 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Copies the specified destination.
+        /// Copies the directory to the specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns><c>true</c> if the copy succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract FSDirectory Copy(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
-        /// Creates the file.
+        /// Creates a new file in the directory.
         /// </summary>
-        /// <param name="file">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="file">The name for the file.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns>A file structure representing the new file.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract FSFile CreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists);
 
         /// <summary>
-        /// Creates the folder.
+        /// Creates a new directory in the directory.
         /// </summary>
-        /// <param name="folder">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="directory">The name for the directory.</param>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns>A directory structure representing the new directory.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
-        public abstract FSDirectory CreateFolder(string folder, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
+        public abstract FSDirectory CreateDirectory(string directory, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
-        /// Deletes this instance.
+        /// Deletes the directory.
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the directory was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool Delete();
 
         /// <summary>
-        /// Deletes the file.
+        /// Deletes a file in the directory.
         /// </summary>
-        /// <param name="file">The name.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="file">The name of the file to delete.</param>
+        /// <returns><c>true</c> if the file was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool DeleteFile(string file);
 
         /// <summary>
-        /// Deletes the folder.
+        /// Deletes a directory in the directory.
         /// </summary>
-        /// <param name="folder">The name.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="directory">The name of the directory to delete.</param>
+        /// <returns><c>true</c> if the directory was deleted, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
-        public abstract bool DeleteFolder(string folder);
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
+        public abstract bool DeleteDirectory(string directory);
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -466,10 +479,10 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Equalses the specified other.
+        /// Whether the directories point to the same source.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the directories match, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public bool Equals(FSDirectory other)
@@ -478,11 +491,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Files the exists.
+        /// Determines if the file exists in the directory.
         /// </summary>
         /// <param name="file">The name.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the file exists, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public bool FileExists(string file, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
@@ -491,23 +504,23 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Folders the exists.
+        /// Determines if the directory exists in the directory.
         /// </summary>
-        /// <param name="folder">The name.</param>
+        /// <param name="directory">The name.</param>
         /// <param name="searchOption">The search option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the directory exists, <c>false</c> otherwise.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public bool FolderExists(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
+        public bool DirectoryExists(string directory, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
-            return GetFolder(folder, searchOption, ignoreCase) != null;
+            return GetDirectory(directory, searchOption, ignoreCase) != null;
         }
 
         /// <summary>
-        /// Gets the file.
+        /// Returns the file with the name, if it exists in the directory and with the specified search option.
         /// </summary>
         /// <param name="file">The name.</param>
-        /// <returns>FSFile.</returns>
+        /// <returns>A file structure representing the file.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public FSFile GetFile(string file, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
@@ -533,7 +546,7 @@ namespace FenrirFS
 
                 if (searchOption != SearchOption.TopDirectoryOnly)
                 {
-                    var directories = GetFolders();
+                    var directories = GetDirectories();
 
                     for (int i = 0; i < directories.Count; i++)
                     {
@@ -548,9 +561,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the file names.
+        /// Returns a list of all files with a name matching the search parameters.
         /// </summary>
-        /// <returns>List&lt;System.String&gt;.</returns>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>A list of file names of matching files.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<string> GetFileNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
@@ -565,9 +580,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the files.
+        /// Returns a list of all files with a name matching the search parameters.
         /// </summary>
-        /// <returns>List&lt;FSFile&gt;.</returns>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>A list of files of matching files.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<FSFile> GetFiles(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
@@ -582,9 +599,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the file system entries.
+        /// Returns a list of all file system entries with a name matching the search parameters.
         /// </summary>
-        /// <returns>List&lt;FSFileSystemEntry&gt;.</returns>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>A list of file system entries of matching file system entries.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<FSFileSystemEntry> GetFileSystemEntries(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
@@ -593,17 +612,18 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the file system entry.
+        /// Returns a file system entry matching the search parameters.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="returnFileOverFolder">if set to <c>true</c> [return file over folder].</param>
-        /// <returns>FSFileSystemEntry.</returns>
+        /// <param name="returnFileOverFolder">Whether to prefer a file (true) or a folder (false).</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>A file system entry matching the parameters.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public FSFileSystemEntry GetFileSystemEntry(string name, bool returnFileOverFolder = true, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             FSFile file = GetFile(name, searchOption, ignoreCase);
-            FSDirectory folder = GetFolder(name, searchOption, ignoreCase);
+            FSDirectory folder = GetDirectory(name, searchOption, ignoreCase);
 
             if (file != null && folder != null)
             {
@@ -621,9 +641,11 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the file system entry names.
+        /// Returns a list of all file system entry names with a name matching the search parameters.
         /// </summary>
-        /// <returns>List&lt;System.String&gt;.</returns>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>A list of file system entry names of matching file system entries.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public List<string> GetFileSystemEntryNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
@@ -638,20 +660,20 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the folder.
+        /// Returns the directory with the name, if it exists in the directory and with the specified search option.
         /// </summary>
-        /// <param name="folder">The name.</param>
-        /// <returns>FSFolder.</returns>
+        /// <param name="directory">The name.</param>
+        /// <returns>A directory structure representing the directory.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public FSDirectory GetFolder(string folder, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
+        public FSDirectory GetDirectory(string directory, SearchOption searchOption = SearchOption.TopDirectoryOnly, bool ignoreCase = true)
         {
             if (Exists)
             {
                 if (ignoreCase)
-                    folder = folder.ToLowerInvariant();
+                    directory = directory.ToLowerInvariant();
 
-                var directories = GetFolders();
+                var directories = GetDirectories();
 
                 for (int i = 0; i < directories.Count; i++)
                 {
@@ -660,11 +682,11 @@ namespace FenrirFS
                         var name = ignoreCase
                             ? directories[i].FullPath.ToLowerInvariant()
                             : directories[i];
-                        if (folder == name)
+                        if (directory == name)
                             return directories[i];
                     }
 
-                    var output = directories[i].GetFolder(folder, SearchOption.All, ignoreCase);
+                    var output = directories[i].GetDirectory(directory, SearchOption.All, ignoreCase);
                     if (output != null)
                         return output;
                 }
@@ -674,12 +696,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the folder names.
+        /// Returns a list of all directory names with a name matching the search parameters.
         /// </summary>
-        /// <returns>List&lt;System.String&gt;.</returns>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>A list of directory names of matching directories.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public List<string> GetFolderNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
+        public List<string> GetDirectoryNames(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var entries = InternalGetFileSystemEntries(false, true, searchPattern, searchOption);
             var results = new List<string>();
@@ -691,12 +715,14 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Gets the folders.
+        /// Returns a list of all directories with a name matching the search parameters.
         /// </summary>
-        /// <returns>List&lt;FSFolder&gt;.</returns>
+        /// <param name="searchPattern">The search pattern.</param>
+        /// <param name="searchOption">The search option.</param>
+        /// <returns>A list of directories of matching directories.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
-        public List<FSDirectory> GetFolders(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
+        public List<FSDirectory> GetDirectories(string searchPattern = "*", SearchOption searchOption = SearchOption.All)
         {
             var entries = InternalGetFileSystemEntries(false, true, searchPattern, searchOption);
             var results = new List<FSDirectory>();
@@ -708,18 +734,18 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Items the exists.
+        /// Determines whether a file system entry exists that matches the search parameters.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="fileSearchOption">The file search option.</param>
         /// <param name="folderSearchOption">The folder search option.</param>
-        /// <returns>ExistenceCheckResult.</returns>
+        /// <returns>The existence check result for the search.</returns>
         ///  Changelog:
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public ExistenceCheckResult ItemExists(string name, SearchOption fileSearchOption = SearchOption.TopDirectoryOnly, SearchOption folderSearchOption = SearchOption.TopDirectoryOnly, bool fileIgnoreCase = true, bool folderIgnoreCase = true)
         {
             bool fileExists = FileExists(name, fileSearchOption, fileIgnoreCase);
-            bool folderExists = FolderExists(name, folderSearchOption, folderIgnoreCase);
+            bool folderExists = DirectoryExists(name, folderSearchOption, folderIgnoreCase);
 
             if (fileExists && folderExists)
                 return ExistenceCheckResult.FileAndFolderExists;
@@ -732,23 +758,23 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Moves the specified destination.
+        /// Moves the directory to the specified specified destination.
         /// </summary>
         /// <param name="destination">The destination.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
+        /// <returns><c>true</c> if the move succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool Move(string destination, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         /// <summary>
-        /// Renames the specified name.
+        /// Renames the directory to the specified name.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="collisionOption">The collision option.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="collisionOption">The collision option if a file with the new name already exists.</param>
+        /// <returns><c>true</c> if the rename was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (09-24-2016) - Beta version.
+        ///             - 2.0.0 (09-24-2016) - Beta Version.
         public abstract bool Rename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists);
 
         #endregion Public Methods
