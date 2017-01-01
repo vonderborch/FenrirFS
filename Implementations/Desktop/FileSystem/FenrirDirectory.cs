@@ -146,6 +146,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <returns>A file structure representing the new file.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (01-01-2017) - Beta 3 Version. Fixed a bug that would throw an error if OpenIfExists was specified and the file did not exist.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override FSFile CreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
@@ -158,7 +159,7 @@ namespace FenrirFS
             switch (collisionOption)
             {
                 case FileCollisionOption.OpenIfExists:
-                    return FS.GetFile(newFullPath, OpenMode.ThrowIfDoesNotExist);
+                    return FS.GetFile(newFullPath, OpenMode.CreateIfDoesNotExist);
 
                 case FileCollisionOption.FailIfExists:
                     return null;
@@ -186,6 +187,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <returns>A directory structure representing the new directory.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (01-01-2017) - Beta 3 Version. Fixed a bug that would throw an error if OpenIfExists was specified and the directory did not exist.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override FSDirectory CreateDirectory(string directory, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
@@ -198,7 +200,7 @@ namespace FenrirFS
             switch (collisionOption)
             {
                 case DirectoryCollisionOption.OpenIfExists:
-                    return FS.GetDirectory(newFullPath, OpenMode.ThrowIfDoesNotExist);
+                    return FS.GetDirectory(newFullPath, OpenMode.CreateIfDoesNotExist);
 
                 case DirectoryCollisionOption.FailIfExists:
                     return null;

@@ -114,7 +114,7 @@ namespace FenrirFS.Static
 
             var folder = FS.GetDirectory(path, OpenMode.ReturnNullIfDoesNotExist);
             return folder != null
-                ? folder.GetFolders(searchPattern, searchOption)
+                ? folder.GetDirectories(searchPattern, searchOption)
                 : null;
         }
 
@@ -134,7 +134,7 @@ namespace FenrirFS.Static
 
             var folder = FS.GetDirectory(path, OpenMode.ReturnNullIfDoesNotExist);
             return folder != null
-                ? folder.GetFolderNames(searchPattern, searchOption)
+                ? folder.GetDirectoryNames(searchPattern, searchOption)
                 : null;
         }
 
@@ -288,7 +288,7 @@ namespace FenrirFS.Static
 
             var folder = FS.GetDirectory(path, OpenMode.ReturnNullIfDoesNotExist);
             return folder != null
-                ? folder.GetFolders(searchPattern, searchOption)
+                ? folder.GetDirectories(searchPattern, searchOption)
                 : null;
         }
 
@@ -308,7 +308,7 @@ namespace FenrirFS.Static
 
             var folder = FS.GetDirectory(path, OpenMode.ReturnNullIfDoesNotExist);
             return folder != null
-                ? folder.GetFolderNames(searchPattern, searchOption)
+                ? folder.GetDirectoryNames(searchPattern, searchOption)
                 : null;
         }
 
