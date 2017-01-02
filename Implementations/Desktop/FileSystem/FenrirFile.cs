@@ -16,6 +16,7 @@
 // </summary>
 //
 // Changelog: 
+//            - 2.0.0 (01-01-2017) - Beta version. Fixed renaming files or changing extension adding an extra period.
 //            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
 using FenrirFS.Helpers;
@@ -77,6 +78,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option, if another file already exists.</param>
         /// <returns><c>true</c> if the extension change succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (01-01-2016) - Beta version. Fixed renaming files or changing extension adding an extra period.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool ChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
@@ -84,7 +86,7 @@ namespace FenrirFS
 
             if (!IsFileOpen)
             {
-                string newFullPath = IO.Path.Combine(Path, $"{Name}.{extension}");
+                string newFullPath = IO.Path.Combine(Path, $"{Name}{extension}");
                 switch (collisionOption)
                 {
                     case FileCollisionOption.OpenIfExists:
@@ -447,6 +449,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option if a file with the new name already exists.</param>
         /// <returns><c>true</c> if the rename was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (01-01-2016) - Beta version. Fixed renaming files or changing extension adding an extra period.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool Rename(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
@@ -454,7 +457,7 @@ namespace FenrirFS
 
             if (!IsFileOpen)
             {
-                string newFullPath = IO.Path.Combine(Path, $"{name}.{Extension}");
+                string newFullPath = IO.Path.Combine(Path, $"{name}{Extension}");
                 switch (collisionOption)
                 {
                     case FileCollisionOption.OpenIfExists:

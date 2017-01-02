@@ -16,6 +16,7 @@
 // </summary>
 //
 // Changelog: 
+//            - 2.0.0 (01-01-2017) - Beta version. Fixed issue creating directories/files and specifying OpenIfExists.
 //            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
 using FenrirFS.Helpers;
