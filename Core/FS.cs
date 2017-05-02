@@ -6,7 +6,7 @@
 //
 // Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 09-24-2016
+// Last Modified On : 05-02-2017
 // ***********************************************************************
 // <copyright file="FS.cs">
 //		Copyright ©  2016
@@ -16,6 +16,7 @@
 // </summary>
 //
 // Changelog:
+//            - 2.0.0 (05-02-2017) - Added methods for generating file/directory paths from path components.
 //            - 2.0.0 (09-24-2016) - Beta version.
 //            - 2.0.0 (07-14-2016) - Added OpenMode parameter to GetFile and GetFolder functions and added a new version of both to handle both constructors.
 //            - 2.0.0 (07-12-2016) - Initial version created.
@@ -65,6 +66,33 @@ namespace FenrirFS
             // if this is not an implementation, return that there are no results.
             return ExistenceCheckResult.None;
 #endif
+        }
+
+        /// <summary>
+        /// Returns
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (09-22-2016) - Initial version.
+        public static string ParseDirectoryPath(string path, string name)
+        {
+            return IO.Path.Combine(path, name);
+        }
+
+        /// <summary>
+        /// Parses the file path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="extension">The extension.</param>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 1.0.0 (09-22-2016) - Initial version.
+        public static string ParseFilePath(string path, string name, string extension)
+        {
+            return IO.Path.Combine(path, $"{name}{extension}");
         }
 
         /// <summary>
