@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>FenrirFS</id>
+    <version>2.0.0</version>
+    <title>FenrirFS</title>
+    <authors>von_der_borch</authors>
+    <owners>von_der_borch</owners>
+    <description>
+      FenrirFS provides a portable file system API for .Net platforms, making it easier to create and maintain multi-platform .NET libraries and programs.
+    </description>
+    <releaseNotes>
+      v2.0.0
+    </releaseNotes>
+    <summary>
+      FenrirFS provides a portable file system API for .Net platforms.
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/vonderborch/FenrirFS</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/vonderborch/FenrirFS/master/Common/FenrirFS_32.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/vonderborch/FenrirFS/master/LICENSE</licenseUrl>
+    <copyright>Copyright 2017</copyright>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5" />
+      <group targetFramework="portable-net45+wp8+win8" />
+      <group targetFramework="portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac" />
+    </dependencies>
+    <references></references>
+    <tags>io storage file portable pcl</tags>
+  </metadata>
+  <files>
+    <file src="bin\releases\desktop\FenrirFS.dll" target="lib\net45\FenrirFS.dll" />
+    <file src="bin\releases\desktop\FenrirFS.XML" target="lib\net45\FenrirFS.xml" />
+
+    <file src="bin\releases\core\FenrirFS.dll" target="lib\portable-net45+wp8+win8\FenrirFS.dll" />
+    <file src="bin\releases\core\FenrirFS.XML" target="lib\portable-net45+wp8+win8\FenrirFS.xml" />
+
+    <file src="bin\releases\core\FenrirFS.dll" target="lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\FenrirFS.dll" />
+    <file src="bin\releases\core\FenrirFS.XML" target="lib\portable-net45+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac\FenrirFS.xml" />
+  </files>
+</package>

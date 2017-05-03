@@ -28,6 +28,7 @@
     <DefineConstants>TRACE;IMPLEMENTATION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\releases\desktop\FenrirFS.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

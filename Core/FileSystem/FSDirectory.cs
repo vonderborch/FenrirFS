@@ -81,7 +81,7 @@ namespace FenrirFS
         /// <value>The full path.</value>
         public override string FullPath
         {
-            get { return IO.Path.Combine(Path, Name); }
+            get { return FS.ParseDirectoryPath(Path, Name); }
             protected set
             {
                 Path = IO.Path.GetDirectoryName(value);

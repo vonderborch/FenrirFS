@@ -32,6 +32,7 @@
     <DefineConstants>TRACE;IMPLEMENTATION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
+    <DocumentationFile>..\..\bin\releases\xamarin\FenrirFS.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->

@@ -6,7 +6,7 @@
 // 
 // Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 09-24-2016
+// Last Modified On : 05-03-2017
 // ***********************************************************************
 // <copyright file="FenrirFile.cs">
 //		Copyright ©  2016
@@ -16,6 +16,8 @@
 // </summary>
 //
 // Changelog: 
+///           - 2.0.0 (05-03-2017) - 2.0.0 release.
+///           - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseFilePath to generate the new file path.
 //            - 2.0.0 (01-01-2017) - Beta version. Fixed renaming files or changing extension adding an extra period.
 //            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
@@ -78,7 +80,8 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option, if another file already exists.</param>
         /// <returns><c>true</c> if the extension change succeeds, <c>false</c> otherwise.</returns>
         ///  Changelog:
-        ///             - 2.0.0 (01-01-2016) - Beta version. Fixed renaming files or changing extension adding an extra period.
+        ///             - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseFilePath to generate the new file path.
+        ///             - 2.0.0 (01-01-2017) - Beta version. Fixed renaming files or changing extension adding an extra period.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool ChangeExtension(string extension, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
         {
@@ -86,7 +89,7 @@ namespace FenrirFS
 
             if (!IsFileOpen)
             {
-                string newFullPath = IO.Path.Combine(Path, $"{Name}{extension}");
+                string newFullPath = FS.ParseFilePath(Path, Name, extension);
                 switch (collisionOption)
                 {
                     case FileCollisionOption.OpenIfExists:
@@ -449,6 +452,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option if a file with the new name already exists.</param>
         /// <returns><c>true</c> if the rename was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseFilePath to generate the new file path.
         ///             - 2.0.0 (01-01-2016) - Beta version. Fixed renaming files or changing extension adding an extra period.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool Rename(string name, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
@@ -457,7 +461,7 @@ namespace FenrirFS
 
             if (!IsFileOpen)
             {
-                string newFullPath = IO.Path.Combine(Path, $"{name}{Extension}");
+                string newFullPath = FS.ParseFilePath(Path, name, Extension);
                 switch (collisionOption)
                 {
                     case FileCollisionOption.OpenIfExists:

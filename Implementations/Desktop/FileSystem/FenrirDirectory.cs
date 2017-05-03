@@ -6,7 +6,7 @@
 // 
 // Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 09-24-2016
+// Last Modified On : 05-03-2017
 // ***********************************************************************
 // <copyright file="FenrirDirectory.cs">
 //		Copyright ©  2016
@@ -16,6 +16,8 @@
 // </summary>
 //
 // Changelog: 
+///           - 2.0.0 (05-03-2017) - 2.0.0 release.
+///           - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseXXXPath to generate paths. Fixed issue with renaming.
 //            - 2.0.0 (01-01-2017) - Beta version. Fixed issue creating directories/files and specifying OpenIfExists.
 //            - 2.0.0 (09-24-2016) - Beta version.
 // ***********************************************************************
@@ -143,10 +145,11 @@ namespace FenrirFS
         /// <summary>
         /// Creates a new file in the directory.
         /// </summary>
-        /// <param name="file">The name for the file.</param>
+        /// <param name="file">The name (and extension) for the file.</param>
         /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <returns>A file structure representing the new file.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseXXXPath to generate paths.
         ///             - 2.0.0 (01-01-2017) - Beta 3 Version. Fixed a bug that would throw an error if OpenIfExists was specified and the file did not exist.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override FSFile CreateFile(string file, FileCollisionOption collisionOption = FileCollisionOption.FailIfExists)
@@ -156,7 +159,7 @@ namespace FenrirFS
             if (!Exists)
                 IO.Directory.CreateDirectory(this);
 
-            string newFullPath = IO.Path.Combine(this, file);
+            string newFullPath = FS.ParseFilePath(this, file);
             switch (collisionOption)
             {
                 case FileCollisionOption.OpenIfExists:
@@ -188,6 +191,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option to use if a collision occurs.</param>
         /// <returns>A directory structure representing the new directory.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseXXXPath to generate paths.
         ///             - 2.0.0 (01-01-2017) - Beta 3 Version. Fixed a bug that would throw an error if OpenIfExists was specified and the directory did not exist.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override FSDirectory CreateDirectory(string directory, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
@@ -197,7 +201,7 @@ namespace FenrirFS
             if (!Exists)
                 IO.Directory.CreateDirectory(this);
 
-            string newFullPath = IO.Path.Combine(this, directory);
+            string newFullPath = FS.ParseDirectoryPath(this, directory);
             switch (collisionOption)
             {
                 case DirectoryCollisionOption.OpenIfExists:
@@ -374,6 +378,7 @@ namespace FenrirFS
         /// <param name="collisionOption">The collision option if a file with the new name already exists.</param>
         /// <returns><c>true</c> if the rename was successful, <c>false</c> otherwise.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseXXXPath to generate paths. Fixed bug where folder would always move to a subdirectory.
         ///             - 2.0.0 (09-24-2016) - Beta Version.
         public override bool Rename(string name, DirectoryCollisionOption collisionOption = DirectoryCollisionOption.FailIfExists)
         {
@@ -381,7 +386,7 @@ namespace FenrirFS
             {
                 Validation.NotNullOrWhiteSpaceCheck(name, nameof(name));
 
-                string newFullPath = IO.Path.Combine(this, name);
+                string newFullPath = FS.ParseDirectoryPath(Path, name);
                 switch (collisionOption)
                 {
                     case DirectoryCollisionOption.OpenIfExists:

@@ -6,7 +6,7 @@
 //
 // Version          : 2.0.0
 // Last Modified By : vonderborch
-// Last Modified On : 05-02-2017
+// Last Modified On : 05-03-2017
 // ***********************************************************************
 // <copyright file="FS.cs">
 //		Copyright ©  2016
@@ -16,6 +16,8 @@
 // </summary>
 //
 // Changelog:
+///           - 2.0.0 (05-03-2017) - 2.0.0 release.
+///           - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseFilePath to generate the new file path.
 //            - 2.0.0 (05-02-2017) - Added methods for generating file/directory paths from path components.
 //            - 2.0.0 (09-24-2016) - Beta version.
 //            - 2.0.0 (07-14-2016) - Added OpenMode parameter to GetFile and GetFolder functions and added a new version of both to handle both constructors.
@@ -69,33 +71,6 @@ namespace FenrirFS
         }
 
         /// <summary>
-        /// Returns
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="name">The name.</param>
-        /// <returns>System.String.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (09-22-2016) - Initial version.
-        public static string ParseDirectoryPath(string path, string name)
-        {
-            return IO.Path.Combine(path, name);
-        }
-
-        /// <summary>
-        /// Parses the file path.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="extension">The extension.</param>
-        /// <returns>System.String.</returns>
-        ///  Changelog:
-        ///             - 1.0.0 (09-22-2016) - Initial version.
-        public static string ParseFilePath(string path, string name, string extension)
-        {
-            return IO.Path.Combine(path, $"{name}{extension}");
-        }
-
-        /// <summary>
         /// Gets or creates a file.
         /// </summary>
         /// <param name="path">The file's full path.</param>
@@ -140,6 +115,7 @@ namespace FenrirFS
         /// <param name="openMode">How to return the file if the file does not exist.</param>
         /// <returns>The desired file.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseFilePath to generate the new file path.
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public static FSFile GetFile(string path, string name, string extension, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
         {
@@ -150,7 +126,7 @@ namespace FenrirFS
 #if CORE
             return new NullFile(path, name, extension);
 #elif IMPLEMENTATION
-            var fullName = IO.Path.Combine(path, $"{name}{extension}");
+            var fullName = FS.ParseFilePath(path, name, extension);
             if (!IO.File.Exists(fullName))
             {
                 switch (openMode)
@@ -216,6 +192,7 @@ namespace FenrirFS
         /// <param name="openMode">How to return the directory if the directory does not exist.</param>
         /// <returns>The desired directory.</returns>
         ///  Changelog:
+        ///             - 2.0.0 (05-03-2017) - Beta version. Using FS.ParseFilePath to generate the new file path.
         ///             - 2.0.0 (09-24-2016) - Beta version.
         public static FSDirectory GetDirectory(string path, string name, OpenMode openMode = OpenMode.CreateIfDoesNotExist)
         {
@@ -225,7 +202,7 @@ namespace FenrirFS
 #if CORE
             return new NullDirectory(path, name);
 #elif IMPLEMENTATION
-            var fullName = IO.Path.Combine(path, name);
+            var fullName = FS.ParseDirectoryPath(path, name);
             if (!IO.Directory.Exists(fullName))
             {
                 switch (openMode)
@@ -284,6 +261,46 @@ namespace FenrirFS
 #else
             throw new NotSupportedException("There is no Folder implementation on the current platform!");
 #endif
+        }
+
+        /// <summary>
+        /// Returns
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 2.0.0 (05-02-2017) - Initial version.
+        public static string ParseDirectoryPath(string path, string name)
+        {
+            return IO.Path.Combine(path, name);
+        }
+
+        /// <summary>
+        /// Parses the file path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="file">The file (with extension).</param>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 2.0.0 (05-03-2017) - Initial version.
+        public static string ParseFilePath(string path, string file)
+        {
+            return IO.Path.Combine(path, file);
+        }
+
+        /// <summary>
+        /// Parses the file path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="extension">The extension.</param>
+        /// <returns>System.String.</returns>
+        ///  Changelog:
+        ///             - 2.0.0 (05-02-2017) - Initial version.
+        public static string ParseFilePath(string path, string name, string extension)
+        {
+            return IO.Path.Combine(path, $"{name}{extension}");
         }
 
         #endregion Public Methods
