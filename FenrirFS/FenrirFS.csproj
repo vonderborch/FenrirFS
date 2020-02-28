@@ -2,13 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>FenrirFS</AssemblyName>
-    <RootNamespace>FenrirFS</RootNamespace>
     <Version>3.0.0</Version>
-    <Product>FenrirFS - Core Implementation</Product>
-    <Company />
     <Authors>Christian Webber</Authors>
+    <Company />
     <Copyright>Copyright ©  2020</Copyright>
+    <Description />
   </PropertyGroup>
 
 </Project>
